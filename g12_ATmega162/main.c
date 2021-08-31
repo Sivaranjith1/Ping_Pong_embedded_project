@@ -14,7 +14,7 @@ int main(void)
     const usart_option_t usart_option = {
       .baudrate = 9600  
     };
-    usart_init(&usart_instance_1, &usart_option);
+    usart_init(&usart_instance_1, usart_option);
     /* Replace with your application code */
     unsigned char data_in = 'A';
     unsigned char output = fdevopen(usart_receive());
