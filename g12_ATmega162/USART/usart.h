@@ -14,6 +14,7 @@
 #include "../system_config.h"
 
 #define USART_UBRR(BAUD) ((F_CPU/10)/(1.6*BAUD) - 1)
+#define PRINT_F_USART &usart_instance_0
 
 typedef struct {
     volatile uint8_t* udr;

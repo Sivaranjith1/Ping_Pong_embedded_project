@@ -37,10 +37,10 @@ void usart_init(usart_instance_t* usart_instance, uint16_t baudrate){
 
 void usart_transmit(usart_instance_t* usart_instance, unsigned char data){
     /* Wait for empty transmit buffer */
-    while ( ! (UCSR0A & (1 << UDRE0)));
+    while ( ! (usart_instance->ucsra & (1 << UDRE0)));
     
     /* Put data into buffer, sends the data */
-    UDR0 = data;
+    usart_instance->udr = data;
 }
 
 unsigned char usart_receive(void){
@@ -54,6 +54,6 @@ int usart_putchar(char c, FILE* stream)
 	if (c == '\n'){
 		usart_putchar('\r', stream);
 	}
-	usart_transmit(NULL, c);
+	usart_transmit(PRINT_F_USART, c);
 	return 0;
 }
