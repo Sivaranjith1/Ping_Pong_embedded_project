@@ -16,8 +16,10 @@ int main(void)
     };
     usart_init(&usart_instance_1, usart_option);
     /* Replace with your application code */
-    unsigned char data_in = 'A';
-    unsigned char output = fdevopen(usart_receive());
-	printf(output);
+	while(1){
+		unsigned char data_in = 'A';
+		unsigned char output = fdevopen(usart_receive());
+		printf(output);
+	}
 }
 
