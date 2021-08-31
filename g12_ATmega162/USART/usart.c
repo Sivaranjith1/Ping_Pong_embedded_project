@@ -27,24 +27,24 @@ extern usart_instance_t usart_instance_0 = {
 void usart_init(usart_instance_t* usart_instance, usart_option_t* usart_option){
     const unsigned int ubrr = USART_UBRR(usart_option->baudrate);
     
-	UBRR1H = (uint8_t)ubrr>>8;
-    UBRR1L = (uint8_t)ubrr;
+	UBRR0H = (uint8_t)31>>8;
+    UBRR0L = (uint8_t)31;
     /* Enable receiver and transmitter */
-    UCSR1B = (1 << RXEN0) | (1 << TXEN0); //use the zeros as both will be the same
+    UCSR0B = (1 << RXEN0) | (1 << TXEN0); //use the zeros as both will be the same
     /* Set frame format: 8data, 2stop bit */
-    UCSR1C = (1 << URSEL0) | (1 << USBS0) | (3 << UCSZ00);
+    UCSR0C = (1 << URSEL0) | (1 << USBS0) | (3 << UCSZ00);
 }
 
 void usart_transmit(usart_instance_t* usart_instance, unsigned char data){
     /* Wait for empty transmit buffer */
-    while ( ! (UCSR1A & (1 << UDRE0)));
+    while ( ! (UCSR0A & (1 << UDRE0)));
     
     /* Put data into buffer, sends the data */
-    UDR1 = data;
+    UDR0 = data;
 }
 
 unsigned char usart_receive(void){
-    while ( ! (UCSR1A & (1 << RXC1)));
+    while ( ! (UCSR0A & (1 << RXC0)));
     
-    return UDR1;
+    return UDR0;
 }
