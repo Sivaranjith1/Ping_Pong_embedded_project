@@ -6,6 +6,7 @@
  */ 
 
 #include "usart.h"
+
 extern usart_instance_t usart_instance_0 = {
      .udr    = &(UDR0),
      .ucsra  = &(UCSR0A),
