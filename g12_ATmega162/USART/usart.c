@@ -42,3 +42,9 @@ void usart_transmit(usart_instance_t* usart_instance, unsigned char data){
     /* Put data into buffer, sends the data */
     UDR1 = data;
 }
+
+unsigned char usart_receive(void){
+    while ( ! (UCSR1A & (1 << RXC1)));
+    
+    return UDR1;
+}

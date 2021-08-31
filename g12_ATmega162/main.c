@@ -16,13 +16,11 @@ int main(void)
     };
     usart_init(&usart_instance_1, &usart_option);
     /* Replace with your application code */
-    int inter = 0;
+    unsigned char data_in = 'A';
     while (1) 
     {
-        if((++inter) == 1000){
-            inter = 0;
-            usart_transmit(&usart_instance_1, 'A');
-        }
+        data_in = usart_receive();
+        usart_transmit(&usart_instance_1, data_in);
     }
 }
 

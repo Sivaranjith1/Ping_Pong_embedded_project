@@ -35,5 +35,6 @@ void usart_init(usart_instance_t* usart_instance, usart_option_t* usart_option);
 
 void usart_transmit(usart_instance_t* usart_instance, unsigned char data);
 
+unsigned char usart_receive(void);
 
 #endif /* USART_H_ */
