@@ -47,10 +47,20 @@ void SRAM_test(void)
 	printf("SRAM test completed with \n%4d errors in write phase and \n%4d errors in retrieval phase\n\n", write_errors, retrieval_errors);
 }
 
+/*
+Problemet atm er at det virker som at den tror at adressen er dataverdien også. Ser at etter hvert som den teller oppover så klarer den å legge data på bussen,
+men den inkrementeres med 1 per gang, akkurat som data.
+Merk at PD7 ikke er tilkoblet noe, men var ikke helt sikker på hvor jeg evt ville ha den.
+*/
+
 int main(void)
 {
   usart_init(&usart_instance_0, MAX233_BAUDRATE);
   FILE* output = fdevopen(usart_putchar, 0);
+  MCUCR |= (1 << SRE);
+  DDRC = 0xFF;
+  PORTC = 0x00;
+  SFIOR = (1 << XMM1) | (1 << XMM0);
   
   SRAM_test();
   /*
