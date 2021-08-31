@@ -29,6 +29,7 @@ typedef struct {
 
 
 extern usart_instance_t usart_instance_0;
+extern usart_instance_t usart_instance_1;
 
 void usart_init(usart_instance_t* usart_instance, usart_option_t* usart_option);
 

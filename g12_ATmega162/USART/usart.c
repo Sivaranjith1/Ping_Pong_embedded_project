@@ -14,6 +14,15 @@ extern usart_instance_t usart_instance_0 = {
      .ubrrl  = &(UBRR0L),
      .ubrrh  = &(UBRR0H)
  };
+ 
+ extern usart_instance_t usart_instance_1 = {
+     .udr    = &(UDR1),
+     .ucsra  = &(UCSR1A),
+     .uscrb  = &(UCSR1B),
+     .uscrc  = &(UCSR1C),
+     .ubrrl  = &(UBRR1L),
+     .ubrrh  = &(UBRR1H)
+ };
 
 void usart_init(usart_instance_t* usart_instance, usart_option_t* usart_option){
     const unsigned int ubrr = USART_UBRR(usart_option->baudrate);
