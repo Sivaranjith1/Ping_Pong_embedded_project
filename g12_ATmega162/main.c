@@ -15,11 +15,9 @@ int main(void)
       .baudrate = 9600  
     };
     usart_init(&usart_instance_1, usart_option);
-    /* Replace with your application code */
+	FILE* output = fdevopen(usart_putchar, 0);
 	while(1){
-		unsigned char data_in = 'A';
-		unsigned char output = fdevopen(usart_receive());
-		printf(output);
+		printf("Hei\n%d", 0);
 	}
 }
 

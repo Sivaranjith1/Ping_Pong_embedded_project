@@ -9,9 +9,9 @@
 
 #include <avr/io.h>
 #include <stdint.h>
+#include <stdio.h>
 
 #include "../system_config.h"
-#include "avr/io.h"
 
 #define USART_UBRR(BAUD) ((F_CPU/10)/(1.6*BAUD) - 1)
 
@@ -38,7 +38,7 @@ void usart_transmit(usart_instance_t* usart_instance, unsigned char data);
 
 unsigned char usart_receive(void);
 
-void usart_putchar(char c, unsigned char stream);
+int usart_putchar(char c, FILE* stream);
 
 
 #endif /* USART_H_ */

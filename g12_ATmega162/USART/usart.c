@@ -49,11 +49,11 @@ unsigned char usart_receive(void){
     return UDR0;
 }
 
-void uart_putchar(char c, unsigned char stream)
+int usart_putchar(char c, FILE* stream)
 {
 	if (c == '\n'){
-		uart_putchar('\r', stream);
+		usart_putchar('\r', stream);
 	}
-	while(!(UCSR0A & (1 << UDRE0)));
-	UDR0 = c;
+	usart_transmit(NULL, c);
+	return 0;
 }
