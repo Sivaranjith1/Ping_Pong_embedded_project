@@ -12,7 +12,7 @@
 
 int main(void)
 {
-  usart_init(&usart_instance_1, MAX233_BAUDRATE);
+  usart_init(&usart_instance_0, MAX233_BAUDRATE);
 	FILE* output = fdevopen(usart_putchar, 0);
 
 	while(1){
