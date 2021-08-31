@@ -27,12 +27,12 @@ extern usart_instance_t usart_instance_0 = {
 void usart_init(usart_instance_t* usart_instance, uint16_t baudrate){
     const unsigned int ubrr = USART_UBRR(baudrate);
     
-	usart_instance->ubrrh = (uint8_t)ubrr>>8;
-    usart_instance->ubrrl = (uint8_t)ubrr;
+	*(usart_instance->ubrrh) = (uint8_t)ubrr>>8;
+    *(usart_instance->ubrrl) = (uint8_t)ubrr;
     /* Enable receiver and transmitter */
-    usart_instance->uscrb = (1 << RXEN0) | (1 << TXEN0); //use the zeros as both will be the same
+    *(usart_instance->uscrb) = (1 << RXEN0) | (1 << TXEN0); //use the zeros as both will be the same
     /* Set frame format: 8data, 2stop bit */
-    usart_instance->uscrc = (1 << URSEL0) | (1 << USBS0) | (3 << UCSZ00);
+    *(usart_instance->uscrc) = (1 << URSEL0) | (1 << USBS0) | (3 << UCSZ00);
 }
 
 void usart_transmit(usart_instance_t* usart_instance, unsigned char data){
