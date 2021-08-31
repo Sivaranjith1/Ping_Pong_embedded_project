@@ -24,11 +24,11 @@ extern usart_instance_t usart_instance_0 = {
      .ubrrh  = &(UBRR1H)
  };
 
-void usart_init(usart_instance_t* usart_instance, usart_option_t* usart_option){
-    const unsigned int ubrr = USART_UBRR(usart_option->baudrate);
+void usart_init(usart_instance_t* usart_instance, usart_option_t usart_option){
+    const unsigned int ubrr = USART_UBRR(usart_option.baudrate);
     
-	UBRR0H = (uint8_t)31>>8;
-    UBRR0L = (uint8_t)31;
+	UBRR0H = (uint8_t)ubrr>>8;
+    UBRR0L = (uint8_t)ubrr;
     /* Enable receiver and transmitter */
     UCSR0B = (1 << RXEN0) | (1 << TXEN0); //use the zeros as both will be the same
     /* Set frame format: 8data, 2stop bit */

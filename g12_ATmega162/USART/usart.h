@@ -12,10 +12,10 @@
 
 #include "../system_config.h"
 
-#define USART_UBRR(BAUD) (F_CPU/(16*BAUD) - 1)
+#define USART_UBRR(BAUD) ((F_CPU/10)/(1.6*BAUD) - 1)
 
 typedef struct {
-    uint8_t baudrate;
+    uint16_t baudrate;
 } usart_option_t;
 
 typedef struct {
@@ -31,7 +31,7 @@ typedef struct {
 extern usart_instance_t usart_instance_0;
 extern usart_instance_t usart_instance_1;
 
-void usart_init(usart_instance_t* usart_instance, usart_option_t* usart_option);
+void usart_init(usart_instance_t* usart_instance, usart_option_t usart_option);
 
 void usart_transmit(usart_instance_t* usart_instance, unsigned char data);
 
