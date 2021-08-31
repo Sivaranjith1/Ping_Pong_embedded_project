@@ -11,6 +11,7 @@
 #include <stdint.h>
 
 #include "../system_config.h"
+#include "avr/io.h"
 
 #define USART_UBRR(BAUD) (F_CPU/(16*BAUD) - 1)
 
@@ -36,5 +37,8 @@ void usart_init(usart_instance_t* usart_instance, usart_option_t* usart_option);
 void usart_transmit(usart_instance_t* usart_instance, unsigned char data);
 
 unsigned char usart_receive(void);
+
+void usart_putchar(char c, unsigned char stream);
+
 
 #endif /* USART_H_ */

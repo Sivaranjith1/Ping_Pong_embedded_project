@@ -17,10 +17,7 @@ int main(void)
     usart_init(&usart_instance_1, &usart_option);
     /* Replace with your application code */
     unsigned char data_in = 'A';
-    while (1) 
-    {
-        data_in = usart_receive();
-        usart_transmit(&usart_instance_1, data_in);
-    }
+    unsigned char output = fdevopen(usart_receive());
+	printf(output);
 }
 
