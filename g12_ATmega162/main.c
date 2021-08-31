@@ -6,16 +6,15 @@
  */ 
 
 #include <avr/io.h>
-#include "USART/usart.h"
 
+#include "system_config.h"
+#include "USART/usart.h"
 
 int main(void)
 {
-    const usart_option_t usart_option = {
-      .baudrate = 9600  
-    };
-    usart_init(&usart_instance_1, usart_option);
+  usart_init(&usart_instance_1, MAX233_BAUDRATE);
 	FILE* output = fdevopen(usart_putchar, 0);
+
 	while(1){
 		printf("Hei\n%d", 0);
 	}

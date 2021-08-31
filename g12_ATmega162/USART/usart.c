@@ -24,8 +24,8 @@ extern usart_instance_t usart_instance_0 = {
      .ubrrh  = &(UBRR1H)
  };
 
-void usart_init(usart_instance_t* usart_instance, usart_option_t usart_option){
-    const unsigned int ubrr = USART_UBRR(usart_option.baudrate);
+void usart_init(usart_instance_t* usart_instance, uint16_t baudrate){
+    const unsigned int ubrr = USART_UBRR(baudrate);
     
 	UBRR0H = (uint8_t)ubrr>>8;
     UBRR0L = (uint8_t)ubrr;

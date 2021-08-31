@@ -11,6 +11,8 @@
 
 #define F_CPU 4915200UL //The oscillator clock
 
+#define MAX233_BAUDRATE 9600
+
 
 
 

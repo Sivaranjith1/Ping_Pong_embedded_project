@@ -16,23 +16,19 @@
 #define USART_UBRR(BAUD) ((F_CPU/10)/(1.6*BAUD) - 1)
 
 typedef struct {
-    uint16_t baudrate;
-} usart_option_t;
-
-typedef struct {
-    uint8_t* udr;
-    uint8_t* ucsra;
-    uint8_t* uscrb;
-    uint8_t* uscrc;
-    uint8_t* ubrrl;
-    uint8_t* ubrrh;
+    volatile uint8_t* udr;
+    volatile uint8_t* ucsra;
+    volatile uint8_t* uscrb;
+    volatile uint8_t* uscrc;
+    volatile uint8_t* ubrrl;
+    volatile uint8_t* ubrrh;
 } usart_instance_t;
 
 
 extern usart_instance_t usart_instance_0;
 extern usart_instance_t usart_instance_1;
 
-void usart_init(usart_instance_t* usart_instance, usart_option_t usart_option);
+void usart_init(usart_instance_t* usart_instance, uint16_t baudrate);
 
 void usart_transmit(usart_instance_t* usart_instance, unsigned char data);
 
