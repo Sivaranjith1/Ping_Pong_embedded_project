@@ -30,15 +30,15 @@
     <EraseKey />
     <AsfFrameworkConfig>
       <framework-data>
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.42.0" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.42.0" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
     <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
     <avrtoolserialnumber>J41800001739</avrtoolserialnumber>
@@ -136,10 +136,10 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="gpio.c">
+    <Compile Include="gpio\gpio.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="gpio.h">
+    <Compile Include="gpio\gpio.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
@@ -154,8 +154,16 @@
     <Compile Include="USART\usart.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="XMEM\xmem.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="XMEM\xmem.c">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="gpio\" />
+    <Folder Include="XMEM" />
     <Folder Include="USART" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />

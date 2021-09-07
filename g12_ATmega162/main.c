@@ -9,14 +9,28 @@
 
 #include "system_config.h"
 #include "USART/usart.h"
+#include "XMEM/xmem.h"
 
 int main(void)
 {
   usart_init(&usart_instance_0, MAX233_BAUDRATE);
-	FILE* output = fdevopen(usart_putchar, 0);
+  xmem_init();
+  uint32_t error = 0;
+  uint32_t total = 0;
 
-	while(1){
-		printf("Hei\n%d", 0);
-	}
+  while(1){
+	  /*
+	xmem_write(0x10, 0x800);
+	uint8_t reading = xmem_read(0x800);
+	++total;
+	if(reading != 0x10) error++;
+	
+	if(error != 0)
+		printf("Reed %d \n", error);
+		*/
+	xmem_SRAM_test();
+  }
+
+  return 0;
 }
 
