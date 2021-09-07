@@ -16,7 +16,7 @@
 
 
 uint8_t adc_read_polled(uint8_t channel){
-	xmem_write(0x08 | (channel & 0x1) << 7 | (channel & 0x2) << 5, ADC_BASE_ADDRESS); //send a command to read the desired channel
+	xmem_write(0x01 | (channel & 0x1) << 7 | (channel & 0x2) << 5, ADC_BASE_ADDRESS); //send a command to read the desired channel
 
 	while(!gpio_pin_read(PINE0, PINE)); //wait for the adc stop being busy
 

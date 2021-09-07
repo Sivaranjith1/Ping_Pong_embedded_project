@@ -9,6 +9,7 @@
 
 #include "system_config.h"
 #include "gpio/gpio.h"
+#include "ADC/adc.h"
 #include "USART/usart.h"
 #include "XMEM/xmem.h"
 
@@ -34,11 +35,7 @@ int main(void)
 		printf("Reed %d \n", error);
 		*/
 	
-	xmem_write(0x04, 0x450);
-	volatile uint8_t pin_value = gpio_pin_read(PINE0, PINE);
-	while(!gpio_pin_read(PINE0, PINE));
-	
-	uint8_t data_1 = xmem_read(0x450);
+	uint8_t data_1 = adc_read_polled(1);
 	
 	if(++iter == 0)
 		printf("DAta %02X \n", data_1);
