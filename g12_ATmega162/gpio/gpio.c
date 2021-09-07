@@ -17,7 +17,7 @@ void gpio_pin_disable(uint8_t pin, uint8_t port){
 }
 
 uint8_t gpio_pin_read(uint8_t pin, uint8_t port){
-	return port << pin;
+	return port & (1 << pin);
 }
 
 void gpio_pin_toggle(uint8_t pin, uint8_t port){

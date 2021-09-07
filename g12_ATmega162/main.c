@@ -8,6 +8,7 @@
 #include <avr/io.h>
 
 #include "system_config.h"
+#include "gpio/gpio.h"
 #include "USART/usart.h"
 #include "XMEM/xmem.h"
 
@@ -17,6 +18,10 @@ int main(void)
   xmem_init();
   uint32_t error = 0;
   uint32_t total = 0;
+  
+  DDRE |= (0 << PE0);
+  
+  uint8_t iter = 0;
 
   while(1){
 	  /*
@@ -28,7 +33,16 @@ int main(void)
 	if(error != 0)
 		printf("Reed %d \n", error);
 		*/
-	xmem_SRAM_test();
+	
+	xmem_write(0x04, 0x450);
+	volatile uint8_t pin_value = gpio_pin_read(PINE0, PINE);
+	while(!gpio_pin_read(PINE0, PINE));
+	
+	uint8_t data_1 = xmem_read(0x450);
+	
+	if(++iter == 0)
+		printf("DAta %02X \n", data_1);
+	//xmem_SRAM_test();
   }
 
   return 0;
