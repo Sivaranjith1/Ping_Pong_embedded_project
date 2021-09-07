@@ -5,6 +5,8 @@
  *  Author: Sivaranjith Sivarasa
  */ 
 
+#include <stdlib.h>
+
 #include "usart.h"
 
 extern usart_instance_t usart_instance_0 = {
@@ -34,6 +36,8 @@ void usart_init(usart_instance_t* usart_instance, uint16_t baudrate){
     *(usart_instance->uscrb) = (1 << RXEN0) | (1 << TXEN0); //use the zeros as both will be the same
     /* Set frame format: 8data, 2stop bit */
     *(usart_instance->uscrc) = (1 << URSEL0) | (1 << USBS0) | (3 << UCSZ00);
+    
+    FILE* output = fdevopen(usart_putchar, 0);
 }
 
 void usart_transmit(usart_instance_t* usart_instance, unsigned char data){
