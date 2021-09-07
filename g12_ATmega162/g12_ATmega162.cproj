@@ -154,9 +154,16 @@
     <Compile Include="USART\usart.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="XMEM\xmem.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="XMEM\xmem.c">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="gpio\" />
+    <Folder Include="XMEM" />
     <Folder Include="USART" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
