@@ -31,4 +31,6 @@ void oled_print(char* data);
 
 void oled_set_brightness(uint8_t level);
 
+void oled_print_arrow(uint8_t row, uint8_t col);
+
 #endif /* OLED_H_ */
