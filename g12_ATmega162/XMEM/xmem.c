@@ -11,6 +11,7 @@
 #include <avr/io.h>
 
 #include "xmem.h"
+#include "system_config.h"
 #include "../USART/usart.h"
 
 #define BASE_ADRESS 0x1000

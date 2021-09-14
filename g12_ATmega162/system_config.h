@@ -18,6 +18,7 @@
  * 
  */
 #define ADC_BASE_ADDRESS 0x400
+#define OLED_BASE_ADDRESS 0x200
 
 
 

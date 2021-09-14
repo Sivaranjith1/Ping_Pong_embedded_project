@@ -36,7 +36,7 @@
   <documentation help="" />
   <offline-documentation help="" />
   <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.34.1" />
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.42.0" />
   </dependencies>
 </framework-data>
     </AsfFrameworkConfig>
@@ -151,6 +151,15 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="OLED\fonts.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="OLED\oled.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="OLED\oled.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="system_config.h">
       <SubType>compile</SubType>
     </Compile>
@@ -170,6 +179,7 @@
   <ItemGroup>
     <Folder Include="ADC\" />
     <Folder Include="gpio\" />
+    <Folder Include="OLED" />
     <Folder Include="XMEM" />
     <Folder Include="USART" />
   </ItemGroup>
