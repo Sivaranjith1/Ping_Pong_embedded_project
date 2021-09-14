@@ -34,11 +34,11 @@ int main(void)
 	if(error != 0)
 		printf("Reed %d \n", error);
 		*/
-	
-	uint8_t data_1 = adc_read_polled(1);
+	pos_t joystick = pos_read();
 	
 	if(++iter == 0)
-		printf("DAta %02X \n", data_1);
+		printf("Data %d %d %d %d \n", (int) (joystick.pos_x * 100), (int)(joystick.pos_y *100), (int)(joystick.slider_l*100), (int)(joystick.slider_r 
+		* 100));
 	//xmem_SRAM_test();
   }
 
