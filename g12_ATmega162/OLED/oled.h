@@ -26,7 +26,7 @@ void oled_home(void);
  * @brief Places a pointer to a given PAGE on the OLED board.
  * 
  * @param line What page that is being used (see data sheet). There are 8 pages
- * (PAGE0 ... PAGE7) and each page are one byte
+ * (PAGE0 ... PAGE7) and each page is one byte
  */
 void oled_goto_line(uint8_t line);
 
@@ -51,7 +51,7 @@ void oled_set_brightness(uint8_t level);
  * @brief Test function that creates an arrow on the LED screen
  * 
  * @param row What page that is being used (see data sheet). There are 8 pages
- * (PAGE0 ... PAGE7) and each page are one byte
+ * (PAGE0 ... PAGE7) and each page is one byte
  * @param col 
  */
 void oled_print_arrow(uint8_t row, uint8_t col);

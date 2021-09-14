@@ -71,3 +71,8 @@ void oled_print_arrow(uint8_t row, uint8_t col){
 	oled_write_data(0b00011100);
 	oled_write_data(0b00011000);	
 }
+
+void oled_set_brightness(uint8_t level){
+	xmem_write(0x81, OLED_BASE_ADDRESS_COMMAND);
+	oled_write_data(level);
+}
