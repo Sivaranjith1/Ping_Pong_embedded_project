@@ -15,13 +15,15 @@
 #include <float.h>
 
 /**
- * @brief position of the joysticks, pos_x will be a value from -1 to 1
+ * @brief position of the joysticks and sliders, the values will be between -1 and 1.
  * 
  */
 typedef struct
 {
     float pos_x;
     float pos_y;
+    float slider_l;
+    float slider_r;
 } pos_t;
 
 typedef struct
@@ -40,9 +42,9 @@ typedef struct
 uint8_t adc_read_polled(uint8_t channel);
 
 /**
- * @brief Get the x and y position of the joystick. The output will use the last calibration
+ * @brief Get the x and y position of the joystick and the slider values. The output will use the last calibration
  * 
- * @return pos_t the x and y value of the joystick
+ * @return pos_t the x and y value of the joystick, and slider_r and slider_l
  */
 pos_t pos_read(void);
 

@@ -37,7 +37,8 @@ int main(void)
 	pos_t joystick = pos_read();
 	
 	if(++iter == 0)
-		printf("Data %d %d \n", (uint8_t) (joystick.pos_x * 100), (uint8_t)(joystick.pos_y *100));
+		printf("Data %d %d %d %d \n", (int) (joystick.pos_x * 100), (int)(joystick.pos_y *100), (int)(joystick.slider_l*100), (int)(joystick.slider_r 
+		* 100));
 	//xmem_SRAM_test();
   }
 
