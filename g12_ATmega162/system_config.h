@@ -13,6 +13,11 @@
 
 #define MAX233_BAUDRATE 9600
 
+/**
+ * @brief Memory addresses
+ * 
+ */
+#define ADC_BASE_ADDRESS 0x400
 
 
 

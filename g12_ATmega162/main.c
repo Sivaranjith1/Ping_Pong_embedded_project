@@ -8,6 +8,8 @@
 #include <avr/io.h>
 
 #include "system_config.h"
+#include "gpio/gpio.h"
+#include "ADC/adc.h"
 #include "USART/usart.h"
 #include "XMEM/xmem.h"
 
@@ -17,6 +19,10 @@ int main(void)
   xmem_init();
   uint32_t error = 0;
   uint32_t total = 0;
+  
+  DDRE |= (0 << PE0);
+  
+  uint8_t iter = 0;
 
   while(1){
 	  /*
@@ -28,7 +34,12 @@ int main(void)
 	if(error != 0)
 		printf("Reed %d \n", error);
 		*/
-	xmem_SRAM_test();
+	pos_t joystick = pos_read();
+	
+	if(++iter == 0)
+		printf("Data %d %d %d %d \n", (int) (joystick.pos_x * 100), (int)(joystick.pos_y *100), (int)(joystick.slider_l*100), (int)(joystick.slider_r 
+		* 100));
+	//xmem_SRAM_test();
   }
 
   return 0;
