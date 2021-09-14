@@ -19,6 +19,7 @@ void oled_init(void){
 	xmem_write(0xda, OLED_BASE_ADDRESS_COMMAND); //common pads hardware: alternative
 	xmem_write(0x12, OLED_BASE_ADDRESS_DATA);
 	xmem_write(0xc8, OLED_BASE_ADDRESS_COMMAND); //common output scan direction:com63~com0
+	xmem_write(0x01, OLED_BASE_ADDRESS_DATA);
 	xmem_write(0xa8, OLED_BASE_ADDRESS_COMMAND); //multiple, x ration mode:63
 	xmem_write(0x3f, OLED_BASE_ADDRESS_DATA);
 	xmem_write(0xd5, OLED_BASE_ADDRESS_COMMAND); //display divide ratio/osc. freq. mode
