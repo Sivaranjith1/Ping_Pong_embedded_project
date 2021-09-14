@@ -10,7 +10,6 @@
 #include "../XMEM/xmem.h"
 
 
-//Command ON
 void oled_init(void){
 	xmem_write(0xae, OLED_BASE_ADDRESS_COMMAND); // display off
 	xmem_write(0x00, OLED_BASE_ADDRESS_DATA);
@@ -42,34 +41,28 @@ void oled_init(void){
 	xmem_write(0x01, OLED_BASE_ADDRESS_DATA);
 }
 
-//Command ON
 void oled_reset(void){
 	
 }
 
-//Command ON
 void oled_goto_line(uint8_t line){
-	xmem_write(0xB0 | (0xF & line), OLED_BASE_ADDRESS);
+	xmem_write(0xB0 | (0xF & line), OLED_BASE_ADDRESS_COMMAND);
 }
 
-//Command ON
 void oled_goto_column(uint8_t column){
-	xmem_write(0x10, OLED_BASE_ADDRESS);
-	xmem_write(0xF & column, OLED_BASE_ADDRESS);
+	xmem_write(0x10, OLED_BASE_ADDRESS_COMMAND);
+	xmem_write(0xF & column, OLED_BASE_ADDRESS_COMMAND);
 }
 
-//Command ON
 void oled_pos(uint8_t line, uint8_t column){
 	oled_goto_line(line);
 	oled_goto_column(column);
 }
 
-//Command OFF
 void oled_write_data(char* data){
 	xmem_write(data, OLED_BASE_ADDRESS_DATA);
 }
 
-//Command OFF
 void oled_print_arrow(uint8_t row, uint8_t col){
 	oled_pos(row, col);
 	oled_write_data(0b00011000);
