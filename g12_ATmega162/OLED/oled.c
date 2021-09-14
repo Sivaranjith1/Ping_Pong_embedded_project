@@ -9,6 +9,8 @@
 #include "../system_config.h"
 #include "../XMEM/xmem.h"
 
+
+//Command ON
 void oled_init(void){
 	xmem_write(0xae, OLED_BASE_ADDRESS); // display off
 	xmem_write(0xa1, OLED_BASE_ADDRESS); //segment remap
@@ -33,3 +35,9 @@ void oled_init(void){
 	xmem_write(0xa6, OLED_BASE_ADDRESS); //set normal display
 	xmem_write(0xaf, OLED_BASE_ADDRESS); // display on	
 }
+
+//Command ON
+void oled_reset(void){
+	
+}
+
