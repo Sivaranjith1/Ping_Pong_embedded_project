@@ -104,4 +104,7 @@ void oled_print_arrow(uint8_t row, uint8_t col);
  */
 void oled_fade_in(void);
 
+void oled_fade_out(void);
+
+void oled_turn_off(void);
 #endif /* OLED_H_ */

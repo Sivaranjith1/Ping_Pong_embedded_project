@@ -110,6 +110,19 @@ void oled_print(char* data){
 void oled_fade_in(void){
 	for(uint8_t i = 0; i < 255; i++){
 		oled_set_brightness(i);
-		for(int i = 0; i < FADE_LENGTH; i++);
+		for(uint8_t i = 0; i < FADE_LENGTH; i++);
     }
+}
+
+void oled_fade_out(void){
+	for (uint8_t i = 255; i > -1; i--)
+	{
+		oled_set_brightness(i);
+		for(uint8_t i = 0; i < FADE_LENGTH; i++);
+	}	
+}
+
+void oled_turn_off(void){
+	oled_fade_out();
+	xmem_write(0xAE, OLED_BASE_ADDRESS_COMMAND);
 }
