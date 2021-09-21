@@ -52,6 +52,7 @@ static void menu_quit_draw(void);
 /////////////////////////////////////////////////////////////////////////
 
 static menu_item* current_menu = &main_menu;
+static uint8_t menu_children_arrow_line = 0;
 
 static menu_item main_menu = {
     .name = "MAIN MENU",
@@ -98,7 +99,7 @@ static menu_item quit = {
 /////////////////////////////////////////////////////////////////////////
 
 static void menu_children_dropdown_draw(menu_item menu){
-    oled_print_arrow(0,0);
+    oled_print_arrow(menu_children_arrow_line, 0);
     for (uint8_t i = 0; i < menu.num_children; i++)
     {
         oled_pos(i, 20);
@@ -113,7 +114,9 @@ static void menu_main_draw(void){
 }
 
 static void menu_options_draw(void){
-    
+    oled_pos(2, 10);
+    oled_print("Steffen Ditchet");
+    oled_fade_in();
 }
 
 static void menu_high_score_draw(void){}
@@ -131,4 +134,19 @@ void menu_init(){
 
 void menu_current_menu_draw(void){
     (*current_menu->draw_func)();
+}
+
+void menu_increment_arrow(int incrementation){
+    menu_children_arrow_line += incrementation;
+
+    if(menu_children_arrow_line < 0) {
+        menu_children_arrow_line = current_menu->num_children - 1;
+    } else if(menu_children_arrow_line >= current_menu->num_children){
+        menu_children_arrow_line = 0;
+    }
+}
+
+void menu_update_menu(void){
+    current_menu = current_menu->children[menu_children_arrow_line];
+    menu_current_menu_draw();
 }

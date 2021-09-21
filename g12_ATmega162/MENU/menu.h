@@ -25,5 +25,8 @@ void menu_init(void);
 
 void menu_current_menu_draw(void);
 
+void menu_increment_arrow(int incrementation);
+
+void menu_update_menu(void);
 
 #endif //MENU_H

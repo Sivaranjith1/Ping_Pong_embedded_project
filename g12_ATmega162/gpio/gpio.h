@@ -10,6 +10,7 @@
 #define GPIO_H_
 
 #include <stdint.h>
+#include <avr/io.h>
 
 /*Ta i mot port, pin, og set direction (input/output)
 Enable

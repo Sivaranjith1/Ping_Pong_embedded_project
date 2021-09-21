@@ -12,6 +12,8 @@
 
 #include <string.h>
 
+#define FADE_LENGTH 10000
+
 
 void oled_init(void){
 	xmem_write(0xAE, OLED_BASE_ADDRESS_COMMAND); // display off
@@ -108,6 +110,6 @@ void oled_print(char* data){
 void oled_fade_in(void){
 	for(uint8_t i = 0; i < 255; i++){
 		oled_set_brightness(i);
-		for(int i = 0; i < 30000; i++);
+		for(int i = 0; i < FADE_LENGTH; i++);
     }
 }

@@ -50,8 +50,8 @@ uint8_t adc_read_polled(uint8_t channel){
 pos_t pos_read(void){
 	uint8_t slider_r 	= adc_read_polled(0);
 	uint8_t slider_l 	= adc_read_polled(1);
-	uint8_t pos_x 		= adc_read_polled(2);
-	uint8_t pos_y		= adc_read_polled(3);
+	uint8_t pos_y		= adc_read_polled(2);
+	uint8_t pos_x 		= adc_read_polled(3);
 
 	pos_t output = {
 		// Calculation for the calibrated sensor. The output should be between -1 and 1. 
