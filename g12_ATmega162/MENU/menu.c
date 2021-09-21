@@ -158,8 +158,11 @@ static void menu_options_draw(void){
     menu_children_dropdown_draw(&options);
 }
 
+static void menu_quit_draw(void){
+    oled_turn_off();
+}
+
 static void menu_high_score_draw(void){}
-static void menu_quit_draw(void){}
 static void menu_calibrate_draw(void){}
 static void menu_brightness_draw(void){}
 static void menu_players_draw(void){
