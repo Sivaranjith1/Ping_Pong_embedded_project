@@ -10,6 +10,7 @@
 #define OLED_H_
 
 #include <stdint.h>
+#include <string.h>
 
 /**
  * @brief Initializes the OLED screen with the recomended settings given in 

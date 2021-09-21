@@ -28,18 +28,8 @@ int main(void)
 		//xmem_write(0x00, OLED_BASE_ADDRESS_DATA);
 		//for(int i = 0; i < 10000; i++){}
 		//xmem_write(0xaf, OLED_BASE_ADDRESS_COMMAND); // display on
-    oled_print_arrow(3, 0);
-		oled_print_char('S');
-    oled_print_char('I');
-    oled_print_char('V');
-    oled_print_char('A');
-    oled_print_char('R');
-    oled_print_char('A');
-    oled_print_char('N');
-    oled_print_char('J');
-    oled_print_char('I');
-    oled_print_char('T');
-    oled_print_char('H');
+    //oled_print_arrow(3, 0);
+    oled_print("Steffen Folaasen");
     
     
 		//xmem_write(0x01, OLED_BASE_ADDRESS_DATA);

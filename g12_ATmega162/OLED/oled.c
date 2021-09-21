@@ -10,6 +10,8 @@
 #include "../XMEM/xmem.h"
 #include "fonts.h"
 
+#include <string.h>
+
 
 void oled_init(void){
 	xmem_write(0xAE, OLED_BASE_ADDRESS_COMMAND); // display off
@@ -97,5 +99,11 @@ void oled_clear_line(uint8_t line){
 void oled_print_char(char data){
 	for(uint8_t i = 0; i < FONT8_SIZE; i++){
 		oled_write_data(pgm_read_byte(&font8[data - ASCII_OFFSET][i]));
+	}
+}
+
+void oled_print(char* data){
+	for(uint8_t i = 0; i < strlen(data); i++){
+		oled_print_char(data[i]);
 	}
 }
