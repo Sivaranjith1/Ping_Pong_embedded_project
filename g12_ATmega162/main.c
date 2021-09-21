@@ -22,7 +22,6 @@ void init(void){
   xmem_init();
   oled_init();
   menu_init();
-  //DDRB &= ~(1 << PB3);
 }
 
 int main(void)

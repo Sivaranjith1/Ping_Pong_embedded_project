@@ -40,12 +40,16 @@ static menu_item sp_mp;
 //  Local Functions Definitions
 /////////////////////////////////////////////////////////////////////////
 
-static void menu_children_dropdown_draw(menu_item menu);
+static void menu_children_dropdown_draw(menu_item* menu);
 
 static void menu_main_draw(void);
 static void menu_options_draw(void);
 static void menu_high_score_draw(void);
 static void menu_quit_draw(void);
+static void menu_calibrate_draw(void);
+static void menu_brightness_draw(void);
+static void menu_players_draw(void);
+static void menu_difficulty_draw(void);
 
 /////////////////////////////////////////////////////////////////////////
 //  Local Menu Items Declarations
@@ -80,9 +84,9 @@ static menu_item high_score = {
 
 static menu_item options = {
     .name = "OPTIONS",
-    .num_children = 0,
+    .num_children = 4,
     .parent = &main_menu,
-    .children = {0},
+    .children = {&brightness, &calibrate_joystick, &set_difficulty, &sp_mp},
     .draw_func = &menu_options_draw
 };
 
@@ -94,34 +98,83 @@ static menu_item quit = {
     .draw_func = &menu_quit_draw
 };
 
+static menu_item calibrate_joystick = {
+    .name = "CALIBRATE",
+    .num_children = 0,
+    .parent = &options,
+    .children = {0},
+    .draw_func = &menu_calibrate_draw
+};
+
+static menu_item brightness = {
+    .name = "BRIGHTNESS",
+    .num_children = 0,
+    .parent = &options,
+    .children = {0},
+    .draw_func = &menu_brightness_draw
+};
+
+static menu_item sp_mp = {
+    .name = "PLAYERS",
+    .num_children = 0,
+    .parent = &options,
+    .children = {0},
+    .draw_func = &menu_players_draw
+};
+
+static menu_item set_difficulty = {
+    .name = "DIFFICULTY",
+    .num_children = 0,
+    .parent = &options,
+    .children = {0},
+    .draw_func = &menu_difficulty_draw
+};
+
 /////////////////////////////////////////////////////////////////////////
 //  Local Function Declarations
 /////////////////////////////////////////////////////////////////////////
 
-static void menu_children_dropdown_draw(menu_item menu){
+static void menu_children_dropdown_draw(menu_item* menu){
     oled_print_arrow(menu_children_arrow_line, 0);
-    for (uint8_t i = 0; i < menu.num_children; i++)
+    for (uint8_t i = 0; i < menu->num_children; i++)
     {
         oled_pos(i, 20);
-        oled_print(menu.children[i]->name);
+        oled_print(menu->children[i]->name);
+    }
+    
+    if(menu->parent != 0){
+        oled_pos(menu->num_children, 20);
+        oled_print(menu->parent->name);
     }
     
 }
 
 // Menu draw functions
 static void menu_main_draw(void){
-    menu_children_dropdown_draw(main_menu);
+    menu_children_dropdown_draw(&main_menu);
 }
 
 static void menu_options_draw(void){
-    oled_pos(2, 10);
-    oled_print("Steffen Ditchet");
-    oled_fade_in();
+    menu_children_dropdown_draw(&options);
 }
 
 static void menu_high_score_draw(void){}
-
 static void menu_quit_draw(void){}
+static void menu_calibrate_draw(void){}
+static void menu_brightness_draw(void){}
+static void menu_players_draw(void){
+    oled_pos(0, 50);
+    oled_print("YOU");
+    oled_pos(1, 50);
+    oled_print("WANNA");
+    oled_pos(2, 50);
+    oled_print("PLAY");
+    oled_pos(3, 50);
+    oled_print("A");
+    oled_pos(4, 50);
+    oled_print("GAME?");
+}
+static void menu_difficulty_draw(void){}
 
 /////////////////////////////////////////////////////////////////////////
 //  Global Function Declarations
@@ -141,12 +194,21 @@ void menu_increment_arrow(int incrementation){
 
     if(menu_children_arrow_line < 0) {
         menu_children_arrow_line = current_menu->num_children - 1;
-    } else if(menu_children_arrow_line >= current_menu->num_children){
+    } else if(menu_children_arrow_line >= current_menu->num_children && current_menu->parent == 0){
+        menu_children_arrow_line = 0;
+    } else if(menu_children_arrow_line > current_menu->num_children && current_menu->parent != 0){
         menu_children_arrow_line = 0;
     }
 }
 
 void menu_update_menu(void){
-    current_menu = current_menu->children[menu_children_arrow_line];
+    if(menu_children_arrow_line < current_menu->num_children){   
+        current_menu = current_menu->children[menu_children_arrow_line];
+    } else if(current_menu->parent != 0){
+        current_menu = current_menu->parent;
+    }
+
+    menu_children_arrow_line = 0;
     menu_current_menu_draw();
+	oled_fade_in();
 }
