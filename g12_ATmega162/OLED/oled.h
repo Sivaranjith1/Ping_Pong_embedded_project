@@ -19,6 +19,9 @@
  */
 void oled_init(void);
 
+/**
+ * @brief Turns off all LEDs by writing 0 to every position
+ */
 void oled_reset(void);
 
 void oled_home(void);
@@ -39,6 +42,11 @@ void oled_goto_line(uint8_t line);
  */
 void oled_goto_column(uint8_t column);
 
+/**
+ * @brief Clears an entire segment by writing 0 to all the columns
+ *
+ * @param line Segment to be cleared.
+ */
 void oled_clear_line(uint8_t line);
 
 void oled_pos(uint8_t line, uint8_t column);
@@ -59,5 +67,12 @@ void oled_set_brightness(uint8_t level);
  * @param col 
  */
 void oled_print_arrow(uint8_t row, uint8_t col);
+
+
+/**
+ * @brief Gradually changes brightness from 0 to 255 over a set interval of time, 
+ * giving the screen the a fade-in like effect.
+ */
+void oled_fade_in(void);
 
 #endif /* OLED_H_ */

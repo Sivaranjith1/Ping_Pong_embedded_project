@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "xmem.h": "c"
+        "xmem.h": "c",
+        "system_config.h": "c"
     }
 }

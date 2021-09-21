@@ -13,28 +13,20 @@
 #include "USART/usart.h"
 #include "XMEM/xmem.h"
 #include "OLED/oled.h"
+#include "MENU/menu.h"
 
-int main(void)
-{
-  uint8_t temp = 0;
+void init(void){
   usart_init(&usart_instance_0, MAX233_BAUDRATE);
   xmem_init();
   oled_init();
-  oled_reset();
-  //oled_print_arrow(1, 7);
-  //oled_print_arrow(0,0);
+  menu_init();
+}
+
+int main(void)
+{
+  init();
   while(1){
-		//xmem_write(0xae, OLED_BASE_ADDRESS_COMMAND); // display off
-		//xmem_write(0x00, OLED_BASE_ADDRESS_DATA);
-		//for(int i = 0; i < 10000; i++){}
-		//xmem_write(0xaf, OLED_BASE_ADDRESS_COMMAND); // display on
-    //oled_print_arrow(3, 0);
-    oled_print("Steffen Folaasen");
-    
-    
-		//xmem_write(0x01, OLED_BASE_ADDRESS_DATA);
-		//for(int i = 0; i < 10000; i++){}
-		
+    //menu_current_menu_draw();
   }
   return 0;
 }

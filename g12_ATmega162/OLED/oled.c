@@ -36,6 +36,7 @@ void oled_init(void){
 	xmem_write(0xA4, OLED_BASE_ADDRESS_COMMAND); //out follows RAM content
 	xmem_write(0xA6, OLED_BASE_ADDRESS_COMMAND); //set normal display
 	xmem_write(0xAF, OLED_BASE_ADDRESS_COMMAND); // display on	
+	oled_reset();
 }
 
 void oled_reset(void){
@@ -74,10 +75,6 @@ void oled_print_arrow(uint8_t row, uint8_t col){
 	oled_pos(row, col);
 	oled_write_data(0b00011000);
 	oled_write_data(0b00011000);
-	oled_write_data(0b00011000);
-	oled_write_data(0b00011000);
-	oled_write_data(0b00011000);
-	oled_write_data(0b00011000);
 	oled_write_data(0b00111110);
 	oled_write_data(0b00011100);
 	oled_write_data(0b00011000);	
@@ -85,7 +82,7 @@ void oled_print_arrow(uint8_t row, uint8_t col){
 
 void oled_set_brightness(uint8_t level){
 	xmem_write(0x81, OLED_BASE_ADDRESS_COMMAND);
-	oled_write_data(level);
+	xmem_write(level, OLED_BASE_ADDRESS_COMMAND);
 }
 
 void oled_clear_line(uint8_t line){
@@ -106,4 +103,11 @@ void oled_print(char* data){
 	for(uint8_t i = 0; i < strlen(data); i++){
 		oled_print_char(data[i]);
 	}
+}
+
+void oled_fade_in(void){
+	for(uint8_t i = 0; i < 255; i++){
+		oled_set_brightness(i);
+		for(int i = 0; i < 30000; i++);
+    }
 }
