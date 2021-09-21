@@ -22,6 +22,7 @@ void oled_reset(void);
 
 void oled_home(void);
 
+
 /**
  * @brief Places a pointer to a given PAGE on the OLED board.
  * 

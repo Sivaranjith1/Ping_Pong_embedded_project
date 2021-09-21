@@ -12,36 +12,27 @@
 #include "ADC/adc.h"
 #include "USART/usart.h"
 #include "XMEM/xmem.h"
+#include "OLED/oled.h"
 
 int main(void)
 {
+  uint8_t temp = 0;
   usart_init(&usart_instance_0, MAX233_BAUDRATE);
   xmem_init();
-  uint32_t error = 0;
-  uint32_t total = 0;
-  
-  DDRE |= (0 << PE0);
-  
-  uint8_t iter = 0;
-
+  oled_init();
+  oled_reset();
+  //oled_print_arrow(1, 7);
+  //oled_print_arrow(0,0);
   while(1){
-	  /*
-	xmem_write(0x10, 0x800);
-	uint8_t reading = xmem_read(0x800);
-	++total;
-	if(reading != 0x10) error++;
-	
-	if(error != 0)
-		printf("Reed %d \n", error);
-		*/
-	pos_t joystick = pos_read();
-	
-	if(++iter == 0)
-		printf("Data %d %d %d %d \n", (int) (joystick.pos_x * 100), (int)(joystick.pos_y *100), (int)(joystick.slider_l*100), (int)(joystick.slider_r 
-		* 100));
-	//xmem_SRAM_test();
+		//xmem_write(0xae, OLED_BASE_ADDRESS_COMMAND); // display off
+		//xmem_write(0x00, OLED_BASE_ADDRESS_DATA);
+		//for(int i = 0; i < 10000; i++){}
+		//xmem_write(0xaf, OLED_BASE_ADDRESS_COMMAND); // display on
+		oled_print_arrow(0, 100);
+		//xmem_write(0x01, OLED_BASE_ADDRESS_DATA);
+		//for(int i = 0; i < 10000; i++){}
+		
   }
-
   return 0;
 }
 
