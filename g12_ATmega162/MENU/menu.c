@@ -43,6 +43,7 @@ static menu_item sp_mp;
 static void menu_children_dropdown_draw(menu_item* menu);
 
 static void menu_main_draw(void);
+static void menu_play_draw(void);
 static void menu_options_draw(void);
 static void menu_high_score_draw(void);
 static void menu_quit_draw(void);
@@ -71,7 +72,7 @@ static menu_item play = {
     .num_children = 0,
     .parent = &main_menu,
     .children = {0},
-    .draw_func = &menu_options_draw
+    .draw_func = &menu_play_draw
 };
 
 static menu_item high_score = {
@@ -152,6 +153,15 @@ static void menu_children_dropdown_draw(menu_item* menu){
 // Menu draw functions
 static void menu_main_draw(void){
     menu_children_dropdown_draw(&main_menu);
+}
+
+static void menu_play_draw(void){
+    oled_pos(0, 50);
+    oled_print("Its");
+    oled_pos(1, 50);
+    oled_print("A");
+    oled_pos(2, 50);
+    oled_print("TRAP!");
 }
 
 static void menu_options_draw(void){

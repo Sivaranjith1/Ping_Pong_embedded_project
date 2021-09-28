@@ -145,9 +145,7 @@ void oled_redraw(uint8_t data, uint8_t line, uint8_t col){
 	uint8_t old_state = oled_read_previous_data(line, col);
 	if(old_state != data){
 		oled_save_data_to_sram(data, line, col);
-		for(uint8_t i = 0; i < FONT8_SIZE; i++){
-			oled_write_data(pgm_read_byte(&font8[data - ASCII_OFFSET][i]));
-		}
+		oled_write_data(data);
 	}
 	else{
 		return;
