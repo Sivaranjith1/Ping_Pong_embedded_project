@@ -15,11 +15,13 @@
 #include "OLED/oled.h"
 #include "MENU/menu.h"
 #include "GPIO/gpio.h"
+#include "SRAM/sram.h"
 
 
 void init(void){
   usart_init(&usart_instance_0, MAX233_BAUDRATE);
   xmem_init();
+  sram_init();
   oled_init();
   menu_init();
 }

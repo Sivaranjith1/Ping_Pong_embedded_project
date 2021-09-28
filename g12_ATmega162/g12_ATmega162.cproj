@@ -172,6 +172,12 @@
     <Compile Include="OLED\oled.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="SRAM\sram.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SRAM\sram.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="system_config.h">
       <SubType>compile</SubType>
     </Compile>
@@ -193,6 +199,7 @@
     <Folder Include="GPIO" />
     <Folder Include="MENU\" />
     <Folder Include="OLED" />
+    <Folder Include="SRAM\" />
     <Folder Include="XMEM" />
     <Folder Include="USART" />
   </ItemGroup>

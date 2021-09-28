@@ -42,13 +42,6 @@ void oled_init(void){
 	xmem_write(0xA6, OLED_BASE_ADDRESS_COMMAND); //set normal display
 	xmem_write(0xAF, OLED_BASE_ADDRESS_COMMAND); // display on	
 	oled_reset();
-	// for(uint8_t i = 0; i < 8; i++){
-	// 	oled_pos(i, 0);
-	// 	for (uint8_t j = 0; j < 128; j++)
-	// 	{
-	// 		oled_save_data_to_sram(0);
-	// 	}
-	// }
 }
 
 void oled_reset(void){
