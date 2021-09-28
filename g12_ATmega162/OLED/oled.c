@@ -81,7 +81,7 @@ void oled_pos(uint8_t line, uint8_t column){
 	oled_goto_column(column);
 }
 
-static void oled_write_data(char data){
+static void oled_write_data(unsigned char data){
 	xmem_write(data, OLED_BASE_ADDRESS_DATA);
 }
 
@@ -107,13 +107,13 @@ void oled_clear_line(uint8_t line){
 	oled_goto_line(line);
 }
 
-void oled_print_char(char data){
+void oled_print_char(unsigned char data){
 	for(uint8_t i = 0; i < FONT8_SIZE; i++){
 		oled_redraw(pgm_read_byte(&font8[data - ASCII_OFFSET][i]));
 	}
 }
 
-void oled_print(char* data){
+void oled_print(unsigned char* data){
 	for(uint8_t i = 0; i < strlen(data); i++){
 		oled_print_char(data[i]);
 	}
@@ -139,18 +139,17 @@ void oled_turn_off(void){
 	xmem_write(0xAE, OLED_BASE_ADDRESS_COMMAND);
 }
 
-void oled_save_data_to_sram(char data){
+void oled_save_data_to_sram(unsigned char data){
  	xmem_write(data, OLED_SRAM_ADDRESS_START + 128*current_page + current_column);
 	oled_check_max_column();
 }
 
-static uint8_t oled_read_previous_data(void){
-	return xmem_read(OLED_SRAM_ADDRESS_START + 128*current_page + current_column);
+static unsigned char oled_read_previous_data(void){
+	return (unsigned char)xmem_read(OLED_SRAM_ADDRESS_START + 128*current_page + current_column);
 }
 
-void oled_redraw(char data){
-	oled_write_data(data);
-	/*char old_state = oled_read_previous_data();
+void oled_redraw(unsigned char data){
+	unsigned char old_state = oled_read_previous_data();
 	if(old_state != data){
 		oled_save_data_to_sram(data);
 		oled_write_data(data);
@@ -158,7 +157,6 @@ void oled_redraw(char data){
 	else{
 		oled_check_max_column();
 	}
-	*/
 }
 
 void oled_check_max_column(void){
