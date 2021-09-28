@@ -10,7 +10,6 @@
 #define OLED_H_
 
 #include <stdint.h>
-#include <string.h>
 
 /**
  * @brief Initializes the OLED screen with the recomended settings given in 
@@ -107,4 +106,6 @@ void oled_fade_in(void);
 void oled_fade_out(void);
 
 void oled_turn_off(void);
+
+void oled_save_data_to_sram(void);
 #endif /* OLED_H_ */

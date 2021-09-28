@@ -110,15 +110,15 @@ void oled_print(char* data){
 void oled_fade_in(void){
 	for(uint8_t i = 0; i < 255; i++){
 		oled_set_brightness(i);
-		for(uint8_t i = 0; i < FADE_LENGTH; i++);
+		for(uint16_t i = 0; i < FADE_LENGTH; i++);
     }
 }
 
 void oled_fade_out(void){
-	for (uint8_t i = 255; i > -1; i--)
+	for (uint8_t i = 255; i > 0; i--)
 	{
 		oled_set_brightness(i);
-		for(uint8_t i = 0; i < FADE_LENGTH; i++);
+		for(uint16_t i = 0; i < FADE_LENGTH; i++);
 	}	
 }
 
@@ -126,3 +126,31 @@ void oled_turn_off(void){
 	oled_fade_out();
 	xmem_write(0xAE, OLED_BASE_ADDRESS_COMMAND);
 }
+
+/* void oled_save_data_to_sram(uint8_t data, uint8_t line, uint8_t col){
+ 	xmem_write(OLED_SRAM_ADDRESS_START + 128*line + col, data);
+}
+
+uint8_t oled_read_previous_data(uint8_t line, uint8_t col){
+	return xmem_read(OLED_SRAM_ADDRESS_START + 128*line + col);
+}
+
+void oled_print(char* data){
+	for(uint8_t i = 0; i < strlen(data); i++){
+		oled_redraw(data[i]);
+	}
+}
+
+void oled_redraw(uint8_t data, uint8_t line, uint8_t col){
+	uint8_t old_state = oled_read_previous_data(line, col);
+	if(old_state != data){
+		oled_save_data_to_sram(data, line, col);
+		for(uint8_t i = 0; i < FONT8_SIZE; i++){
+			oled_write_data(pgm_read_byte(&font8[data - ASCII_OFFSET][i]));
+		}
+	}
+	else{
+		return;
+	}
+}
+*/
