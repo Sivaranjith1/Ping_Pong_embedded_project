@@ -63,7 +63,7 @@ void oled_pos(uint8_t line, uint8_t column);
  *
  * @param data Data to be put out on the bus, and subsequently writted to the OLED data registers.
  */
-void oled_write_data(char data);
+void oled_redraw(char data);
 
 /**
  * @brief Writes a character to the screen. Worth noting that not all characters are supported.
@@ -107,5 +107,5 @@ void oled_fade_out(void);
 
 void oled_turn_off(void);
 
-void oled_save_data_to_sram(void);
+void oled_save_data_to_sram(char data);
 #endif /* OLED_H_ */

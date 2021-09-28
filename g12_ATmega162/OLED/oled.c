@@ -13,7 +13,10 @@
 #include <string.h>
 
 #define FADE_LENGTH 10000
+#define COLUMN_MAX_VALUE 127
 
+static uint8_t current_page = 0;
+static uint8_t current_column = 0;
 
 void oled_init(void){
 	xmem_write(0xAE, OLED_BASE_ADDRESS_COMMAND); // display off
@@ -39,6 +42,13 @@ void oled_init(void){
 	xmem_write(0xA6, OLED_BASE_ADDRESS_COMMAND); //set normal display
 	xmem_write(0xAF, OLED_BASE_ADDRESS_COMMAND); // display on	
 	oled_reset();
+	// for(uint8_t i = 0; i < 8; i++){
+	// 	oled_pos(i, 0);
+	// 	for (uint8_t j = 0; j < 128; j++)
+	// 	{
+	// 		oled_save_data_to_sram(0);
+	// 	}
+	// }
 }
 
 void oled_reset(void){
@@ -53,15 +63,17 @@ void oled_goto_line(uint8_t line){
 	}
 
 	xmem_write(0xB0 | line, OLED_BASE_ADDRESS_COMMAND); // Set page
+	current_page = line;
 }
 
 void oled_goto_column(uint8_t column){
-	if(column > 127){
+	if(column > COLUMN_MAX_VALUE){
 		return;
 	}
 
 	xmem_write(0x00 | (0x0F & column), OLED_BASE_ADDRESS_COMMAND); // set the low address
 	xmem_write(0x10  | (0xF0 & column) >> 4, OLED_BASE_ADDRESS_COMMAND); // set the high address
+	current_column = column;
 }
 
 void oled_pos(uint8_t line, uint8_t column){
@@ -69,17 +81,17 @@ void oled_pos(uint8_t line, uint8_t column){
 	oled_goto_column(column);
 }
 
-void oled_write_data(char data){
+static void oled_write_data(char data){
 	xmem_write(data, OLED_BASE_ADDRESS_DATA);
 }
 
 void oled_print_arrow(uint8_t row, uint8_t col){
 	oled_pos(row, col);
-	oled_write_data(0b00011000);
-	oled_write_data(0b00011000);
-	oled_write_data(0b00111110);
-	oled_write_data(0b00011100);
-	oled_write_data(0b00011000);	
+	oled_redraw(0b00011000);
+	oled_redraw(0b00011000);
+	oled_redraw(0b00111110);
+	oled_redraw(0b00011100);
+	oled_redraw(0b00011000);	
 }
 
 void oled_set_brightness(uint8_t level){
@@ -90,14 +102,14 @@ void oled_set_brightness(uint8_t level){
 void oled_clear_line(uint8_t line){
 	oled_pos(line, 0);
 	for(uint8_t i = 0; i < 128; i++){
-		oled_write_data(0x00);
+		oled_redraw(0x00);
 	}
 	oled_goto_line(line);
 }
 
 void oled_print_char(char data){
 	for(uint8_t i = 0; i < FONT8_SIZE; i++){
-		oled_write_data(pgm_read_byte(&font8[data - ASCII_OFFSET][i]));
+		oled_redraw(pgm_read_byte(&font8[data - ASCII_OFFSET][i]));
 	}
 }
 
@@ -127,28 +139,33 @@ void oled_turn_off(void){
 	xmem_write(0xAE, OLED_BASE_ADDRESS_COMMAND);
 }
 
-/* void oled_save_data_to_sram(uint8_t data, uint8_t line, uint8_t col){
- 	xmem_write(OLED_SRAM_ADDRESS_START + 128*line + col, data);
+void oled_save_data_to_sram(char data){
+ 	xmem_write(data, OLED_SRAM_ADDRESS_START + 128*current_page + current_column);
+	oled_check_max_column();
 }
 
-uint8_t oled_read_previous_data(uint8_t line, uint8_t col){
-	return xmem_read(OLED_SRAM_ADDRESS_START + 128*line + col);
+static uint8_t oled_read_previous_data(void){
+	return xmem_read(OLED_SRAM_ADDRESS_START + 128*current_page + current_column);
 }
 
-void oled_print(char* data){
-	for(uint8_t i = 0; i < strlen(data); i++){
-		oled_redraw(data[i]);
-	}
-}
-
-void oled_redraw(uint8_t data, uint8_t line, uint8_t col){
-	uint8_t old_state = oled_read_previous_data(line, col);
+void oled_redraw(char data){
+	oled_write_data(data);
+	/*char old_state = oled_read_previous_data();
 	if(old_state != data){
-		oled_save_data_to_sram(data, line, col);
+		oled_save_data_to_sram(data);
 		oled_write_data(data);
 	}
 	else{
-		return;
+		oled_check_max_column();
+	}
+	*/
+}
+
+void oled_check_max_column(void){
+	if(current_column == COLUMN_MAX_VALUE){
+		current_column = 0;
+	}
+	else{
+		current_column++;
 	}
 }
-*/
