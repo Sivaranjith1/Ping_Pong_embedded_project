@@ -15,9 +15,106 @@
 #define FADE_LENGTH 10000
 #define COLUMN_MAX_VALUE 127
 
+/////////////////////////////////////////////////////////////////////////
+//  Local Variables and Function Definitions
+/////////////////////////////////////////////////////////////////////////
 static uint8_t current_page = 0;
 static uint8_t current_column = 0;
 
+/**
+ * @brief Calls upon @p xmem_write to put data out on the external memory bus
+ *
+ * @param data Data to be put on on the bus, and subsequently written to the OLED
+ */
+static void oled_write_data(unsigned char data);
+
+/**
+ * @brief Loads what the screen currently looks like, to be used for comparison in @p oled_redraw
+ */
+static unsigned char oled_read_previous_data(void);
+static void oled_save_data_to_sram(unsigned char data);
+
+/**
+ * @brief Checks whether we have reached the end of the screen, if yes it resets the pointer to column 0
+ */
+static void oled_check_max_column(void);
+
+/**
+ * @brief Places a pointer to a given column on the OLED board.
+ * 
+ * @param column Desired column to be written.
+ */
+static void oled_goto_column(uint8_t column);
+
+/**
+ * @brief Places a pointer to a given PAGE on the OLED board.
+ * 
+ * @param line What page that is being used (see data sheet). There are 8 pages
+ * (PAGE0 ... PAGE7) and each page is one byte
+ */
+static void oled_goto_line(uint8_t line);
+
+/**
+ * @brief Writes a character to the screen. Worth noting that not all characters are supported.
+ * The complete list of implemented characters can be found in fonts.h.
+ * 
+ * @param data Character to be written to the screen.
+ */
+static void oled_print_char(unsigned char data);
+
+/////////////////////////////////////////////////////////////////////////
+//  Local Function Declarations
+/////////////////////////////////////////////////////////////////////////
+static void oled_write_data(unsigned char data){
+	xmem_write(data, OLED_BASE_ADDRESS_DATA);
+}
+
+static unsigned char oled_read_previous_data(void){
+	return (unsigned char)xmem_read(OLED_SRAM_ADDRESS_START + 128*current_page + current_column);
+}
+
+static void oled_save_data_to_sram(unsigned char data){
+ 	xmem_write(data, OLED_SRAM_ADDRESS_START + 128*current_page + current_column);
+	oled_check_max_column();
+}
+
+static void oled_check_max_column(void){
+	if(current_column == COLUMN_MAX_VALUE){
+		current_column = 0;
+	}
+	else{
+		current_column++;
+	}
+}
+
+static void oled_goto_line(uint8_t line){
+	if(line > 7){
+		return;
+	}
+
+	xmem_write(0xB0 | line, OLED_BASE_ADDRESS_COMMAND); // Set page
+	current_page = line;
+}
+
+static void oled_goto_column(uint8_t column){
+	if(column > COLUMN_MAX_VALUE){
+		return;
+	}
+
+	xmem_write(0x00 | (0x0F & column), OLED_BASE_ADDRESS_COMMAND); // set the low address
+	xmem_write(0x10  | (0xF0 & column) >> 4, OLED_BASE_ADDRESS_COMMAND); // set the high address
+	current_column = column;
+}
+
+static void oled_print_char(unsigned char data){
+	for(uint8_t i = 0; i < FONT8_SIZE; i++){
+		oled_redraw(pgm_read_byte(&font8[data - ASCII_OFFSET][i]));
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////
+//  Global Function Declarations
+/////////////////////////////////////////////////////////////////////////
 void oled_init(void){
 	xmem_write(0xAE, OLED_BASE_ADDRESS_COMMAND); // display off
 	xmem_write(0xA1, OLED_BASE_ADDRESS_COMMAND); //segment remap
@@ -44,38 +141,16 @@ void oled_init(void){
 	oled_reset();
 }
 
+
 void oled_reset(void){
 	for (uint8_t i = 0; i < 8; i++){
 		oled_clear_line(i);
 	}
 }
 
-void oled_goto_line(uint8_t line){
-	if(line > 7){
-		return;
-	}
-
-	xmem_write(0xB0 | line, OLED_BASE_ADDRESS_COMMAND); // Set page
-	current_page = line;
-}
-
-void oled_goto_column(uint8_t column){
-	if(column > COLUMN_MAX_VALUE){
-		return;
-	}
-
-	xmem_write(0x00 | (0x0F & column), OLED_BASE_ADDRESS_COMMAND); // set the low address
-	xmem_write(0x10  | (0xF0 & column) >> 4, OLED_BASE_ADDRESS_COMMAND); // set the high address
-	current_column = column;
-}
-
 void oled_pos(uint8_t line, uint8_t column){
 	oled_goto_line(line);
 	oled_goto_column(column);
-}
-
-static void oled_write_data(unsigned char data){
-	xmem_write(data, OLED_BASE_ADDRESS_DATA);
 }
 
 void oled_print_arrow(uint8_t row, uint8_t col){
@@ -98,12 +173,6 @@ void oled_clear_line(uint8_t line){
 		oled_redraw(0x00);
 	}
 	oled_goto_line(line);
-}
-
-void oled_print_char(unsigned char data){
-	for(uint8_t i = 0; i < FONT8_SIZE; i++){
-		oled_redraw(pgm_read_byte(&font8[data - ASCII_OFFSET][i]));
-	}
 }
 
 void oled_print(unsigned char* data){
@@ -132,15 +201,6 @@ void oled_turn_off(void){
 	xmem_write(0xAE, OLED_BASE_ADDRESS_COMMAND);
 }
 
-void oled_save_data_to_sram(unsigned char data){
- 	xmem_write(data, OLED_SRAM_ADDRESS_START + 128*current_page + current_column);
-	oled_check_max_column();
-}
-
-static unsigned char oled_read_previous_data(void){
-	return (unsigned char)xmem_read(OLED_SRAM_ADDRESS_START + 128*current_page + current_column);
-}
-
 void oled_redraw(unsigned char data){
 	unsigned char old_state = oled_read_previous_data();
 	if(old_state != data){
@@ -152,11 +212,3 @@ void oled_redraw(unsigned char data){
 	}
 }
 
-void oled_check_max_column(void){
-	if(current_column == COLUMN_MAX_VALUE){
-		current_column = 0;
-	}
-	else{
-		current_column++;
-	}
-}

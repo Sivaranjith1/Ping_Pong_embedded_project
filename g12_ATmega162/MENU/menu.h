@@ -23,13 +23,33 @@ extra:
 - Musikk (8-bit mario-esque)
 */
 
-
+/**
+ * @brief Draws the elements in the main menu. Calls the
+ * @p oled_fade_in function.
+ * 
+ */
 void menu_init(void);
 
+/**
+ * @brief Draws the current menu that the @p current_menu pointer (local pointer)
+ * is pointing at. This is chosen by the arrow controlled by the joystick.
+ *  
+ */
 void menu_current_menu_draw(void);
 
+/**
+ * @brief Increments the arrow one line (page in the OLED data sheet) 
+ * depending on the @p incrementation value
+ * 
+ * @param incrementation Incerementation value, can be eighter 1, -1, or 0
+ */
 void menu_increment_arrow(int incrementation);
 
+/**
+ * @brief Resets the sram and the OLED before it updates the @p current_menu
+ * pointer and draws the new menu.
+ * 
+ */
 void menu_update_menu(void);
 
 #endif //MENU_H

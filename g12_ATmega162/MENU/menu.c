@@ -136,6 +136,11 @@ static menu_item set_difficulty = {
 //  Local Function Declarations
 /////////////////////////////////////////////////////////////////////////
 
+/**
+ * @brief 
+ * 
+ * @param menu 
+ */
 static void menu_children_dropdown_draw(menu_item* menu){
     oled_print_arrow(menu_children_arrow_line, 0);
     for (uint8_t i = 0; i < menu->num_children; i++)
@@ -205,21 +210,18 @@ void menu_current_menu_draw(void){
 
 void menu_increment_arrow(int incrementation){
     menu_children_arrow_line += incrementation;
-    uint8_t t2 = current_menu->num_children;
 
     if(menu_children_arrow_line < 0) {
         menu_children_arrow_line = current_menu->num_children - 1;
     } else if(menu_children_arrow_line >= current_menu->num_children && current_menu->parent == 0){
-        uint8_t t = current_menu->num_children;
         menu_children_arrow_line = 0;
     } else if(menu_children_arrow_line > current_menu->num_children && current_menu->parent != 0){
-        uint8_t t = current_menu->num_children;
         menu_children_arrow_line = 0;
     }
 }
 
 void menu_update_menu(void){
-    sram_oled_reset();
+    sram_reset();
     oled_reset();
     if(menu_children_arrow_line < current_menu->num_children){   
         current_menu = current_menu->children[menu_children_arrow_line];

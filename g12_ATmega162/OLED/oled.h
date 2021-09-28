@@ -26,22 +26,6 @@ void oled_reset(void);
 // Not in use atm
 void oled_home(void);
 
-
-/**
- * @brief Places a pointer to a given PAGE on the OLED board.
- * 
- * @param line What page that is being used (see data sheet). There are 8 pages
- * (PAGE0 ... PAGE7) and each page is one byte
- */
-void oled_goto_line(uint8_t line);
-
-/**
- * @brief Places a pointer to a given column on the OLED board.
- * 
- * @param column Desired column to be written.
- */
-void oled_goto_column(uint8_t column);
-
 /**
  * @brief Clears an entire segment by writing 0 to all the columns
  *
@@ -59,19 +43,12 @@ void oled_clear_line(uint8_t line);
 void oled_pos(uint8_t line, uint8_t column);
 
 /**
- * @brief Puts data out on the data bus through the use of the external memory functions
+ * @brief Updates the OLED based on the difference between the old screen and the new input
  *
- * @param data Data to be put out on the bus, and subsequently writted to the OLED data registers.
+ * @param data New data to be put out on the screen, and subsequently writted to the OLED data registers.
  */
 void oled_redraw(unsigned char data);
 
-/**
- * @brief Writes a character to the screen. Worth noting that not all characters are supported.
- * The complete list of implemented characters can be found in fonts.h.
- * 
- * @param data Character to be written to the screen.
- */
-void oled_print_char(unsigned char data);
 
 /**
  * @brief Uses the oled_print_char function to print an array 
@@ -103,9 +80,16 @@ void oled_print_arrow(uint8_t row, uint8_t col);
  */
 void oled_fade_in(void);
 
+/**
+ * @brief Gradually changes brightness from 255 to 0 over a set interval of time, 
+ * giving the screen the a fade-out like effect.
+ */
 void oled_fade_out(void);
 
+/**
+ * @brief Calles the @p oled_fade_out function and turns off the OLED.
+ * 
+ */
 void oled_turn_off(void);
 
-void oled_save_data_to_sram(unsigned char data);
 #endif /* OLED_H_ */
