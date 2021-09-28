@@ -18,7 +18,6 @@
 /////////////////////////////////////////////////////////////////////////
 //  Local Variables and Function Definitions
 /////////////////////////////////////////////////////////////////////////
-
 static uint8_t current_page = 0;
 static uint8_t current_column = 0;
 
@@ -66,7 +65,6 @@ static void oled_print_char(unsigned char data);
 /////////////////////////////////////////////////////////////////////////
 //  Local Function Declarations
 /////////////////////////////////////////////////////////////////////////
-
 static void oled_write_data(unsigned char data){
 	xmem_write(data, OLED_BASE_ADDRESS_DATA);
 }
@@ -117,7 +115,6 @@ static void oled_print_char(unsigned char data){
 /////////////////////////////////////////////////////////////////////////
 //  Global Function Declarations
 /////////////////////////////////////////////////////////////////////////
-
 void oled_init(void){
 	xmem_write(0xAE, OLED_BASE_ADDRESS_COMMAND); // display off
 	xmem_write(0xA1, OLED_BASE_ADDRESS_COMMAND); //segment remap
@@ -159,7 +156,7 @@ void oled_pos(uint8_t line, uint8_t column){
 void oled_print_arrow(uint8_t row, uint8_t col){
 	oled_pos(row, col);
 	oled_redraw(0b00011000);
-	oled_redraw(0b0001100
+	oled_redraw(0b00011000);
 	oled_redraw(0b00111110);
 	oled_redraw(0b00011100);
 	oled_redraw(0b00011000);	
