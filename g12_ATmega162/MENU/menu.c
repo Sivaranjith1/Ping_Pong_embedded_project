@@ -3,6 +3,7 @@
 
 #include "menu.h"
 #include "../OLED/oled.h"
+#include "../SRAM/sram.h"
 #include <stdint.h>
 
 /////////////////////////////////////////////////////////////////////////
@@ -218,6 +219,8 @@ void menu_increment_arrow(int incrementation){
 }
 
 void menu_update_menu(void){
+    sram_oled_reset();
+    oled_reset();
     if(menu_children_arrow_line < current_menu->num_children){   
         current_menu = current_menu->children[menu_children_arrow_line];
     } else if(current_menu->parent != 0){

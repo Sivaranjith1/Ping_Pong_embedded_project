@@ -63,7 +63,7 @@ void oled_pos(uint8_t line, uint8_t column);
  *
  * @param data Data to be put out on the bus, and subsequently writted to the OLED data registers.
  */
-void oled_write_data(char data);
+void oled_redraw(unsigned char data);
 
 /**
  * @brief Writes a character to the screen. Worth noting that not all characters are supported.
@@ -71,14 +71,14 @@ void oled_write_data(char data);
  * 
  * @param data Character to be written to the screen.
  */
-void oled_print_char(char data);
+void oled_print_char(unsigned char data);
 
 /**
  * @brief Uses the oled_print_char function to print an array 
  *
  * @param data String (char-array) to be written to the screen
  */
-void oled_print(char* data);
+void oled_print(unsigned char* data);
 
 /**
  * @brief Sets the brightness between 0 - 255, which are the limits of the OLED screen.
@@ -107,5 +107,5 @@ void oled_fade_out(void);
 
 void oled_turn_off(void);
 
-void oled_save_data_to_sram(void);
+void oled_save_data_to_sram(unsigned char data);
 #endif /* OLED_H_ */
