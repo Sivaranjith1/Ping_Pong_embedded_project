@@ -5,43 +5,34 @@
  * Author : Sivaranjith Sivarasa
  */ 
 
-#include <avr/io.h>
+
 
 #include "system_config.h"
-#include "gpio/gpio.h"
 #include "ADC/adc.h"
+#include "ADC/joystick.h"
 #include "USART/usart.h"
 #include "XMEM/xmem.h"
+#include "OLED/oled.h"
+#include "MENU/menu.h"
+#include "GPIO/gpio.h"
+#include "SRAM/sram.h"
+
+
+void init(void){
+  usart_init(&usart_instance_0, MAX233_BAUDRATE);
+  xmem_init();
+  sram_init();
+  oled_init();
+  menu_init();
+}
 
 int main(void)
 {
-  usart_init(&usart_instance_0, MAX233_BAUDRATE);
-  xmem_init();
-  uint32_t error = 0;
-  uint32_t total = 0;
-  
-  DDRE |= (0 << PE0);
-  
-  uint8_t iter = 0;
-
+  init();
   while(1){
-	  /*
-	xmem_write(0x10, 0x800);
-	uint8_t reading = xmem_read(0x800);
-	++total;
-	if(reading != 0x10) error++;
-	
-	if(error != 0)
-		printf("Reed %d \n", error);
-		*/
-	pos_t joystick = pos_read();
-	
-	if(++iter == 0)
-		printf("Data %d %d %d %d \n", (int) (joystick.pos_x * 100), (int)(joystick.pos_y *100), (int)(joystick.slider_l*100), (int)(joystick.slider_r 
-		* 100));
-	//xmem_SRAM_test();
+    joystick_read();
+    joystick_read_button_polled();
   }
-
   return 0;
 }
 
