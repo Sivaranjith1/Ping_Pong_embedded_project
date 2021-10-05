@@ -30,7 +30,9 @@ typedef struct {
 /**
  * @brief Sets CAN to normal mode. Also sets TXnRTS pins to digital inputs and
  * enables CAN interrupt to TXB0.
- * 
+ * It then sets the CNF1, CNF3 and CNF2 registers such that the following values are achieved:
+ * PropSeg = 1 , PS1 = 1, PS2 = 2, SJW = 1,
+ * Which fulfill the requirements mentioned in the MCP2515 datasheet (p. 43)
  */
 void can_init(void);
 

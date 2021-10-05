@@ -20,10 +20,6 @@
 #include "CAN/can.h"
 #include "CAN/mcp2515.h"
 #include "CAN/mcp_constants.h"
-#include "ARDUINO_DUE_SHIELD/CAN/can_controller.h"
-#include "ARDUINO_DUE_SHIELD/CAN/can_interrupt.h"
-#include "ARDUINO_DUE_SHIELD/UART/uart.h"
-
 
 void init(void){
   usart_init(&usart_instance_0, MAX233_BAUDRATE);
@@ -35,7 +31,6 @@ void init(void){
   mcp_init();
   //spi_interrupt_init();
   can_init();
-  can_init_def_tx_rx_mb();
 }
 
 int main(void)

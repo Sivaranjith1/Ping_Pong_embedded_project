@@ -21,7 +21,10 @@
 */
 
 void can_init(void){
-    mcp_bit_manipulation(MCP_CANCTRL, MODE_MASK, MODE_LOOPBACK); // setting CAN to loopback mode
+    mcp_bit_manipulation(MCP_CANCTRL, MODE_MASK, MODE_NORMAL); // setting CAN to loopback mode
+    mcp_write(MCP_CNF1, 1);
+    mcp_write(MCP_CNF3, 1);
+    mcp_write(MCP_CNF2, (1 << 7) | (1 << 6) | (1 << 3) | 1);
     mcp_write(MCP_TXRTSCTRL, 0b000); //Sets TXnRTS pins to digital inputs
     mcp_write(MCP_CANINTE, 1 << 2); //Enables CAN interrupt to TXB0
 }

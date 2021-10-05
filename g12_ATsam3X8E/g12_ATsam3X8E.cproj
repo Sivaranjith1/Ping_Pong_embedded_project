@@ -20,14 +20,30 @@
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue />
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
     <ResetRule>0</ResetRule>
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <EraseKey />
+    <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
+    <avrtoolserialnumber>J41800001739</avrtoolserialnumber>
+    <avrdeviceexpectedsignature>0x285E0A60</avrdeviceexpectedsignature>
+    <com_atmel_avrdbg_tool_atmelice>
+      <ToolOptions>
+        <InterfaceProperties>
+          <JtagDbgClock>7500000</JtagDbgClock>
+        </InterfaceProperties>
+        <InterfaceName>JTAG</InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.atmelice</ToolType>
+      <ToolNumber>J41800001739</ToolNumber>
+      <ToolName>Atmel-ICE</ToolName>
+    </com_atmel_avrdbg_tool_atmelice>
+    <avrtoolinterface>JTAG</avrtoolinterface>
+    <avrtoolinterfaceclock>7500000</avrtoolinterfaceclock>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -131,6 +147,18 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CAN\can_controller.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN\can_controller.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN\can_interrupt.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN\can_interrupt.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Device_Startup\startup_sam3xa.c">
       <SubType>compile</SubType>
     </Compile>
@@ -140,9 +168,23 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UART\printf-stdarg.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UART\printf-stdarg.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UART\uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UART\uart.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CAN\" />
     <Folder Include="Device_Startup\" />
+    <Folder Include="UART\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Device_Startup\sam3x8e_flash.ld">
@@ -155,6 +197,12 @@
       <SubType>compile</SubType>
     </None>
     <None Include="Device_Startup\sam3xa_sram.ld">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="UART\COPYING">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="UART\COPYING.LESSER">
       <SubType>compile</SubType>
     </None>
   </ItemGroup>
