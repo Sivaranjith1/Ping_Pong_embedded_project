@@ -148,6 +148,21 @@
     <Compile Include="ADC\joystick.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="CAN\can.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN\can.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN\mcp2515.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN\mcp2515.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN\mcp_constants.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="GPIO\gpio.c">
       <SubType>compile</SubType>
     </Compile>
@@ -170,6 +185,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="OLED\oled.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SPI\spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SPI\spi.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="SRAM\sram.c">
@@ -196,9 +217,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ADC\" />
+    <Folder Include="CAN\" />
     <Folder Include="GPIO" />
     <Folder Include="MENU\" />
     <Folder Include="OLED" />
+    <Folder Include="SPI\" />
     <Folder Include="SRAM\" />
     <Folder Include="XMEM" />
     <Folder Include="USART" />
