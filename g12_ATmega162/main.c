@@ -19,6 +19,7 @@
 #include "SPI/spi.h"
 #include "CAN/can.h"
 #include "CAN/mcp2515.h"
+#include "CAN/mcp_constants.h"
 
 
 void init(void){
@@ -28,6 +29,8 @@ void init(void){
   oled_init();
   menu_init();
   spi_init();
+  mcp_init();
+  //spi_interrupt_init();
   can_init();
 }
 
@@ -36,19 +39,27 @@ int main(void)
   init();
   printf("Hello world eller noe sånt\n");
   can_frame_t test_frame = {
-    .id = 69,
+    .id = 0x19,
     .rtr = 0,
     .data_len = 1,
     .data = {69}
   };
 
-  can_transmit(&test_frame);
+  can_frame_t test_frame_2;
 
+  can_transmit(&test_frame);
+  can_receive(0, &test_frame_2);
   while(1){
     //joystick_read();
     //joystick_read_button_polled();
 
-    printf("%d \n", mcp_read(0x0E));
+    
+    printf("id: %x \n",test_frame_2.id);
+    printf("length: %x \n",test_frame_2.data_len);
+    for(uint8_t i = 0; i < 8; i++){
+      printf("data: %d \n",test_frame_2.data[i]);
+    }
+    //printf("%x \n", mcp_read(MCP_RXB0SIDL));
   }
   return 0;
 }

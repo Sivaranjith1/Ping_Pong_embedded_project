@@ -160,6 +160,9 @@
     <Compile Include="CAN\mcp2515.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="CAN\mcp_constants.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="GPIO\gpio.c">
       <SubType>compile</SubType>
     </Compile>
