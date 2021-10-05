@@ -12,6 +12,7 @@
 #define F_CPU 4915200UL //The oscillator clock
 
 #define MAX233_BAUDRATE 9600
+#define UART_BAUDRATE 9600
 
 /**
  * @brief Memory addresses
