@@ -168,6 +168,9 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="system_config.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UART\printf-stdarg.c">
       <SubType>compile</SubType>
     </Compile>

@@ -79,8 +79,9 @@ uint8_t can_init(uint32_t can_br, uint8_t num_tx_mb, uint8_t num_rx_mb)
 	PMC->PMC_PCER1 |= 1 << (ID_CAN0 - 32);
 	
 	//Set baudrate, Phase1, phase2 and propagation delay for can bus. Must match on all nodes!
+	CAN0->CAN_WPMR = (0 << 0);
 	CAN0->CAN_BR = can_br; 
-	
+	CAN0->CAN_WPMR = (1 << 0);
 
 	/****** Start of mailbox configuration ******/
 

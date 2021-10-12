@@ -7,33 +7,36 @@
 
 
 #include "sam.h"
+#include "system_config.h"
 #include "CAN/can_controller.h"
 #include "CAN/can_interrupt.h"
 #include "UART/uart.h"
 #include "UART/printf-stdarg.h"
 
-#define CAN_BR 4000000
 
 void init(void){
     configure_uart();
-    can_init_def_tx_rx_mb(CAN_BR);
+    can_init_def_tx_rx_mb(CAN_BR_VALUES);
 }
 
 int main(void)
 {
     /* Initialize the SAM system */
+	
     SystemInit();
     init();
-    PIOA->PIO_PER |= (1 << 19) | (1 << 20);
-    PIOA->PIO_OER |= (1 << 19) | (1 << 20);
+	printf("We should make it print something\n\r");
+    CAN_MESSAGE message = {
+        .id = {69},
+        .data_length = 2,
+        .data = {420, 420}
+    };
+
     while (1) 
     {
-        PIOA->PIO_SODR |= (1 << 19) | (1 << 20);
-        for (uint64_t i = 0; i < (SystemCoreClock/4); i++){};
-        PIOA->PIO_CODR |= (1 << 19) | (1 << 20);
-        for (uint64_t i = 0; i < (SystemCoreClock/4); i++){};
-        printf("Hallo\n\r");
-        //uart_putchar('A');
+        WDT->WDT_CR |= 1 << WDT_CR_WDRSTT; // Feed the dog cyanide
+        //can_send(&message, 0);
+        //printf("Hallo\n\r");
     }
     return 0;
 }
