@@ -4,9 +4,9 @@
 #include <avr/io.h>
 
 void can_init(void){
-    mcp_write(MCP_CNF1, (1 << 7) | 1);
-    mcp_write(MCP_CNF3, 3);
-    mcp_write(MCP_CNF2, (1 << 7) | (3 << 2) | (1 << 1));
+    mcp_write(MCP_CNF3, 0x83); // PS2 = 3, SOF enable
+    mcp_write(MCP_CNF2, 0x92); // PropSeg = 2, PS1 = 2, Enable PS2 from CNF3
+    mcp_write(MCP_CNF1, 0x41); // SJW = 2, BRP = 1
     mcp_bit_manipulation(MCP_CANCTRL, MODE_MASK, MODE_NORMAL); // setting CAN to normal mode
 
     mcp_write(MCP_TXRTSCTRL, 0b000); //Sets TXnRTS pins to digital inputs
@@ -33,7 +33,7 @@ void can_transmit(can_frame_t* can_frame){
     }
 
     mcp_write(MCP_TXB0CTRL, 0x8);    //Set Message transmit request
-    mcp_request_to_send(1);
+    mcp_request_to_send(0);
     
 }
 

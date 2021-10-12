@@ -31,10 +31,10 @@ int main(void)
         .data_length = 2,
         .data = {420, 420}
     };
-
+    WDT->WDT_MR = WDT_MR_WDDIS;
     while (1) 
     {
-        WDT->WDT_CR |= 1 << WDT_CR_WDRSTT; // Feed the dog cyanide
+        //WDT->WDT_CR |= 1 << WDT_CR_WDRSTT; // Feed the dog cyanide
         //can_send(&message, 0);
         //printf("Hallo\n\r");
     }
