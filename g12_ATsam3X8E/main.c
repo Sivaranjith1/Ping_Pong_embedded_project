@@ -12,19 +12,25 @@
 #include "CAN/can_interrupt.h"
 #include "UART/uart.h"
 #include "UART/printf-stdarg.h"
+#include "PWM/pwm.h"
 
 
 void init(void){
+    SystemInit();
     configure_uart();
     can_init_def_tx_rx_mb(CAN_BR_VALUES);
+    pwm_init();
+    adc_init();
+
 }
 
 int main(void)
 {
     /* Initialize the SAM system */
-	
-    SystemInit();
+
     init();
+    pwm_set_duty_cycle(50, 5);
+    pwm_set_duty_cycle(50, 6);
 	printf("We should make it print something\n\r");
     CAN_MESSAGE message = {
         .id = {69},

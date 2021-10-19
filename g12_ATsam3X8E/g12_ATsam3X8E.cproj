@@ -147,6 +147,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ADC\adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ADC\adc.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="CAN\can_controller.c">
       <SubType>compile</SubType>
     </Compile>
@@ -168,6 +174,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="PWM\pwm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="PWM\pwm.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="system_config.h">
       <SubType>compile</SubType>
     </Compile>
@@ -185,8 +197,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ADC\" />
     <Folder Include="CAN\" />
     <Folder Include="Device_Startup\" />
+    <Folder Include="PWM\" />
     <Folder Include="UART\" />
   </ItemGroup>
   <ItemGroup>
