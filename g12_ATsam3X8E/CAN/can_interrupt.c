@@ -54,9 +54,12 @@ void CAN0_Handler( void )
 		if(DEBUG_INTERRUPT)printf("message data length: %d\n\r", message.data_length);
 		for (int i = 0; i < message.data_length; i++)
 		{
-			if(DEBUG_INTERRUPT)printf("%d ", message.data[i]);
+			if(DEBUG_INTERRUPT)printf("%d ", message.data.char_array[i]);
 		}
 		if(DEBUG_INTERRUPT)printf("\n\r");
+		if(DEBUG_INTERRUPT && message.id == 0x01){
+			printf("joystick %d %d \n\r", (uint8_t)(message.data.f32[0]*100),(uint8_t)(message.data.f32[1]*100));
+		}
 	}
 	
 	if(can_sr & CAN_SR_MB0)

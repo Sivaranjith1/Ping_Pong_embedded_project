@@ -4,7 +4,7 @@
 #include <avr/io.h>
 
 void can_init(void){
-    mcp_write(MCP_CNF3, 0x83); // PS2 = 3, SOF enable
+    mcp_write(MCP_CNF3, 0x83); // PS2 = 3, SOF enable so that CNF2 and CNF1 can be written to
     mcp_write(MCP_CNF2, 0x92); // PropSeg = 2, PS1 = 2, Enable PS2 from CNF3
     mcp_write(MCP_CNF1, 0x41); // SJW = 2, BRP = 1
     mcp_bit_manipulation(MCP_CANCTRL, MODE_MASK, MODE_NORMAL); // setting CAN to normal mode
@@ -14,13 +14,20 @@ void can_init(void){
     mcp_write(MCP_CANINTE, 1 << 2); //Enables CAN interrupt to TXB0
     mcp_write(MCP_CANINTE, MCP_RX_INT); 
     
+    
+    SREG = (0 << 8); // disable global interrupt
+    GICR = (1 << INT2); // enable interrupt for pin INT2
+    EMCUCR = 1; // external interrupt enable on INT2
+    GIFR = (1 << INTF2); // clear flag
+    SREG = (1 << 8); // enable global interrupt
+    /*
     SREG = (0 << 8); // disable global interrupts
     GICR = (1 << INT1) | (1 << INT0) | (1 << INT2); // enable interrupts for pins INT0 - INT2
     MCUCR = (2 << ISC10) | (2 << ISC00); // falling edge interrupt for both INT0 and INT1
     EMCUCR = 1; // External interrupt enable on INT2
     GIFR = (1 << INTF0) | (1 << INTF1) | (1 << INTF2); // clear flags
     SREG = (1 << 8); // enable global interrupts
-
+    */
 }
 
 void can_transmit(can_frame_t* can_frame){
@@ -29,7 +36,7 @@ void can_transmit(can_frame_t* can_frame){
     mcp_write(MCP_TXB0DLC, (uint8_t)(can_frame->rtr) << 6 | can_frame->data_len); // setting data_len
     for (uint8_t i = 0; i < 8; i++)
     {
-        mcp_write(MCP_TXB0D0 + i, can_frame->data[i]);
+        mcp_write(MCP_TXB0D0 + i, can_frame->data.char_array[i]);
     }
 
     mcp_write(MCP_TXB0CTRL, 0x8);    //Set Message transmit request
@@ -73,6 +80,6 @@ void can_receive(uint8_t rxb_register, can_frame_t* can_frame){
     can_frame->rtr = (rxb & 0x40) >> 6; 
     
     for(uint8_t i = 0; i < can_frame->data_len; i++){
-        can_frame->data[i] = mcp_read(RXBnD0 + i);
+        can_frame->data.char_array[i] = mcp_read(RXBnD0 + i);
     }
 }

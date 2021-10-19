@@ -142,8 +142,8 @@ uint8_t can_send(CAN_MESSAGE* can_msg, uint8_t tx_mb_id)
 			//Message is to long, sending only the first 8 bytes
 		}
 		//Put message in can data registers
-		CAN0->CAN_MB[tx_mb_id].CAN_MDL = can_msg->data[3] << 24 | can_msg->data[2] << 16 | can_msg->data[1] << 8 | can_msg->data[0];
-		CAN0->CAN_MB[tx_mb_id].CAN_MDH = can_msg->data[7] << 24 | can_msg->data[6] << 16 | can_msg->data[5] << 8 | can_msg->data[4];
+		CAN0->CAN_MB[tx_mb_id].CAN_MDL = can_msg->data.char_array[3] << 24 | can_msg->data.char_array[2] << 16 | can_msg->data.char_array[1] << 8 | can_msg->data.char_array[0];
+		CAN0->CAN_MB[tx_mb_id].CAN_MDH = can_msg->data.char_array[7] << 24 | can_msg->data.char_array[6] << 16 | can_msg->data.char_array[5] << 8 | can_msg->data.char_array[4];
 		
 		//Set message length and mailbox ready to send
 		CAN0->CAN_MB[tx_mb_id].CAN_MCR = (can_msg->data_length << CAN_MCR_MDLC_Pos) | CAN_MCR_MTCR;
@@ -186,12 +186,12 @@ uint8_t can_receive(CAN_MESSAGE* can_msg, uint8_t rx_mb_id)
 		{
 			if(i < 4)
 			{
-				can_msg->data[i] = (char)(data_low & 0xff);
+				can_msg->data.char_array[i] = (char)(data_low & 0xff);
 				data_low = data_low >> 8;
 			}
 			else
 			{
-				can_msg->data[i] = (uint8_t)(data_high & 0xff);
+				can_msg->data.char_array[i] = (uint8_t)(data_high & 0xff);
 				data_high = data_high >> 8;
 			}
 		}

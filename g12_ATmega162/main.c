@@ -43,21 +43,25 @@ int main(void)
   can_frame_t test_frame = {
     .id = 0x19,
     .rtr = 0,
-    .data_len = 1,
-    .data = {69}
+    .data_len = 8,
+    .data.f32 = {69.9, 10}
   };
 
   can_frame_t test_frame_2;
 
   while(1){
-	/*can_receive(0, &test_frame_2);
-	printf("id: %x \n",test_frame_2.id);
-	printf("length: %x \n",test_frame_2.data_len);
-	for(uint8_t i = 0; i < 8; i++){
-		printf("data: %d \n",test_frame_2.data[i]);
-	}
-	*/
-	can_transmit(&test_frame);
+	  /*can_receive(0, &test_frame_2);
+	  printf("id: %x \n",test_frame_2.id);
+	  printf("length: %x \n",test_frame_2.data_len);
+	  for(uint8_t i = 0; i < 8; i++){
+	  	printf("data: %d \n",test_frame_2.data[i]);
+	  }
+	  */
+    joystick_read();
+
+	  joystick_can_transmit_pos();
+    for (uint32_t i = 0; i < 1000; i++);
+    
   }
   return 0;
 }
