@@ -14,6 +14,7 @@
 #include "sam.h"
 
 #include "../UART/printf-stdarg.h"
+#include "../PWM/pwm.h"
 
 #include "can_controller.h"
 
@@ -59,6 +60,7 @@ void CAN0_Handler( void )
 		if(DEBUG_INTERRUPT)printf("\n\r");
 		if(DEBUG_INTERRUPT && message.id == 0x01){
 			printf("joystick %d %d \n\r", (uint8_t)(message.data.f32[0]*100),(uint8_t)(message.data.f32[1]*100));
+			pwm_update_from_joystick(message.data.f32);
 		}
 	}
 	
