@@ -13,6 +13,8 @@
 #include "UART/uart.h"
 #include "UART/printf-stdarg.h"
 #include "PWM/pwm.h"
+#include "ADC/adc.h"
+#include "ADC/goal_handler.h"
 
 
 void init(void){
@@ -21,7 +23,6 @@ void init(void){
     can_init_def_tx_rx_mb(CAN_BR_VALUES);
     pwm_init();
     adc_init();
-
 }
 
 int main(void)
@@ -34,10 +35,19 @@ int main(void)
     
     WDT->WDT_MR = WDT_MR_WDDIS;
     
+    adc_start_conversion();
     while (1) 
     {
-        //WDT->WDT_CR |= 1 << WDT_CR_WDRSTT; // Feed the dog cyanide
-        //printf("Hallo\n\r");
+        if(goal_check_for_goal()){
+            printf("GOOOOOOOAL %d \n\r", goal_get_goals());
+            for (uint16_t i = 0; i < 10000; i++);
+        }
+        /*
+        for (uint32_t i = 0; i < 100000; i++);
+        float data = adc_get_data(0);
+        printf("Here is some data bitches %d \n\r", (uint32_t) data * 1000);
+        printf("Bert, convert: %d \n\r", (uint32_t)adc_get_ema_filtered_data(0, 0.6) * 1000);
+        */
     }
     return 0;
 }

@@ -165,6 +165,12 @@
     <Compile Include="ADC\adc.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="ADC\goal_handler.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ADC\goal_handler.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="CAN\can_controller.c">
       <SubType>compile</SubType>
     </Compile>

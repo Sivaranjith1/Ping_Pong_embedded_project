@@ -18,7 +18,7 @@
 
 #include "can_controller.h"
 
-#define DEBUG_INTERRUPT 1
+#define DEBUG_INTERRUPT 0
 
 /**
  * \brief CAN0 Interrupt handler for RX, TX and bus error interrupts
@@ -58,8 +58,8 @@ void CAN0_Handler( void )
 			if(DEBUG_INTERRUPT)printf("%d ", message.data.char_array[i]);
 		}
 		if(DEBUG_INTERRUPT)printf("\n\r");
-		if(DEBUG_INTERRUPT && message.id == 0x01){
-			printf("joystick %d %d \n\r", (uint8_t)(message.data.f32[0]*100),(uint8_t)(message.data.f32[1]*100));
+		if(message.id == 0x01){
+			if(DEBUG_INTERRUPT)printf("joystick %d %d \n\r", (uint8_t)(message.data.f32[0]*100),(uint8_t)(message.data.f32[1]*100));
 			pwm_update_from_joystick(message.data.f32);
 		}
 	}
