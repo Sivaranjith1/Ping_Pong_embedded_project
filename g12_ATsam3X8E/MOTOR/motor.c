@@ -2,6 +2,10 @@
 #include "motor.h"
 #include "../DACC/dacc.h"
 
+#define MOTOR_ENCODER_DATA_SHIFT 1
+
+static uint8_t motor_read_encoder_data();
+
 void motor_init(){
 	PIOD->PIO_PER = PIO_PER_P9; // For EN
 	PIOD->PIO_PER = PIO_PER_P10; // For DIR
@@ -14,6 +18,9 @@ void motor_init(){
 	PIOD->PIO_OER = PIO_OER_P2;
 
     PIOD->PIO_SODR |= PIO_SODR_P9;
+
+    // For encoder data lines
+    PIOC->PIO_PER = 0xFF << MOTOR_ENCODER_DATA_SHIFT;
 }
 
 void motor_set_speed(float speed){
@@ -37,11 +44,32 @@ void motor_set_direction(motor_direction_t direction){
     }
 }
 
-uint32_t motor_read_encoder(void){
-    PIOD->PIO_CODR |= PIO_CODR_P0;
-    PIOD->PIO_CODR |= PIO_CODR_P2;
+uint16_t motor_read_encoder(void){
+    PIOD->PIO_CODR |= PIO_CODR_P0; // Setting !OE low; enable output
+    PIOD->PIO_CODR |= PIO_CODR_P2; // Set sel low; get higher bytes
 
     for (uint32_t i; i < 20*84; ++i) __NOP();
 
+    uint8_t encoder_high_byte = motor_read_encoder_data();
 
+    PIOD->PIO_SODR |= PIO_SODR_P2; // Set sel high; get lower bytes
+
+    for (uint32_t i; i < 20*84; ++i) __NOP();
+
+    uint8_t encoder_low_byte = motor_read_encoder_data();
+
+    PIOD->PIO_SODR |= PIO_SODR_P0; // Setting !OE low; enable output
+    return (encoder_high_byte << 8 | encoder_low_byte);
+}
+
+
+/**
+ * @brief Reads a byte from the encoder data lines. The sel and OE line has to be sat before calling this function
+ * 
+ * @return uint8_t The data byte
+ */
+static uint8_t motor_read_encoder_data(){
+    // pin 33 to 40 is connected with DO0 to DO7 respectivly
+    // pin 33 to 40 is mapped to PC1 to PC8 respectively
+    return (PIOC->PIO_PDSR >> MOTOR_ENCODER_DATA_SHIFT) & 0xFF;
 }

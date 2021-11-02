@@ -35,4 +35,6 @@ void motor_set_speed(float speed);
  */
 void motor_set_direction(motor_direction_t direction);
 
+uint16_t motor_read_encoder(void);
+
 #endif
