@@ -35,6 +35,13 @@ void motor_set_speed(float speed);
  */
 void motor_set_direction(motor_direction_t direction);
 
+/**
+ * @brief 
+ * 
+ * @return uint16_t 
+ */
 uint16_t motor_read_encoder(void);
+
+void motor_reset_encoder();
 
 #endif

@@ -7,8 +7,10 @@
 static uint8_t motor_read_encoder_data();
 
 void motor_init(){
+	PIOD->PIO_PER = PIO_PER_P1; // For !Reset
 	PIOD->PIO_PER = PIO_PER_P9; // For EN
 	PIOD->PIO_PER = PIO_PER_P10; // For DIR
+    PIOD->PIO_OER = PIO_OER_P1;
     PIOD->PIO_OER = PIO_OER_P9;
     PIOD->PIO_OER = PIO_OER_P10;
 
@@ -17,7 +19,11 @@ void motor_init(){
 	PIOD->PIO_OER = PIO_OER_P0;
 	PIOD->PIO_OER = PIO_OER_P2;
 
+    PIOD->PIO_SODR |= PIO_SODR_P1;
     PIOD->PIO_SODR |= PIO_SODR_P9;
+    
+    PMC->PMC_PCR |= PMC_PCR_EN | PMC_PCR_DIV_PERIPH_DIV_MCK | (PIC << PMC_PCR_PID_Pos);
+    PMC->PMC_PCER0 |= 1 << (ID_ADC - 32); //enable ADC in PMC
 
     // For encoder data lines
     PIOC->PIO_PER = 0xFF << MOTOR_ENCODER_DATA_SHIFT;
@@ -45,6 +51,7 @@ void motor_set_direction(motor_direction_t direction){
 }
 
 uint16_t motor_read_encoder(void){
+    
     PIOD->PIO_CODR |= PIO_CODR_P0; // Setting !OE low; enable output
     PIOD->PIO_CODR |= PIO_CODR_P2; // Set sel low; get higher bytes
 
@@ -62,6 +69,11 @@ uint16_t motor_read_encoder(void){
     return (encoder_high_byte << 8 | encoder_low_byte);
 }
 
+void motor_reset_encoder(){
+    PIOD->PIO_CODR |= PIO_CODR_P1; // pull !RST LOW
+    for (uint32_t i; i < 20; ++i) __NOP();
+    PIOD->PIO_SODR |= PIO_SODR_P1; // pull !RST High
+}
 
 /**
  * @brief Reads a byte from the encoder data lines. The sel and OE line has to be sat before calling this function
