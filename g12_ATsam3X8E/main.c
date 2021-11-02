@@ -57,6 +57,7 @@ int main(void)
             printf("GOOOOOOOAL %d \n\r", goal_get_goals());
             for (uint16_t i = 0; i < 10000; i++);
         }
+        //printf("Encoder data: %d \n\r", motor_read_encoder());
         /*
         for (uint32_t i = 0; i < 100000; i++);
         float data = adc_get_data(0);

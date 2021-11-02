@@ -4,7 +4,7 @@
 static uint32_t pwm_duty_cycle_math(float duty_cycle, uint8_t channel);
 
 void pwm_init(void){
-    // Disables WP
+    // Disables WP for PIOA-C
     PIOA->PIO_WPMR = (0x50494F << 8);
     PIOB->PIO_WPMR = (0x50494F << 8);
     PIOC->PIO_WPMR = (0x50494F << 8);

@@ -16,6 +16,8 @@
 #include "../UART/printf-stdarg.h"
 #include "../PWM/pwm.h"
 #include "../MOTOR/motor.h"
+#include "../MOTOR/pid.h"
+#include "../DACC/dacc.h"
 
 #include "can_controller.h"
 
@@ -62,7 +64,7 @@ void CAN0_Handler( void )
 		if(message.id == 0x01){
 			if(DEBUG_INTERRUPT)printf("joystick %d %d \n\r", (uint8_t)(message.data.f32[0]*100),(uint8_t)(message.data.f32[1]*100));
 			pwm_update_from_joystick(message.data.f32[0]);
-			motor_set_speed(message.data.f32[1]);
+			motor_set_speed(pid_controller(message.data.f32[1], (float)(motor_read_encoder()/65535)));
 		}
 	}
 	

@@ -6,7 +6,7 @@
 #define VOLTAGE_NOISE 1.5 // limit for logical 0 or 1
 
 static uint8_t goal_counter = 0;
-static uint8_t goal_is_blocked = 0;
+static uint8_t goal_is_blocked = 1;
 static uint8_t goal_adc_read_state(uint8_t channel);
 
 static uint8_t goal_adc_read_state(uint8_t channel){

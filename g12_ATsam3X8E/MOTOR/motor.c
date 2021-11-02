@@ -1,6 +1,7 @@
 #include "sam.h"
 #include "motor.h"
 #include "../DACC/dacc.h"
+#include "pid.h"
 
 #define MOTOR_ENCODER_DATA_SHIFT 1
 
@@ -22,8 +23,8 @@ void motor_init(){
     PIOD->PIO_SODR |= PIO_SODR_P1;
     PIOD->PIO_SODR |= PIO_SODR_P9;
     
-    PMC->PMC_PCR |= PMC_PCR_EN | PMC_PCR_DIV_PERIPH_DIV_MCK | (PIC << PMC_PCR_PID_Pos);
-    PMC->PMC_PCER0 |= 1 << (ID_ADC - 32); //enable ADC in PMC
+    PMC->PMC_PCR |= PMC_PCR_EN | PMC_PCR_DIV_PERIPH_DIV_MCK | (ID_PIOC << PMC_PCR_PID_Pos);
+    PMC->PMC_PCER0 |= 1 << (ID_PIOC); //enable PIOC in PMC
 
     // For encoder data lines
     PIOC->PIO_PER = 0xFF << MOTOR_ENCODER_DATA_SHIFT;
@@ -32,11 +33,20 @@ void motor_init(){
 void motor_set_speed(float speed){
     //printf("Speed %d\n\r", (uint8_t)speed);
     float dac_input = 0;
-    if(speed <= 0.5){
-        dac_input = 1 - speed*2;
+    if(speed <= 0){
+        if(speed <= -1) {
+            dac_input = 1;
+        } else {
+            dac_input = speed*(-1);
+        }
+
         motor_set_direction(MOTOR_LEFT);
-    } else {
-        dac_input = (speed - 0.5)*2;
+    } else{
+        if(speed >= 1){
+            dac_input = 1;
+        } else {
+            dac_input = speed;
+        }
         motor_set_direction(MOTOR_RIGHT);
     }
     dacc_convert(dac_input);
@@ -61,7 +71,7 @@ uint16_t motor_read_encoder(void){
 
     PIOD->PIO_SODR |= PIO_SODR_P2; // Set sel high; get lower bytes
 
-    for (uint32_t i; i < 20*84; ++i) __NOP();
+    for (uint32_t i; i < 20*84; ++i) __NOP();   
 
     uint8_t encoder_low_byte = motor_read_encoder_data();
 

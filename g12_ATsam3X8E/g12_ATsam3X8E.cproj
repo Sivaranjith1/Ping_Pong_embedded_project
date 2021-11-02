@@ -204,6 +204,12 @@
     <Compile Include="MOTOR\motor.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="MOTOR\pid.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MOTOR\pid.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="PWM\pwm.c">
       <SubType>compile</SubType>
     </Compile>
@@ -236,6 +242,8 @@
     <Folder Include="ADC\" />
     <Folder Include="CAN\" />
     <Folder Include="DACC\" />
+    <Folder Include="Debug\" />
+    <Folder Include="Debug\MOTOR\" />
     <Folder Include="Device_Startup\" />
     <Folder Include="MOTOR\" />
     <Folder Include="PWM\" />
@@ -243,6 +251,12 @@
     <Folder Include="UART\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Debug\MOTOR\motor.d">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="Debug\MOTOR\motor.o">
+      <SubType>compile</SubType>
+    </None>
     <None Include="Device_Startup\sam3x8e_flash.ld">
       <SubType>compile</SubType>
     </None>

@@ -1,7 +1,7 @@
 /**
  * @file timer.h
  * @author Ask Øren, Steffen Folåsen, Sivaranjith Sivarasa
- * @brief ATSAME's internal timer drivers
+ * @brief ATSAM's internal timer drivers
  * @version 1.0
  * @date 2021-11-02
  * 
