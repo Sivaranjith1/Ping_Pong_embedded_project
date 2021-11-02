@@ -1,3 +1,13 @@
+/**
+ * @file can.h
+ * @author Ask Øren, Steffen Folåsen, Sivaranjith Sivarasa
+ * @brief Driver for sending and receiving can messages. Requires mcp2515.h
+ * @version 0.1
+ * @date 2021-10-19
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 #ifndef CAN_H
 #define CAN_H
 

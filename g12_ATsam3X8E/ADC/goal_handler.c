@@ -2,7 +2,7 @@
 #include "adc.h"
 
 #define GOAL_CHANNEL 0
-#define GOAL_ALPHA 0.5 // Pulled out of Ranjith's ass
+#define GOAL_ALPHA 0.5 // For the EMA filter
 #define VOLTAGE_NOISE 1.5 // limit for logical 0 or 1
 
 static uint8_t goal_counter = 0;

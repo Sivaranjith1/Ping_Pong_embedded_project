@@ -1,3 +1,14 @@
+/**
+ * @file menu.h
+ * @author Ask Øren, Steffen Folåsen, Sivaranjith Sivarasa
+ * @brief Driver for controlling the menu and elements on the screen
+ * @version 0.1
+ * @date 2021-10-14
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #ifndef MENU_H
 #define MENU_H
 

@@ -1,12 +1,13 @@
-/*
-This file contains constants that are specific to the MCP2515.
-
-Version     Date        Description
-----------------------------------------------------------------------
-v1.00       2003/12/11  Initial release
-
-Copyright 2003 Kimberly Otten Software Consulting
-*/
+/**
+ * @file mcp_constants.h
+ * @author Kimberly Otten Software Consulting
+ * @brief This file contains constants that are specific to the MCP2515.
+ * @version 1.0
+ * @date 2003-12-11
+ * 
+ * @copyright Copyright (c) 2003
+ * 
+ */
 
 #ifndef MCP_CONSTANTS_H
 #define MCP_CONSTANTS_H

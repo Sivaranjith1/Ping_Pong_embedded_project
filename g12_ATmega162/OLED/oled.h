@@ -1,10 +1,13 @@
-﻿/*
- * IncFile1.h
- *
- * Created: 9/14/2021 8:47:57 AM
- *  Author: Steffen Folåsen
- */ 
-
+﻿/**
+ * @file oled.h
+ * @author your name (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2021-09-14
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 
 #ifndef OLED_H_
 #define OLED_H_

@@ -52,7 +52,7 @@
         <documentation help="" />
         <offline-documentation help="" />
         <dependencies>
-          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.42.0" />
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.34.1" />
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
@@ -183,6 +183,12 @@
     <Compile Include="CAN\can_interrupt.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="DACC\dacc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DACC\dacc.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Device_Startup\startup_sam3xa.c">
       <SubType>compile</SubType>
     </Compile>
@@ -192,6 +198,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="MOTOR\motor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MOTOR\motor.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="PWM\pwm.c">
       <SubType>compile</SubType>
     </Compile>
@@ -199,6 +211,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="system_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TIMER\timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TIMER\timer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UART\printf-stdarg.c">
@@ -217,8 +235,11 @@
   <ItemGroup>
     <Folder Include="ADC\" />
     <Folder Include="CAN\" />
+    <Folder Include="DACC\" />
     <Folder Include="Device_Startup\" />
+    <Folder Include="MOTOR\" />
     <Folder Include="PWM\" />
+    <Folder Include="TIMER\" />
     <Folder Include="UART\" />
   </ItemGroup>
   <ItemGroup>

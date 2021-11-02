@@ -13,16 +13,47 @@
 
 #include <stdint.h>
 
+/**
+ * @brief Initialize ADC channel 0 with timer interrupts
+ * 
+ */
 void adc_init(void);
 
+/**
+ * @brief Start converting the analog signals to digital
+ * 
+ */
 void adc_start_conversion(void);
 
+/**
+ * @brief Stop the convertion
+ * 
+ */
 void adc_stop_conversion(void);
 
-float adc_get_data(uint8_t channel);
+/**
+ * @brief 
+ * 
+ * @param channel 
+ * @return float 
+ */
+float adc_get_data(void);
 
+
+/**
+ * @brief Helper functio
+ * 
+ema filtering data
+ * @param channel 
+ * @param alpha 
+ * @return float 
+ */
 float adc_get_ema_filtered_data(uint8_t channel, float alpha);
 
+/**
+ * @brief The interrupt handler for the convertion is finished
+ * 
+ */
 void ADC_Handler(void);
 
 #endif

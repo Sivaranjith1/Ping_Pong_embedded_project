@@ -1,3 +1,14 @@
+/**
+ * @file spi.h
+ * @author Ask Øren, Steffen Folåsen, Sivaranjith Sivarasa
+ * @brief Driver for transmit and receive messages over spi
+ * @version 0.1
+ * @date 2021-10-19
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 
 #ifndef SPI_H_
 #define SPI_H_
@@ -17,12 +28,6 @@ void spi_init(void);
  * @param data data that is to be transmitted.
  */
 void spi_transmit(unsigned char data);
-
-/**
- * @brief 
- * 
- */
-void spi_interrupt_init(void);
 
 /**
  * @brief Transmits dummy data using @p spi_transmit() and reads out the data

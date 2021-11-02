@@ -1,11 +1,13 @@
-/*
- * g12_ATmega162.c
- *
- * Created: 31.08.2021 08:28:05
- * Author : Sivaranjith Sivarasa
- */ 
-
-
+/**
+ * @file main.c
+ * @author Ask Øren, Steffen Folåsen, Sivaranjith Sivarasa
+ * @brief The main function for running the code of the application
+ * @version 0.1
+ * @date 2021-08-31
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 
 #include "system_config.h"
 #include "ADC/adc.h"
@@ -21,6 +23,10 @@
 #include "CAN/mcp2515.h"
 #include "CAN/mcp_constants.h"
 
+/**
+ * @brief Run all init functions for different peripherals in one function
+ * 
+ */
 void init(void){
   usart_init(&usart_instance_0, MAX233_BAUDRATE);
   xmem_init();
@@ -33,6 +39,10 @@ void init(void){
   can_init();
 }
 
+/**
+ * @brief The main function with the infinite while loop 
+ * 
+ */
 int main(void)
 {
   init();
@@ -60,7 +70,7 @@ int main(void)
     joystick_read();
 
 	  joystick_can_transmit_pos();
-    for (uint32_t i = 0; i < 1000; i++);
+    for (uint32_t i = 0; i < 10000; i++);
     
   }
   return 0;

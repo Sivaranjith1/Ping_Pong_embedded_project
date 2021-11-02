@@ -4,16 +4,23 @@
 static uint32_t pwm_duty_cycle_math(float duty_cycle, uint8_t channel);
 
 void pwm_init(void){
+    // Disables WP
+    PIOA->PIO_WPMR = (0x50494F << 8);
+    PIOB->PIO_WPMR = (0x50494F << 8);
+    PIOC->PIO_WPMR = (0x50494F << 8);
+
     PIOC->PIO_PDR |= PIO_PDR_P18;   //Disables IO on pin 44
 	PIOC->PIO_ABSR |= PIO_ABSR_P18; // Selects peripheral on pin 44
     PIOC->PIO_PDR |= PIO_PDR_P19;   //Disables IO on pin 45
     PIOC->PIO_ABSR |= PIO_ABSR_P19; //  Selects peripheral on pin 45
 	
+    PWM->PWM_WPCR = (0x50574D << 8); // Disables WP
     PWM->PWM_CLK |= PWM_CLK_PREA(0x05) | PWM_CLK_DIVA(0x01) | PWM_CLK_PREB(0x02) | PWM_CLK_DIVB(0x25); // Setting clk prescalers
 
     PWM->PWM_CH_NUM[5].PWM_CMR = PWM_CMR_CPRE_CLKB; // Using clk B for channel 5
     PWM->PWM_CH_NUM[6].PWM_CMR = PWM_CMR_CPRE_CLKB; // Using clk B for channel 6
 
+    PMC->PMC_WPMR = (0x504D43 << 8); // Disables WP
     PMC->PMC_PCR = PMC_PCR_EN | PMC_PCR_DIV_PERIPH_DIV_MCK | (ID_PWM << PMC_PCR_PID_Pos); // Enable PWM in PMC
 	PMC->PMC_PCER1 |= 1 << (ID_PWM - 32); //Enable PWM in PMC, subtraction 32 since PMC_PCER0 is 32 bit long
 
@@ -48,7 +55,7 @@ static uint32_t pwm_duty_cycle_math(float duty_cycle, uint8_t channel){
     return nominator;
 }
 
-void pwm_update_from_joystick(float data[]){
-    pwm_update_duty_cycle(pwm_deg_to_duty_cycle(data[0]*100), 5);
-    pwm_update_duty_cycle(pwm_deg_to_duty_cycle(data[0]*100), 6);
+void pwm_update_from_joystick(float data){
+    pwm_update_duty_cycle(pwm_deg_to_duty_cycle(data*100), 5);
+    pwm_update_duty_cycle(pwm_deg_to_duty_cycle(data*100), 6);
 }

@@ -40,6 +40,6 @@ float pwm_deg_to_duty_cycle(float deg);
  * 
  * @param data a array of len two
  */
-void pwm_update_from_joystick(float *data);
+void pwm_update_from_joystick(float data);
 
 #endif
