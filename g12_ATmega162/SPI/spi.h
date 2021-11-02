@@ -33,3 +33,5 @@ void spi_interrupt_init(void);
 unsigned char spi_receive(void);
 
 #endif
+
+// PA15 - PIN24
