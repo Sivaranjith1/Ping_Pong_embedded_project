@@ -25,12 +25,13 @@ void adc_init(void){
     ADC->ADC_MR = ADC_MR_TRGSEL_ADC_TRIG0 | ADC_MR_TRGEN_DIS | ADC_MR_TRACKTIM(1) | ADC_MR_STARTUP_SUT8 | ADC_MR_SETTLING_AST3; //Prescaler = 0, Timer enabled for CH0, Tracking time 2 periods, 8 periods SUT, settling time 3
     //ADC->ADC_MR = ADC_MR_FREERUN_ON | ADC_MR_TRGSEL_ADC_TRIG0 | ADC_MR_TRGEN_DIS | ADC_MR_TRACKTIM(1) | ADC_MR_STARTUP_SUT8; //Prescaler = 0, Timer enabled for CH0, Tracking time 2 periods, 8 periods SUT
     ADC->ADC_CHER |= ADC_CHER_CH0; // Enable channel 0
+	ADC->
     
-    //Enable interupt for conversion finished on channel 0 and data ready
+    //Enable interrupt for conversion finished on channel 0 and data ready
     
-    ADC->ADC_IER |= ADC_IER_EOC0 | ADC_IER_DRDY; 
+    ADC->ADC_IER |= ADC_IER_EOC0 | ADC_IER_DRDY | ADC_IER_RXBUFF; 
     NVIC_EnableIRQ(TC0_IRQn); // Enable interrupt for timer channel 0
-    NVIC_EnableIRQ(ADC_IRQn); // Enable NVIC interupt
+    NVIC_EnableIRQ(ADC_IRQn); // Enable NVIC interrupt
     
     
     ADC->ADC_MR |= ADC_MR_TRGEN_EN;
