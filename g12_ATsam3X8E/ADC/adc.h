@@ -32,12 +32,12 @@ void adc_start_conversion(void);
 void adc_stop_conversion(void);
 
 /**
- * @brief 
+ * @brief Get the latest adc readout
  * 
- * @param channel 
- * @return float 
+ * @param channel the channel to read from
+ * @return float voltage in V
  */
-float adc_get_data(void);
+float adc_get_data(uint8_t channel);
 
 
 /**
