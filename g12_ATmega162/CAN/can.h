@@ -12,6 +12,12 @@ typedef enum {
     REMOTE_TRANSMIT_REQUEST = 1
 } can_rtr_t;
 
+typedef union {
+ unsigned char char_array[8];
+ float f32[2];
+ uint64_t i64;
+} can_data_t;
+
 /**
  * @brief Struct for defining a can frame
  * @param id the id of the message. Lower id will be prioritized over higher ids on the can bus
@@ -24,13 +30,15 @@ typedef struct {
     uint16_t id;
     can_rtr_t rtr;
     unsigned char data_len;
-    unsigned char data[8];
+    can_data_t data;
 } can_frame_t;
 
 /**
  * @brief Sets CAN to normal mode. Also sets TXnRTS pins to digital inputs and
  * enables CAN interrupt to TXB0.
- * 
+ * It then sets the CNF1, CNF3 and CNF2 registers such that the following values are achieved:
+ * PropSeg = 1 , PS1 = 1, PS2 = 2, SJW = 1,
+ * Which fulfill the requirements mentioned in the MCP2515 datasheet (p. 43)
  */
 void can_init(void);
 

@@ -1,5 +1,13 @@
-/*
- *
+/**
+ * @file mcp2515.h
+ * @author Ask E. Øren
+ * @brief Interface for setting and reading register from MCP2515 CAN controller over spi
+ * @note Requires spi.h
+ * @version 0.1
+ * @date 2021-10-19
+ * 
+ * @copyright Copyright (c) 2021
+ * 
  */
 
 #ifndef MCP2515_H
