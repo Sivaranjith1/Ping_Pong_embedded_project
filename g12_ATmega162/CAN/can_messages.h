@@ -13,8 +13,6 @@
 
 #include <stdint.h>
 
-#include "can_controller.h"
-
 // ------------------------
 //          Request
 // ------------------------
@@ -23,7 +21,6 @@
 // ------------------------
 //          Messages
 // ------------------------
-
 #define CAN_JOYSTICK_POS_ID 0x50
 typedef struct {
     float x_pos;
@@ -36,6 +33,6 @@ typedef struct {
  * @param can_msg the incoming frame. A pointer to CAN_MESSAGE
  * @return uint8_t return success(0) if the id is defined. Returns failure(1) if the id is not defined
  */
-uint8_t can_process_message(CAN_MESSAGE* can_msg);
+//uint8_t can_process_message(CAN_MESSAGE* can_msg);
 
 #endif

@@ -52,6 +52,8 @@ void oled_pos(uint8_t line, uint8_t column);
  */
 void oled_redraw(unsigned char data);
 
+void oled_refresh();
+
 
 /**
  * @brief Uses the oled_print_char function to print an array 

@@ -3,9 +3,9 @@
 
 
 #include "../UART/printf-stdarg.h"
+#include "../system_config.h"
 
 #define ADC_NUM_CHANNELS 16
-#define ADC_DEBUG 0
 
 #if ADC_DEBUG
 #define ADC_DEBUG_PRINT(...) printf(__VA_ARGS__)

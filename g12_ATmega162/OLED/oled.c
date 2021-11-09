@@ -14,6 +14,7 @@
 
 #define FADE_LENGTH 10000
 #define COLUMN_MAX_VALUE 127
+#define PAGE_MAX_VALUE 7
 
 /////////////////////////////////////////////////////////////////////////
 //  Local Variables and Function Definitions
@@ -74,7 +75,7 @@ static unsigned char oled_read_previous_data(void){
 }
 
 static void oled_save_data_to_sram(unsigned char data){
- 	xmem_write(data, OLED_SRAM_ADDRESS_START + 128*current_page + current_column);
+ 	xmem_write_with_check(data, OLED_SRAM_ADDRESS_START + 128*current_page + current_column);
 	oled_check_max_column();
 }
 
@@ -203,12 +204,19 @@ void oled_turn_off(void){
 
 void oled_redraw(unsigned char data){
 	unsigned char old_state = oled_read_previous_data();
-	if(old_state != data){
-		oled_save_data_to_sram(data);
-		oled_write_data(data);
-	}
-	else{
-		oled_check_max_column();
-	}
+	oled_save_data_to_sram(data);
 }
 
+void oled_refresh(){
+	for (uint8_t page = 0; page <= PAGE_MAX_VALUE; page++)
+	{
+		oled_pos(page, 0);
+		for (uint8_t column = 0; column <= COLUMN_MAX_VALUE; column++)
+		{
+			unsigned char data_from_sram = (unsigned char)xmem_read(OLED_SRAM_ADDRESS_START + 128*page + column);
+			oled_write_data(data_from_sram);
+		}
+	}
+	
+	oled_pos(0,0);
+}

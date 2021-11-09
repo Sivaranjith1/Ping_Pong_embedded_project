@@ -29,6 +29,12 @@
 #define OLED_SRAM_ADDRESS_START 0x800
 #define OLED_SRAM_ADDRESS_END 0x1000
 
+/**
+ * @brief All debug modes
+ * 
+ */
+#define TIMER1_DEBUG 0
+#define ADC_DEBUG 0
 
 
 #endif /* SYSTEM_CONFIG_H_ */

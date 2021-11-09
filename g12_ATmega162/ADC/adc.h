@@ -14,6 +14,9 @@
 #include <stdint.h>
 #include <float.h>
 
+enum cal_range {MIN, MAX};
+enum cal_channel {JOYSTICK_X, JOYSTICK_Y, SLIDER_R, SLIDER_L};
+
 /**
  * @brief position of the joysticks and sliders, the values will be between -1 and 1.
  * 
@@ -28,18 +31,28 @@ typedef struct
 
 typedef struct
 {
-    float offset;
-    float range;
+    float range_min;
+    float range_idle;
+    float range_max;
 } pos_calibrate_t;
 
+void pos_set_offset_calibration(enum cal_channel);
+
+void pos_set_range_calibration(enum cal_channel, enum cal_range);
 
 /**
- * @brief Will read a given channel from the adc. It will be a busy wait and pulling of the busy signal
+ * @brief Start conversion of all data channels. When the conversion is finish a isr will be called and data will be updated. 
  * 
- * @param channel the channel to read. 0 to 3
- * @return uint8_t return the value from the adc
  */
-uint8_t adc_read_polled(uint8_t channel);
+void adc_start_conversion();
+
+/**
+ * @brief Get adc data from the last conversion. 
+ * 
+ * @param channel the channel to get the data from
+ * @return uint8_t the data from the chosen channel
+ */
+uint8_t adc_get_channel_data(uint8_t channel);
 
 /**
  * @brief Get the x and y position of the joystick and the slider values. The output will use the last calibration

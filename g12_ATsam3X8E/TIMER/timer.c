@@ -6,9 +6,8 @@
 #include "../MOTOR/motor.h"
 #include "../MOTOR/pid.h"
 #include "../DACC/dacc.h"
+#include "../system_config.h"
 
-#define TC0_DEBUG 0
-#define TC1_DEBUG 0
 #define RC_COMP_TC0 840000 // 50 Hz
 #define RC_COMP_TC1 52500 // 50 Hz
 

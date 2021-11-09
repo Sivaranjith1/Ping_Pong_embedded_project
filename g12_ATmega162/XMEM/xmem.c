@@ -14,16 +14,30 @@
 #include "../USART/usart.h"
 #include "../system_config.h"
 
+#define XMEM_MAX_ATTEMPTS 3
+
 void xmem_init(void){
-	  MCUCR |= (1 << SRE);
-	  DDRC = 0xFF;
-	  PORTC = 0x00;
-	  SFIOR |= (1 << XMM2);
+	MCUCR |= (1 << SRE);
+	DDRC = 0xFF;
+	PORTC = 0x00;
+	SFIOR |= (1 << XMM2);
 }
 
 void xmem_write(uint8_t data, uint16_t addr){
 	volatile char *ext_mem = (char *)BASE_ADRESS;
 	ext_mem[addr] = data;
+}
+
+uint8_t xmem_write_with_check(uint8_t data, uint16_t addr){
+	for (uint8_t i = 0; i < XMEM_MAX_ATTEMPTS; i++)
+	{
+		xmem_write(data, addr);
+
+		if(xmem_read(addr) == data){
+			return 0;
+		}
+	}
+	return 1;
 }
 
 uint8_t xmem_read(uint16_t addr){

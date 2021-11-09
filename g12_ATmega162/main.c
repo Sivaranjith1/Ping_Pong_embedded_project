@@ -22,6 +22,8 @@
 #include "CAN/can.h"
 #include "CAN/mcp2515.h"
 #include "CAN/mcp_constants.h"
+#include "TIMER/timer.h"
+#include "INTERRUPTS/interrupts.h"
 
 /**
  * @brief Run all init functions for different peripherals in one function
@@ -33,9 +35,11 @@ void init(void){
   sram_init();
   oled_init();
   menu_init();
+  joystick_init();
+  interrupt_init();
+  timer_init();
   spi_init();
   mcp_init();
-  //spi_interrupt_init();
   can_init();
 }
 
@@ -47,30 +51,11 @@ int main(void)
 {
   init();
   printf("Hello world eller noe sånt\n");
-  printf("CNF1: %x \n", mcp_read(MCP_CNF1));
-  printf("CNF2: %x \n", mcp_read(MCP_CNF2));
-  printf("CNF3: %x \n", mcp_read(MCP_CNF3));
-  can_frame_t test_frame = {
-    .id = 0x19,
-    .rtr = 0,
-    .data_len = 8,
-    .data.f32 = {69.9, 10}
-  };
-
-  can_frame_t test_frame_2;
-
+  pos_set_offset_calibration(JOYSTICK_Y);
+  pos_set_offset_calibration(JOYSTICK_X);
   while(1){
-	  /*can_receive(0, &test_frame_2);
-	  printf("id: %x \n",test_frame_2.id);
-	  printf("length: %x \n",test_frame_2.data_len);
-	  for(uint8_t i = 0; i < 8; i++){
-	  	printf("data: %d \n",test_frame_2.data[i]);
-	  }
-	  */
-    joystick_read();
-
-	  joystick_can_transmit_pos();
-    for (uint32_t i = 0; i < 10000; i++);
+    //xmem_SRAM_test();
+    for (uint64_t i = 0; i < 50000; i++);
     
   }
   return 0;

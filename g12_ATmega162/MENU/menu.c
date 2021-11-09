@@ -2,9 +2,12 @@
 #define OPTIONS_CHILDREN 4
 
 #include "menu.h"
+#include "../ADC/adc.h"
+#include "../ADC/joystick.h"
 #include "../OLED/oled.h"
 #include "../SRAM/sram.h"
 #include <stdint.h>
+#include "../system_config.h"
 
 /////////////////////////////////////////////////////////////////////////
 //  Local Function Pointer Declaration
@@ -179,7 +182,45 @@ static void menu_quit_draw(void){
 }
 
 static void menu_high_score_draw(void){}
-static void menu_calibrate_draw(void){}
+static void menu_calibrate_draw(void){
+    oled_pos(0, 0);
+    oled_print("JOYSTICK CAL");
+    for (uint64_t i = 0; i < 200000; i++);
+    oled_pos(3, 0);
+    oled_print("JOYSTICK LEFT");
+    for (uint64_t i = 0; i < 250000; i++){
+    }
+    pos_set_range_calibration(JOYSTICK_X, MIN);
+    oled_clear_line(3);
+    oled_pos(3, 0);
+    oled_print("JOYSTICK RIGHT");
+    for (uint64_t i = 0; i < 250000; i++){
+    }
+    pos_set_range_calibration(JOYSTICK_X, MAX);
+    oled_clear_line(3);
+    oled_pos(3, 0);
+    oled_print("JOYSTICK DOWN");
+    for (uint64_t i = 0; i < 250000; i++){
+    }
+    pos_set_range_calibration(JOYSTICK_Y, MIN);
+    oled_clear_line(3);
+    oled_pos(3, 0);
+    oled_print("JOYSTICK UP");
+    for (uint64_t i = 0; i < 250000; i++){
+    }
+    pos_set_range_calibration(JOYSTICK_Y, MAX);
+    oled_clear_line(3);
+    oled_pos(3, 0);
+    oled_print("JOYSTICK IDLE");
+    for (uint64_t i = 0; i < 250000; i++){
+    }
+    pos_set_offset_calibration(JOYSTICK_X);
+    pos_set_offset_calibration(JOYSTICK_Y);
+    oled_clear_line(0);
+    oled_clear_line(3);
+    oled_pos(0, 0);
+    oled_print("Calibration finished");
+}
 static void menu_brightness_draw(void){}
 static void menu_players_draw(void){
     oled_pos(0, 50);

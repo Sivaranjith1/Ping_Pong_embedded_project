@@ -31,4 +31,6 @@ void joystick_read_button_polled(void);
  */
 void joystick_can_transmit_pos(void);
 
+void joystick_poll_buttons(void);
+
 #endif //JOYSTICK_H
