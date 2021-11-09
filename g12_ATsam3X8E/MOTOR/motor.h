@@ -38,14 +38,18 @@ void motor_set_direction(motor_direction_t direction);
 /**
  * @brief 
  * 
- * @return uint16_t 
+ * @return int16_t 
  */
-uint16_t motor_read_encoder(void);
+int16_t motor_read_encoder(void);
 
 /**
  * @brief Resets the encoder. This will say that the current position will give a read-out of zero
  * 
  */
 void motor_reset_encoder();
+
+float motor_get_position();
+
+void motor_position_set_max_value();
 
 #endif

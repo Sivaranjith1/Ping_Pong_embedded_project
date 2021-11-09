@@ -18,7 +18,7 @@
 void timer_init(void);
 
 /**
- * @brief Timer interrupt for timer channel 0
+ * @brief Timer interrupt handler for timer channel 0
  * 
  */
 void TC0_Handler(void);

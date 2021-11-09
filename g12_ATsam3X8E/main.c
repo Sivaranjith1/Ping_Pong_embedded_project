@@ -48,7 +48,7 @@ int main(void)
 
     init();
     //pwm_update_duty_cycle(50, 6);
-	printf("We should make it print something\n\r");
+	printf("\n\rAtsame starting ...\n\r");
     
     WDT->WDT_MR = WDT_MR_WDDIS;
     while (1) 

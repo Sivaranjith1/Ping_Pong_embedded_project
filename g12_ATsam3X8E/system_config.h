@@ -18,4 +18,6 @@
 //                         BRP     SJW      ProPag   Phase 1  Phase 2
 #define CAN_BR_VALUES (20 << 16 | 2 << 12 | 2 << 8 | 2 << 4 | 3)
 
+#define CAN_DEBUG 1
+
 #endif /* SYSTEM_CONFIG_H_ */
