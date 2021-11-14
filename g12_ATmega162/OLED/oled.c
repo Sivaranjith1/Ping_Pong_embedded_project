@@ -16,6 +16,8 @@
 #define COLUMN_MAX_VALUE 127
 #define PAGE_MAX_VALUE 7
 
+#define OLED_BRIGHTNESS 0x81
+
 /////////////////////////////////////////////////////////////////////////
 //  Local Variables and Function Definitions
 /////////////////////////////////////////////////////////////////////////
@@ -126,7 +128,7 @@ void oled_init(void){
 	xmem_write(0x3F, OLED_BASE_ADDRESS_COMMAND);
 	xmem_write(0xD5, OLED_BASE_ADDRESS_COMMAND); //display divide ratio/osc. freq. mode
 	xmem_write(0x80, OLED_BASE_ADDRESS_COMMAND);
-	xmem_write(0x81, OLED_BASE_ADDRESS_COMMAND); //contrast control
+	xmem_write(OLED_BRIGHTNESS, OLED_BASE_ADDRESS_COMMAND); //contrast control
 	xmem_write(0x50, OLED_BASE_ADDRESS_COMMAND);
 	xmem_write(0xD9, OLED_BASE_ADDRESS_COMMAND); //set pre-charge period
 	xmem_write(0x21, OLED_BASE_ADDRESS_COMMAND);
@@ -164,8 +166,12 @@ void oled_print_arrow(uint8_t row, uint8_t col){
 }
 
 void oled_set_brightness(uint8_t level){
-	xmem_write(0x81, OLED_BASE_ADDRESS_COMMAND);
+	xmem_write(OLED_BRIGHTNESS, OLED_BASE_ADDRESS_COMMAND);
 	xmem_write(level, OLED_BASE_ADDRESS_COMMAND);
+}
+
+uint8_t oled_get_brightness(){
+	return xmem_read(OLED_BRIGHTNESS);
 }
 
 void oled_clear_line(uint8_t line){

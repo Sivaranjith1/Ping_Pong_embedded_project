@@ -28,8 +28,8 @@ void timer_init(){
 
 ISR(TIMER1_COMPA_vect){
     TIMER1_DEBUG_PRINT("Timer 1 interrupt\n\r");
-    joystick_can_transmit_pos();
+    //joystick_can_transmit_pos();
     adc_start_conversion();
-    joystick_poll_buttons();
-    oled_refresh();
+    //joystick_poll_buttons();
+    //oled_refresh();
 }

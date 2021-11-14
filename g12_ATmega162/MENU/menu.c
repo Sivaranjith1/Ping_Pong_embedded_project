@@ -37,8 +37,6 @@ static menu_item high_score;
 static menu_item quit;
 static menu_item calibrate_joystick;
 static menu_item brightness;
-static menu_item set_difficulty;
-static menu_item sp_mp;
 
 /////////////////////////////////////////////////////////////////////////
 //  Local Functions Definitions
@@ -53,8 +51,6 @@ static void menu_high_score_draw(void);
 static void menu_quit_draw(void);
 static void menu_calibrate_draw(void);
 static void menu_brightness_draw(void);
-static void menu_players_draw(void);
-static void menu_difficulty_draw(void);
 
 /////////////////////////////////////////////////////////////////////////
 //  Local Menu Items Declarations
@@ -91,7 +87,7 @@ static menu_item options = {
     .name = "OPTIONS",
     .num_children = 4,
     .parent = &main_menu,
-    .children = {&brightness, &calibrate_joystick, &set_difficulty, &sp_mp},
+    .children = {&brightness, &calibrate_joystick},
     .draw_func = &menu_options_draw
 };
 
@@ -119,21 +115,6 @@ static menu_item brightness = {
     .draw_func = &menu_brightness_draw
 };
 
-static menu_item sp_mp = {
-    .name = "PLAYERS",
-    .num_children = 0,
-    .parent = &options,
-    .children = {0},
-    .draw_func = &menu_players_draw
-};
-
-static menu_item set_difficulty = {
-    .name = "DIFFICULTY",
-    .num_children = 0,
-    .parent = &options,
-    .children = {0},
-    .draw_func = &menu_difficulty_draw
-};
 
 /////////////////////////////////////////////////////////////////////////
 //  Local Function Declarations
@@ -221,20 +202,11 @@ static void menu_calibrate_draw(void){
     oled_pos(0, 0);
     oled_print("Calibration finished");
 }
-static void menu_brightness_draw(void){}
-static void menu_players_draw(void){
-    oled_pos(0, 50);
-    oled_print("YOU");
-    oled_pos(1, 50);
-    oled_print("WANNA");
-    oled_pos(2, 50);
-    oled_print("PLAY");
-    oled_pos(3, 50);
-    oled_print("A");
-    oled_pos(4, 50);
-    oled_print("GAME?");
+
+static void menu_brightness_draw(void){
+    
+
 }
-static void menu_difficulty_draw(void){}
 
 /////////////////////////////////////////////////////////////////////////
 //  Global Function Declarations

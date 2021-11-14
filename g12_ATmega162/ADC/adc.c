@@ -23,6 +23,7 @@
 
 // raw data saved in the interrupt
 static uint8_t adc_raw_data[4] = {0};
+static uint8_t adc_conversion_finished = 1;
 
 /**
  * @brief 
@@ -50,11 +51,13 @@ pos_calibrate_t slider_l_calibration = {
 pos_calibrate_t slider_r_calibration = {
 	.range_min = 0,
 	.range_idle = 0x7F,
-	.range_max = 0xff
+	.range_max = 0xfdf
 };
 
 void adc_start_conversion(){
+	if(!adc_conversion_finished) return;
 	xmem_write(0, ADC_BASE_ADDRESS); //send a command to read all channels
+	adc_conversion_finished = 0;
 }
 
 uint8_t adc_get_channel_data(uint8_t channel){
@@ -162,6 +165,7 @@ pos_t pos_read(void){
  * 
  */
 ISR(INT2_vect){
+	cli();
 	ADC_DEBUG_PRINT("Hello from INT2\n\r");
 
 	// saving raw_data in array
@@ -170,10 +174,11 @@ ISR(INT2_vect){
 		adc_raw_data[i] = xmem_read(ADC_BASE_ADDRESS);
 	}
 	
-	printf("Channel 2; %i	", adc_raw_data[2]);
-	printf("Channel 3; %i	", adc_raw_data[3]);
-	printf("Channel 0; %i	", adc_raw_data[0]);
-	printf("Channel 1; %i\n\r", adc_raw_data[1]);
-	
+	// printf("Channel 2; %i	", adc_raw_data[2]);
+	// printf("Channel 3; %i	", adc_raw_data[3]);
+	// printf("Channel 0; %i	", adc_raw_data[0]);
+	// printf("Channel 1; %i\n\r", adc_raw_data[1]);
+	adc_conversion_finished = 1;
 	GIFR = (1 << INTF2);  // clear flags
+	sei();
 }

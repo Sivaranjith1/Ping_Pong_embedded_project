@@ -55,7 +55,12 @@ int main(void)
   pos_set_offset_calibration(JOYSTICK_X);
   while(1){
     //xmem_SRAM_test();
-    for (uint64_t i = 0; i < 50000; i++);
+    uint8_t pos_x = adc_get_channel_data((uint8_t)JOYSTICK_X);
+    uint8_t pos_y = adc_get_channel_data((uint8_t)JOYSTICK_Y) - 35;
+    uint8_t slider_l = adc_get_channel_data((uint8_t)SLIDER_L);
+    uint8_t slider_r = adc_get_channel_data((uint8_t)SLIDER_R);
+    printf("pos data %d, %d, %d, %d\n", pos_x, pos_y, slider_l, slider_r);
+    //for (uint64_t i = 0; i < 50000; i++);
     
   }
   return 0;

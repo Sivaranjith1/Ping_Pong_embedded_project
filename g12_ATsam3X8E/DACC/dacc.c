@@ -1,8 +1,7 @@
 #include "dacc.h"
 #include "sam.h"
 #include <stdint.h>
-
-#define DACC_DEBUG 0
+#include "../system_config.h"
 
 #if DACC_DEBUG
 #define DACC_DEBUG_PRINT(...) printf(__VA_ARGS__)

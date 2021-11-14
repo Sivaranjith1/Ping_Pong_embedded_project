@@ -70,6 +70,13 @@ void oled_print(unsigned char* data);
 void oled_set_brightness(uint8_t level);
 
 /**
+ * @brief Returns the current brightness level of the screen
+ * 
+ * @return uint8_t the current brightness between 0 - 255
+ */
+uint8_t oled_get_brightness();
+
+/**
  * @brief Test function that creates an arrow on the LED screen
  * 
  * @param row What page that is being used (see data sheet). There are 8 pages
