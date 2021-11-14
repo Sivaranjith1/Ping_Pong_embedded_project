@@ -40,12 +40,17 @@ void joystick_read_button_polled(void){
 }
 
 void joystick_can_transmit_pos(){
-  pos_t pos_data = pos_read();
+
   can_frame_t joystick_data = {
     .id = CAN_JOYSTICK_POS_ID, 
     .rtr = DATA_FRAME, 
-    .data_len = 8, 
-    .data.f32 = {pos_data.pos_x, pos_data.pos_y}
+    .data_len = 4, 
+    .data.char_array = {
+      adc_get_channel_data(0),
+      adc_get_channel_data(1),
+      adc_get_channel_data(2),
+      adc_get_channel_data(3)
+    }
   };
   can_transmit(&joystick_data);
 }

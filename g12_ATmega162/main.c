@@ -24,6 +24,7 @@
 #include "CAN/mcp_constants.h"
 #include "TIMER/timer.h"
 #include "INTERRUPTS/interrupts.h"
+#include "FSM/fsm.h"
 
 /**
  * @brief Run all init functions for different peripherals in one function
@@ -51,16 +52,10 @@ int main(void)
 {
   init();
   printf("Hello world eller noe sånt\n");
-  pos_set_offset_calibration(JOYSTICK_Y);
-  pos_set_offset_calibration(JOYSTICK_X);
+  //pos_set_offset_calibration(JOYSTICK_Y);
+  //pos_set_offset_calibration(JOYSTICK_X);
   while(1){
-    //xmem_SRAM_test();
-    uint8_t pos_x = adc_get_channel_data((uint8_t)JOYSTICK_X);
-    uint8_t pos_y = adc_get_channel_data((uint8_t)JOYSTICK_Y) - 35;
-    uint8_t slider_l = adc_get_channel_data((uint8_t)SLIDER_L);
-    uint8_t slider_r = adc_get_channel_data((uint8_t)SLIDER_R);
-    printf("pos data %d, %d, %d, %d\n", pos_x, pos_y, slider_l, slider_r);
-    //for (uint64_t i = 0; i < 50000; i++);
+    fsm_run();
     
   }
   return 0;

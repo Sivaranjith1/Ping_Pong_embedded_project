@@ -12,17 +12,9 @@
 #define ADC_H_
 
 #include <stdint.h>
-#include <float.h>
 
 enum cal_range {MIN, MAX};
 enum cal_channel {JOYSTICK_X, JOYSTICK_Y, SLIDER_R, SLIDER_L};
-
-typedef struct {
-    float pos_x;
-    float pos_y;
-    float slider_l;
-    float slider_r;
-} pos_t;
 
 /**
  * @brief Start conversion of all data channels. When the conversion is finish a isr will be called and data will be updated. 
@@ -37,13 +29,5 @@ void adc_start_conversion();
  * @return uint8_t the data from the chosen channel
  */
 uint8_t adc_get_channel_data(uint8_t channel);
-
-/**
- * @brief Get the x and y position of the joystick and the slider values. The output will use the last calibration
- * 
- * @return pos_t the x and y value of the joystick, and slider_r and slider_l
- */
-pos_t pos_read(void);
-
 
 #endif /* ADC_H_ */

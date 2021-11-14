@@ -21,7 +21,9 @@
 // ------------------------
 //          Messages
 // ------------------------
+#define CAN_GOAL_SCORED_ID 0x20
 #define CAN_JOYSTICK_POS_ID 0x50
+
 typedef struct {
     float x_pos;
     float y_pos;
@@ -30,9 +32,9 @@ typedef struct {
 /**
  * @brief Handle incomming can messages and do the required actions
  * 
- * @param can_msg the incoming frame. A pointer to CAN_MESSAGE
+ * @param can_msg the incoming frame. A pointer to can_frame_t
  * @return uint8_t return success(0) if the id is defined. Returns failure(1) if the id is not defined
  */
-//uint8_t can_process_message(CAN_MESSAGE* can_msg);
+uint8_t can_process_message(can_frame_t* can_msg);
 
 #endif

@@ -149,11 +149,13 @@ static void menu_main_draw(void){
 }
 
 static void menu_play_draw(void){
-    oled_pos(0, 50);
+    menu_children_dropdown_draw(&play);
+    
+    oled_pos(3, 50);
     oled_print("Its");
-    oled_pos(1, 50);
+    oled_pos(4, 50);
     oled_print("A");
-    oled_pos(2, 50);
+    oled_pos(5, 50);
     oled_print("TRAP!");
 }
 
@@ -245,6 +247,7 @@ void menu_increment_arrow(int incrementation){
 
 void menu_update_menu(void){
     oled_reset();
+    menu_item* prev_menu = current_menu;
     if(menu_children_arrow_line < current_menu->num_children){   
         current_menu = current_menu->children[menu_children_arrow_line];
     } else if(current_menu->parent != 0){
@@ -256,6 +259,9 @@ void menu_update_menu(void){
 
     if(current_menu == &play){
         fsm_add_event(FSM_EV_GO_TO_PLAY);
+    }
+    else if(prev_menu == &play && current_menu != &play){
+        fsm_add_event(FSM_EV_LEAVE_PLAY);
     }
 }
 

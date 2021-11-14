@@ -1,9 +1,7 @@
 #include "timer.h"
 #include <avr/interrupt.h>
-#include "../gpio/gpio.h"
-#include "../ADC/adc.h"
-#include "../ADC/joystick.h"
-#include "../OLED/oled.h"
+
+#include "../FSM/fsm.h"
 
 // 50 Hz
 #define COMP_A_REG  7680 // 12288
@@ -28,8 +26,9 @@ void timer_init(){
 
 ISR(TIMER1_COMPA_vect){
     TIMER1_DEBUG_PRINT("Timer 1 interrupt\n\r");
+    fsm_add_event(FSM_EV_TIMER_1);
+    fsm_add_event(FSM_EV_STATE_TIMER_1);
     //joystick_can_transmit_pos();
-    adc_start_conversion();
     //joystick_poll_buttons();
     //oled_refresh();
 }

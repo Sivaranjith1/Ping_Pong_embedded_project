@@ -27,6 +27,13 @@ void fsm_run(){
         {
             adc_start_conversion();
             oled_refresh();
+            joystick_read_button_polled();
+            break;
+        }
+
+        case FSM_EV_JOYSTICK_BUTTON:
+        {
+            menu_update_menu();
             break;
         }
     
@@ -54,7 +61,6 @@ static void fsm_state_menu(uint8_t event_id){
         case FSM_EV_STATE_TIMER_1:
         {
             joystick_read();
-            joystick_read_button_polled();
             break;
         }
 
@@ -71,12 +77,6 @@ static void fsm_state_menu(uint8_t event_id){
             menu_increment_arrow(1);
             oled_reset();
             menu_current_menu_draw();
-            break;
-        }
-
-        case FSM_EV_JOYSTICK_BUTTON:
-        {
-            menu_update_menu();
             break;
         }
 
@@ -100,21 +100,14 @@ static void fsm_state_play(uint8_t event_id){
     {
         case FSM_EV_STATE_TIMER_1:
         {
-            can_frame_t adc_can_frame = {
-                .id = CAN_JOYSTICK_POS_ID,
-                .rtr = DATA_FRAME, 
-		        .data_len = sizeof(4), 
-                .data.char_array = {
-                    adc_get_channel_data(0),
-                    adc_get_channel_data(1),
-                    adc_get_channel_data(2),
-                    adc_get_channel_data(3)
-                }
-            };
-
-	        can_transmit(&adc_can_frame);
-
+            joystick_can_transmit_pos();
             break;    
+        }
+
+        case FSM_EV_LEAVE_PLAY:
+        {
+            current_state = &fsm_state_menu;
+            break;
         }
     
         default:

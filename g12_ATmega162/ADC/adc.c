@@ -26,13 +26,6 @@
 static uint8_t adc_raw_data[4] = {0};
 static uint8_t adc_conversion_finished = 1;
 
-/**
- * @brief 
- *
- */
-
-
-
 void adc_start_conversion(){
 	if(!adc_conversion_finished) return;
 	xmem_write(0, ADC_BASE_ADDRESS); //send a command to read all channels
@@ -41,37 +34,6 @@ void adc_start_conversion(){
 
 uint8_t adc_get_channel_data(uint8_t channel){
 	return adc_raw_data[channel];
-}
-
-pos_t pos_read(void){
-	/*
-	float slider_r 	= (float)adc_get_channel_data((uint8_t)SLIDER_L);
-	float slider_l 	= (float)adc_get_channel_data((uint8_t)SLIDER_R);
-	float pos_y		= (float)adc_get_channel_data((uint8_t)JOYSTICK_Y);
-	float pos_x 	= (float)adc_get_channel_data((uint8_t)JOYSTICK_X);
-
-	//printf("pos_y : %d\n\r", (int)(pos_y));
-
-	pos_t output;
-
-	if (pos_x >= joystick_x_calibration.range_idle){
-		output.pos_x = 0.5*(pos_x - (float)joystick_x_calibration.range_idle)/((float)joystick_x_calibration.range_max - (float)joystick_x_calibration.range_idle) + 0.5;
-	}
-	else if(pos_x < joystick_x_calibration.range_idle){
-		output.pos_x = 0.5*(pos_x - (float)joystick_x_calibration.range_min)/((float)joystick_x_calibration.range_idle - (float)joystick_x_calibration.range_min);
-	}
-	if (pos_y >= joystick_y_calibration.range_idle){
-		output.pos_y = 0.5*(pos_y - (float)joystick_y_calibration.range_idle)/((float)joystick_y_calibration.range_max - (float)joystick_y_calibration.range_idle) + 0.5;
-	}
-	else if(pos_y < joystick_y_calibration.range_idle){
-		output.pos_y = 0.5*(pos_y - (float)joystick_y_calibration.range_min)/((float)joystick_y_calibration.range_idle - (float)joystick_y_calibration.range_min);
-	}
-	
-	//output.slider_l = (slider_l - slider_l_calibration.offset) / (slider_l_calibration.range_max - slider_l_calibration.range_min) - 1;
-	//output.slider_r = (slider_r - slider_r_calibration.offset) / (slider_r_calibration.range_max - slider_r_calibration.range_min) - 1;
-
-	return output;
-	*/
 }
 
 /**

@@ -29,6 +29,7 @@
  * Menu events
  */
 #define FSM_EV_GO_TO_PLAY       50U
+#define FSM_EV_LEAVE_PLAY       51U
 
 
 /**
