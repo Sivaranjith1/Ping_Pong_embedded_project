@@ -65,6 +65,8 @@ static void oled_goto_line(uint8_t line);
  */
 static void oled_print_char(unsigned char data);
 
+static void oled_screen_pos(uint8_t line, uint8_t column);
+
 /////////////////////////////////////////////////////////////////////////
 //  Local Function Declarations
 /////////////////////////////////////////////////////////////////////////
@@ -115,6 +117,11 @@ static void oled_print_char(unsigned char data){
 	}
 }
 
+static void oled_screen_pos(uint8_t line, uint8_t column){
+	oled_goto_line(line);
+	oled_goto_column(column);
+}
+
 /////////////////////////////////////////////////////////////////////////
 //  Global Function Declarations
 /////////////////////////////////////////////////////////////////////////
@@ -152,8 +159,8 @@ void oled_reset(void){
 }
 
 void oled_pos(uint8_t line, uint8_t column){
-	oled_goto_line(line);
-	oled_goto_column(column);
+	current_page = line;
+	current_column = column;
 }
 
 void oled_print_arrow(uint8_t row, uint8_t col){
@@ -179,7 +186,6 @@ void oled_clear_line(uint8_t line){
 	for(uint8_t i = 0; i < 128; i++){
 		oled_redraw(0x00);
 	}
-	oled_goto_line(line);
 }
 
 void oled_print(unsigned char* data){
@@ -216,7 +222,7 @@ void oled_redraw(unsigned char data){
 void oled_refresh(){
 	for (uint8_t page = 0; page <= PAGE_MAX_VALUE; page++)
 	{
-		oled_pos(page, 0);
+		oled_screen_pos(page, 0);
 		for (uint8_t column = 0; column <= COLUMN_MAX_VALUE; column++)
 		{
 			unsigned char data_from_sram = (unsigned char)xmem_read(OLED_SRAM_ADDRESS_START + 128*page + column);
@@ -224,5 +230,5 @@ void oled_refresh(){
 		}
 	}
 	
-	oled_pos(0,0);
+	oled_screen_pos(0,0);
 }

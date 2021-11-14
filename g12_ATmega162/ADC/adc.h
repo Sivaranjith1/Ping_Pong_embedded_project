@@ -17,28 +17,12 @@
 enum cal_range {MIN, MAX};
 enum cal_channel {JOYSTICK_X, JOYSTICK_Y, SLIDER_R, SLIDER_L};
 
-/**
- * @brief position of the joysticks and sliders, the values will be between -1 and 1.
- * 
- */
-typedef struct
-{
+typedef struct {
     float pos_x;
     float pos_y;
     float slider_l;
     float slider_r;
 } pos_t;
-
-typedef struct
-{
-    float range_min;
-    float range_idle;
-    float range_max;
-} pos_calibrate_t;
-
-void pos_set_offset_calibration(enum cal_channel);
-
-void pos_set_range_calibration(enum cal_channel, enum cal_range);
 
 /**
  * @brief Start conversion of all data channels. When the conversion is finish a isr will be called and data will be updated. 

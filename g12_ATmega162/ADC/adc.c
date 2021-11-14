@@ -11,6 +11,7 @@
 
 #include "adc.h"
 #include "../system_config.h"
+#include "../CAN/can.h"
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -27,32 +28,10 @@ static uint8_t adc_conversion_finished = 1;
 
 /**
  * @brief 
- * 
+ *
  */
 
-pos_calibrate_t joystick_x_calibration = {
-	.range_min = 0,
-	.range_idle = 0x7F,
-	.range_max = 0xFF
-};
 
-pos_calibrate_t joystick_y_calibration = {
-	.range_min = 0,
-	.range_idle = 0x7F,
-	.range_max = 0xFF
-};
-
-pos_calibrate_t slider_l_calibration = {
-	.range_min = 0,
-	.range_idle = 0x7F,
-	.range_max = 0xff
-};
-
-pos_calibrate_t slider_r_calibration = {
-	.range_min = 0,
-	.range_idle = 0x7F,
-	.range_max = 0xfdf
-};
 
 void adc_start_conversion(){
 	if(!adc_conversion_finished) return;
@@ -64,74 +43,8 @@ uint8_t adc_get_channel_data(uint8_t channel){
 	return adc_raw_data[channel];
 }
 
-void pos_set_offset_calibration(enum cal_channel channel){
-	switch (channel)
-	{
-	case SLIDER_L:
-		break;
-	case SLIDER_R:
-		break;
-	case JOYSTICK_Y:
-	{
-		joystick_y_calibration.range_idle = ((float)adc_get_channel_data((uint8_t)channel));
-		break;
-	}
-	case JOYSTICK_X:{
-		joystick_x_calibration.range_idle = ((float)adc_get_channel_data((uint8_t)channel));
-		break;
-	}
-	default:
-		break;
-	}
-}
-
-void pos_set_range_calibration(enum cal_channel channel, enum cal_range range){
-	switch (channel)
-	{
-	case SLIDER_L:
-		if(range == MIN){
-			slider_l_calibration.range_min = adc_get_channel_data(channel);
-		}
-		else if(range == MAX){
-			slider_l_calibration.range_max = adc_get_channel_data(channel);
-		}
-		break;
-	case SLIDER_R:
-		if(range == MIN){
-			slider_r_calibration.range_min = adc_get_channel_data(channel);
-		}
-		else if(range == MAX){
-			slider_r_calibration.range_max = adc_get_channel_data(channel);
-		}
-		break;
-	case JOYSTICK_Y:{
-		if(range == MIN){
-			joystick_y_calibration.range_min = adc_get_channel_data(channel);
-			printf("Y MIN: %i\n\r", (int)(joystick_y_calibration.range_min*100));
-		}
-		else if(range == MAX){
-			joystick_y_calibration.range_max = adc_get_channel_data(channel);
-			printf("Y MAX: %i\n\r", (int)(joystick_y_calibration.range_max*100));
-		}
-		break;
-	}
-	case JOYSTICK_X:{
-		if(range == MIN){
-			joystick_x_calibration.range_min = adc_get_channel_data(channel);
-			printf("X MIN: %i\n\r", (int)(joystick_x_calibration.range_min*100));
-		}
-		else if(range == MAX){
-			joystick_x_calibration.range_max = adc_get_channel_data(channel);
-			printf("X MAX: %i\n\r", (int)(joystick_x_calibration.range_max*100));
-		}
-		break;
-	}
-	default:
-		break;
-	}
-}
-
 pos_t pos_read(void){
+	/*
 	float slider_r 	= (float)adc_get_channel_data((uint8_t)SLIDER_L);
 	float slider_l 	= (float)adc_get_channel_data((uint8_t)SLIDER_R);
 	float pos_y		= (float)adc_get_channel_data((uint8_t)JOYSTICK_Y);
@@ -158,6 +71,7 @@ pos_t pos_read(void){
 	//output.slider_r = (slider_r - slider_r_calibration.offset) / (slider_r_calibration.range_max - slider_r_calibration.range_min) - 1;
 
 	return output;
+	*/
 }
 
 /**
@@ -173,11 +87,6 @@ ISR(INT2_vect){
 	{
 		adc_raw_data[i] = xmem_read(ADC_BASE_ADDRESS);
 	}
-	
-	// printf("Channel 2; %i	", adc_raw_data[2]);
-	// printf("Channel 3; %i	", adc_raw_data[3]);
-	// printf("Channel 0; %i	", adc_raw_data[0]);
-	// printf("Channel 1; %i\n\r", adc_raw_data[1]);
 	adc_conversion_finished = 1;
 	GIFR = (1 << INTF2);  // clear flags
 	sei();

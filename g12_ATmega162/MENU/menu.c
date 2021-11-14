@@ -6,8 +6,11 @@
 #include "../ADC/joystick.h"
 #include "../OLED/oled.h"
 #include "../SRAM/sram.h"
+#include "../FSM/fsm.h"
 #include <stdint.h>
 #include "../system_config.h"
+
+#define CHAR_TO_NUM 30 // conversion between ASCII char and numbers
 
 /////////////////////////////////////////////////////////////////////////
 //  Local Function Pointer Declaration
@@ -164,6 +167,7 @@ static void menu_quit_draw(void){
 
 static void menu_high_score_draw(void){}
 static void menu_calibrate_draw(void){
+    /*
     oled_pos(0, 0);
     oled_print("JOYSTICK CAL");
     for (uint64_t i = 0; i < 200000; i++);
@@ -201,11 +205,17 @@ static void menu_calibrate_draw(void){
     oled_clear_line(3);
     oled_pos(0, 0);
     oled_print("Calibration finished");
+    */
 }
 
 static void menu_brightness_draw(void){
-    
-
+    uint8_t brightness = oled_get_brightness();
+    oled_pos(0,0);
+    oled_print("CURRENT BRIGHTNESS");
+    oled_pos(3,0);
+    //oled_print("%d", brightness);
+    oled_pos(5,0);
+    // NOT DONE, NEEDS SUPPORT FOR JOYSTICK MOVEMENT
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -234,7 +244,6 @@ void menu_increment_arrow(int incrementation){
 }
 
 void menu_update_menu(void){
-    sram_reset();
     oled_reset();
     if(menu_children_arrow_line < current_menu->num_children){   
         current_menu = current_menu->children[menu_children_arrow_line];
@@ -244,5 +253,15 @@ void menu_update_menu(void){
 
     menu_children_arrow_line = 0;
     menu_current_menu_draw();
-	oled_fade_in();
+
+    if(current_menu == &play){
+        fsm_add_event(FSM_EV_GO_TO_PLAY);
+    }
+}
+
+void menu_update_goal(uint8_t goals){
+	oled_pos(0,0);
+	oled_print("GOALS:");
+	oled_pos(3,0);
+	oled_print(goals + CHAR_TO_NUM);
 }

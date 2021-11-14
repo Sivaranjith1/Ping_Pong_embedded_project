@@ -3,6 +3,7 @@
 #include "../MENU/menu.h"
 #include "../GPIO/gpio.h"
 #include "../CAN/can_messages.h"
+#include "../FSM/fsm.h"
 
 uint8_t move_menu = 0;
 static uint8_t polled = 0;
@@ -14,33 +15,27 @@ void joystick_init(){
 }
 
 void joystick_read(void){
-    pos_t pos_data = pos_read();
+  uint8_t joystick_y = adc_get_channel_data(JOYSTICK_Y)-35;
 
-    if(pos_data.pos_y >= 0.7){
-      if(!move_menu){
-
-        menu_increment_arrow(-1);
-        oled_reset();
-        menu_current_menu_draw();
-        move_menu = 1;
-      }
-    } else if(pos_data.pos_y <= 0.3){
-      if(!move_menu){
-        menu_increment_arrow(1);
-        oled_reset();
-        menu_current_menu_draw();
-        move_menu = 1;
-
-      }
-    } else {
-      move_menu = 0;
+  if(joystick_y >= 90){
+    if(!move_menu){
+      fsm_add_event(FSM_EV_JOYSTICK_UP);
+      move_menu = 1;
     }
+  } else if(joystick_y <= 40){
+    if(!move_menu){
+      fsm_add_event(FSM_EV_JOYSTICK_DOWN);
+      move_menu = 1;
+
+    }
+  } else {
+    move_menu = 0;
+  }
 }
 
 void joystick_read_button_polled(void){
     if(!gpio_pin_read(PB3, PINB)){
-      oled_reset();
-      menu_update_menu();
+      fsm_add_event(FSM_EV_JOYSTICK_BUTTON);
     }
 }
 
@@ -53,10 +48,6 @@ void joystick_can_transmit_pos(){
     .data.f32 = {pos_data.pos_x, pos_data.pos_y}
   };
   can_transmit(&joystick_data);
-}
-
-void joystick_calibrate(){
-
 }
 
 void joystick_poll_buttons(){

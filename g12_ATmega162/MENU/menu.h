@@ -63,4 +63,6 @@ void menu_increment_arrow(int incrementation);
  */
 void menu_update_menu(void);
 
+//void menu_update_goal(uint8_t goals);
+
 #endif //MENU_H
