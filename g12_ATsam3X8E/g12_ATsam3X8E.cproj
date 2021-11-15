@@ -207,6 +207,12 @@
     <Compile Include="GLOBAL_DATA\global_data.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="JOYSTICK\joystick.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="JOYSTICK\joystick.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -258,6 +264,7 @@
     <Folder Include="Debug\MOTOR\" />
     <Folder Include="Device_Startup\" />
     <Folder Include="GLOBAL_DATA\" />
+    <Folder Include="JOYSTICK\" />
     <Folder Include="MOTOR\" />
     <Folder Include="PWM\" />
     <Folder Include="TIMER\" />

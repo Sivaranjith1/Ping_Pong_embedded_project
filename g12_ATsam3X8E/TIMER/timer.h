@@ -18,15 +18,21 @@
 void timer_init(void);
 
 /**
- * @brief Timer interrupt handler for timer channel 0
+ * @brief Timer interrupt handler for timer channel 0 - used for adc conversion
  * 
  */
 void TC0_Handler(void);
 
 /**
- * @brief Timer interrupt handler for timer channel 1
+ * @brief Timer interrupt handler for timer channel 1 - used for the PID regulator
  * 
  */
 void TC1_Handler(void);
+
+/**
+ * @brief Timer interrupt handler for timer channel 2 - used for CAN transfer back to node one with score
+ * 
+ */
+void TC2_Handler(void);
 
 #endif

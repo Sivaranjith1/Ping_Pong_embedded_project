@@ -23,6 +23,7 @@
 /////////////////////////////////////////////////////////////////////////
 static uint8_t current_page = 0;
 static uint8_t current_column = 0;
+static uint8_t last_set_brightness = 0;
 
 /**
  * @brief Calls upon @p xmem_write to put data out on the external memory bus
@@ -175,10 +176,15 @@ void oled_print_arrow(uint8_t row, uint8_t col){
 void oled_set_brightness(uint8_t level){
 	xmem_write(OLED_BRIGHTNESS, OLED_BASE_ADDRESS_COMMAND);
 	xmem_write(level, OLED_BASE_ADDRESS_COMMAND);
+	last_set_brightness = level;
 }
 
-uint8_t oled_get_brightness(){
-	return xmem_read(OLED_BRIGHTNESS);
+uint8_t* oled_get_brightness(){
+	uint8_t brightness[3];
+	brightness[0] = (last_set_brightness / 100) + CHAR_TO_NUM;
+	brightness[1] = ((last_set_brightness % 100) / 10) + CHAR_TO_NUM;
+	brightness[2] = ((last_set_brightness % 100) % 10) + CHAR_TO_NUM;
+	return brightness;
 }
 
 void oled_clear_line(uint8_t line){

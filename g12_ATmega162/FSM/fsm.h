@@ -30,7 +30,13 @@
  */
 #define FSM_EV_GO_TO_PLAY       50U
 #define FSM_EV_LEAVE_PLAY       51U
+#define FSM_EV_GO_TO_SRAM       52U
 
+/*
+ * Calibration events
+ */
+#define FSM_EV_GO_TO_CAL        60U
+#define FSM_EV_LEAVE_CAL        61U
 
 /**
  * @brief Get a event from the event queue and perform the action based on the current state

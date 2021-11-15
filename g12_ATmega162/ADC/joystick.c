@@ -33,16 +33,81 @@ void joystick_read(void){
   }
 }
 
+void joystick_calibration_sequence(uint8_t step){
+  switch (step)
+  {
+    case 0:
+    {
+      oled_pos(0, 0);
+      oled_print("JOYSTICK CAL");
+    }
+    case 1:
+    {
+      oled_clear_line(3);
+      oled_pos(3, 0);
+      oled_print("JOYSTICK LEFT");
+      joystick_can_transmit_pos(CAN_CAL_JOYSTICK_LEFT_ID);
+      break;
+    }
+    case 2:
+    {
+      oled_clear_line(3);
+      oled_pos(3, 0);
+      oled_print("JOYSTICK RIGHT");
+      joystick_can_transmit_pos(CAN_CAL_JOYSTICK_RIGHT_ID);
+      break;
+    }
+    case 3:
+    {
+      oled_clear_line(3);
+      oled_pos(3, 0);
+      oled_print("JOYSTICK DOWN");
+      joystick_can_transmit_pos(CAN_CAL_JOYSTICK_DOWN_ID);
+      break;
+    }
+    case 4:
+    {
+      oled_clear_line(3);
+      oled_pos(3, 0);
+      oled_print("JOYSTICK UP");
+      joystick_can_transmit_pos(CAN_CAL_JOYSTICK_UP_ID);
+      break;
+    }
+    case 5:
+    {
+      oled_clear_line(3);
+      oled_pos(3, 0);
+      oled_print("JOYSTICK IDLE");
+      joystick_can_transmit_pos(CAN_CAL_JOYSTICK_IDLE_ID);
+      break;   
+    }
+    case 6:
+    {
+      oled_clear_line(0);
+      oled_clear_line(3);
+      oled_pos(0, 0);
+      oled_print("CALIBRATION");
+      oled_pos(1, 0);
+      oled_print("FINNISHED");
+      break;
+    }
+
+    default:
+      break;
+    }
+}
+
 void joystick_read_button_polled(void){
     if(!gpio_pin_read(PB3, PINB)){
+      while(!gpio_pin_read(PB3, PINB));
       fsm_add_event(FSM_EV_JOYSTICK_BUTTON);
     }
 }
 
-void joystick_can_transmit_pos(){
+void joystick_can_transmit_pos(uint8_t can_id){
 
   can_frame_t joystick_data = {
-    .id = CAN_JOYSTICK_POS_ID, 
+    .id = can_id, 
     .rtr = DATA_FRAME, 
     .data_len = 4, 
     .data.char_array = {

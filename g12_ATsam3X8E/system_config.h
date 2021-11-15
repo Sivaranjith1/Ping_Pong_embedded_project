@@ -26,6 +26,7 @@
 #define CAN_DEBUG 1
 #define TC0_DEBUG 0
 #define TC1_DEBUG 0
+#define TC2_DEBUG 0
 #define DACC_DEBUG 0
 #define DEBUG_INTERRUPT 0
 #define ADC_DEBUG 0

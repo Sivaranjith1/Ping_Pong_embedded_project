@@ -52,11 +52,8 @@ int main(void)
 {
   init();
   printf("Hello world eller noe sånt\n");
-  //pos_set_offset_calibration(JOYSTICK_Y);
-  //pos_set_offset_calibration(JOYSTICK_X);
   while(1){
     fsm_run();
-    
   }
   return 0;
 }

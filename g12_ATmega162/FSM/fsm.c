@@ -6,13 +6,16 @@
 #include "../ADC/joystick.h"
 #include "../MENU/menu.h"
 #include "../CAN/can_messages.h"
+#include "../XMEM/xmem.h"
 
 static void fsm_state_menu(uint8_t event_id);
+static void fsm_state_calibration(uint8_t event_id);
 static void fsm_state_play(uint8_t event_id);
 
 static queue_t fsm_queue;
 static void (*current_state)(uint8_t) = &fsm_state_menu;
 
+static uint8_t joystick_calibration_step;
 
 
 void fsm_run(){
@@ -31,12 +34,6 @@ void fsm_run(){
             break;
         }
 
-        case FSM_EV_JOYSTICK_BUTTON:
-        {
-            menu_update_menu();
-            break;
-        }
-    
         default: 
         {
             (*current_state)(event_id);
@@ -80,11 +77,53 @@ static void fsm_state_menu(uint8_t event_id){
             break;
         }
 
+        case FSM_EV_JOYSTICK_BUTTON:
+        {
+            menu_update_menu();
+            break;
+        }
+
         case FSM_EV_GO_TO_PLAY:
         {
             current_state = &fsm_state_play;
+            break;
         }
         
+        case FSM_EV_GO_TO_CAL:
+        {
+            joystick_calibration_step = 0;
+            current_state = &fsm_state_calibration;
+            joystick_calibration_sequence(joystick_calibration_step);
+            break;
+        }
+
+        case FSM_EV_GO_TO_SRAM:
+        {
+            xmem_SRAM_test();
+            break;
+        }
+
+        default:
+            break;
+    }
+}
+
+static void fsm_state_calibration(uint8_t event_id){
+    switch (event_id)
+    {
+        case FSM_EV_LEAVE_CAL:
+        {
+            current_state = &fsm_state_menu;
+            break;
+        }
+        case FSM_EV_JOYSTICK_BUTTON:
+        {
+          joystick_calibration_step += 1;
+          if (joystick_calibration_step > 6)
+            fsm_state_calibration(FSM_EV_LEAVE_CAL);
+          else
+              joystick_calibration_sequence(joystick_calibration_step);
+        }
         default:
             break;
     }
@@ -100,13 +139,19 @@ static void fsm_state_play(uint8_t event_id){
     {
         case FSM_EV_STATE_TIMER_1:
         {
-            joystick_can_transmit_pos();
+            joystick_can_transmit_pos(CAN_JOYSTICK_POS_ID);
             break;    
         }
 
         case FSM_EV_LEAVE_PLAY:
         {
             current_state = &fsm_state_menu;
+            break;
+        }
+
+        case FSM_EV_JOYSTICK_BUTTON:
+        {
+            menu_update_menu();
             break;
         }
     

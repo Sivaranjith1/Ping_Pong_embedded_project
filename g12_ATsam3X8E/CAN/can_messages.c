@@ -1,4 +1,5 @@
 #include "can_messages.h"
+#include "../JOYSTICK/joystick.h"
 
 #include "../GLOBAL_DATA/global_data.h"
 #include "../system_config.h"
@@ -15,7 +16,7 @@ uint8_t can_process_message(CAN_MESSAGE* can_msg){
     {
     case CAN_JOYSTICK_POS_ID:
     {
-        can_joystick_pos_t pos_message = *(can_joystick_pos_t*)(can_msg->data.char_array);
+        can_joystick_pos_t pos_message = joystick_convert(can_msg->data.char_array);
         global_data_set_joystick(&pos_message);
         CAN_DEBUG_PRINT("Pos XY: %d %d\n\r", (int)(pos_message.x_pos*100), (int)(pos_message.y_pos*100));
         break;
@@ -23,6 +24,33 @@ uint8_t can_process_message(CAN_MESSAGE* can_msg){
     case CAN_BUTTON_PRESSED_ID:
     {
         CAN_DEBUG_PRINT("Button pressed: %d\n\r", can_msg->data.char_array[0]);
+        break;
+    }
+    case (CAN_CAL_JOYSTICK_IDLE_ID):
+    {
+        joystick_set_offset_calibration(JOYSTICK_X, can_msg->data.char_array);
+        joystick_set_offset_calibration(JOYSTICK_Y, can_msg->data.char_array);
+        break;
+    }
+    case (CAN_CAL_JOYSTICK_UP_ID):
+    {
+        joystick_set_range_calibration(JOYSTICK_Y, MAX, can_msg->data.char_array);
+        break;
+    }
+    case (CAN_CAL_JOYSTICK_DOWN_ID):
+    {
+        joystick_set_range_calibration(JOYSTICK_Y, MIN, can_msg->data.char_array);
+        break;
+    }
+    case (CAN_CAL_JOYSTICK_LEFT_ID):
+    {
+        joystick_set_range_calibration(JOYSTICK_X, MIN, can_msg->data.char_array);
+        break;
+    }
+    case (CAN_CAL_JOYSTICK_RIGHT_ID):
+    {
+        joystick_set_range_calibration(JOYSTICK_X, MAX, can_msg->data.char_array);
+        break;
     }
     default:
         return 1;

@@ -25,11 +25,13 @@ void joystick_read(void);
  */
 void joystick_read_button_polled(void);
 
+void joystick_calibration_sequence(uint8_t step);
+
 /**
  * @brief Transmit the joystick positions on the can bus
  * 
  */
-void joystick_can_transmit_pos(void);
+void joystick_can_transmit_pos(uint8_t can_id);
 
 void joystick_poll_buttons(void);
 
