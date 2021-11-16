@@ -29,3 +29,9 @@ void joystick_set_offset_calibration(enum cal_channel, char* data);
 void joystick_set_range_calibration(enum cal_channel, enum cal_range, char* data);
 
 can_joystick_pos_t joystick_convert(char* data);
+
+void joystick_init();
+
+void joystick_pulse_on(void);
+
+void joystick_pulse_off(void);

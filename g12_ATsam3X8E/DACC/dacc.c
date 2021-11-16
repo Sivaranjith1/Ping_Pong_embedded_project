@@ -26,8 +26,6 @@ void dacc_init(){
 	DACC->DACC_MR = DACC_MR_TRGEN_DIS | DACC_MR_USER_SEL_CHANNEL1 | DACC_MR_WORD_HALF; //| DACC_MR_SLEEP | DACC_MR_FASTWKUP; //Disables external trigger (for free running mode), enables sleep mode and fast wakeup
     DACC->DACC_CHER = DACC_CHER_CH1; //Enables channel 1 on the dacc
 	DACC->DACC_IER = DACC_IER_TXRDY;
-	
-	//NVIC_EnableIRQ(DACC_IRQn);
 }
 
 void dacc_convert(float data){

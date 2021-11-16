@@ -14,17 +14,13 @@
 #include <stdint.h>
 
 /**
- * @brief Initialize the pid controller with the 
- * 
- */
-void pid_init(void);
-
-/**
  * @brief 
  * 
  * @param data 
  * @return uint16_t 
  */
-float pid_controller(float sp, float encoder_data);
+float pid_pos_controller(float sp, float encoder_data);
+
+float pid_vel_controller(float joystick_data, float enchoder_data);
 
 #endif

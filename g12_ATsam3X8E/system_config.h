@@ -23,12 +23,14 @@
  * 
  */
 
-#define CAN_DEBUG 1
+#define CAN_DEBUG 0
+#define CAN_DEBUG_BUTTON 0
 #define TC0_DEBUG 0
 #define TC1_DEBUG 0
 #define TC2_DEBUG 0
 #define DACC_DEBUG 0
 #define DEBUG_INTERRUPT 0
 #define ADC_DEBUG 0
+#define PID_DEBUG 0
 
 #endif /* SYSTEM_CONFIG_H_ */

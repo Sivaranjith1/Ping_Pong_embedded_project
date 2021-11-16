@@ -3,6 +3,7 @@
 #include "../ADC/adc.h"
 #include "../ADC/goal_handler.h"
 #include "../GLOBAL_DATA/global_data.h"
+#include "../JOYSTICK/joystick.h"
 #include "../PWM/pwm.h"
 #include "../MOTOR/motor.h"
 #include "../MOTOR/pid.h"
@@ -87,21 +88,22 @@ void TC0_Handler(void){
     TC0_DEBUG_PRINT("ADC TIMER TRIGGER\n\r");
     uint8_t status = TC0->TC_CHANNEL[0].TC_SR; // clear interrupt flag 
     adc_start_conversion();
+    joystick_pulse_off();
     TC0->TC_CHANNEL[0].TC_CCR = TC_CCR_SWTRG; // restart timer
     NVIC_ClearPendingIRQ(TC0_IRQn);
 }
 
 void TC1_Handler(void){
-    TC1_DEBUG_PRINT("PID TIMER TRIGGER\n\r");
+    //TC1_DEBUG_PRINT("PID TIMER TRIGGER\n\r");
     uint8_t status = TC0->TC_CHANNEL[1].TC_SR; // clear interrupt flag
 
     can_joystick_pos_t joystick_data;
     global_data_get_joystick(&joystick_data);
 
     pwm_update_from_joystick(joystick_data.x_pos);
-    motor_set_speed(pid_controller(joystick_data.y_pos, motor_get_position()));
+    motor_set_speed(pid_vel_controller(joystick_data.y_pos, motor_get_position()));
 
-    TC1_DEBUG_PRINT("joystick from timer %d %d\n\r", (uint8_t)(joystick_data.x_pos*100), (uint8_t)(joystick_data.y_pos*100));
+    TC1_DEBUG_PRINT("joystick from timer %d\n\r", (uint8_t)(joystick_data.y_pos*100));
 
     TC0->TC_CHANNEL[1].TC_CCR = TC_CCR_SWTRG; // restart timer
     NVIC_ClearPendingIRQ(TC1_IRQn);
@@ -118,7 +120,6 @@ void TC2_Handler(void){
         goal.data.char_array[0] = goal_get_goals();
         can_send(&goal, goal.id);
     }
-
     TC0->TC_CHANNEL[2].TC_CCR = TC_CCR_SWTRG; // restart timer
     NVIC_ClearPendingIRQ(TC2_IRQn);
 }

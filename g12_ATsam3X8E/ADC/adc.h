@@ -1,6 +1,6 @@
 /**
  * @file adc.h
- * @author Ask Øren
+ * @author Ask Øren, Steffen Folåasen, Sivaranjith Sivarasa
  * @brief Driver for reading internal ADC values from ATSAM3X8E
  * @version 0.1
  * @date 2021-10-26

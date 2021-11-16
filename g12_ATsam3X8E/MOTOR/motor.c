@@ -15,7 +15,7 @@ typedef struct {
 
 //calibration struct for the encoder output of the motor
 static motor_encoder_calibration_t motor_encoder_calibration = {
-    .max_value = 6600,
+    .max_value = 8259,
     .min_value = 0
 };
 

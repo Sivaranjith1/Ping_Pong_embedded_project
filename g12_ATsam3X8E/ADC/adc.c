@@ -22,6 +22,8 @@ static uint8_t adc_get_channel(void);
 static float adc_get_lcdr_data(void);
 
 void adc_init(void){
+    //PIOA->PIO_PDR |= PIO_PDR_P16;
+    //PIOA->PIO_ABSR |= PIO_ABSR_P16;
     PIOA->PIO_PDR |= PIO_PDR_P2;   // Disables IO on pin 2
 	PIOA->PIO_ABSR |= PIO_ABSR_P2; // Selects peripheral on pin 2
 
@@ -80,4 +82,5 @@ static uint8_t adc_get_channel(void){
 static float adc_ema_filter(float newest_update, float last_update, float alpha){
     return alpha*newest_update + (1 - alpha)*last_update;
 }
+
 

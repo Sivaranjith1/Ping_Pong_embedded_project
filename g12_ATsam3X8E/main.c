@@ -36,6 +36,7 @@ void init(void){
     timer_init();
     dacc_init();
     motor_init();
+    joystick_init();
 }
 
 /**
@@ -45,9 +46,7 @@ void init(void){
 int main(void)
 {
     /* Initialize the SAM system */
-
     init();
-    //pwm_update_duty_cycle(50, 6);
 	printf("\n\rAtsame starting ...\n\r");
     
     WDT->WDT_MR = WDT_MR_WDDIS;
@@ -55,15 +54,8 @@ int main(void)
     {
         if(goal_check_for_goal()){
             printf("GOOOOOOOAL %d \n\r", goal_get_goals());
-            for (uint16_t i = 0; i < 10000; i++);
+            for (uint16_t i = 0; i < 100000; i++){};
         }
-        //printf("Encoder data: %d \n\r", motor_read_encoder());
-        /*
-        for (uint32_t i = 0; i < 100000; i++);
-        float data = adc_get_data(0);
-        printf("Here is some data bitches %d \n\r", (uint32_t) data * 1000);
-        printf("Bert, convert: %d \n\r", (uint32_t)adc_get_ema_filtered_data(0, 0.6) * 1000);
-        */
     }
     return 0;
 }

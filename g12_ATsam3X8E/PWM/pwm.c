@@ -46,7 +46,8 @@ float pwm_deg_to_duty_cycle(float deg){
     else if(deg < 0){
         deg += 100;
     }
-    float duty_cycle = 4.5 + (10.5 - 4.5) * deg / (100);
+    float new_deg = 100 - deg;
+    float duty_cycle = 4.5 + (10.5 - 4.5) * new_deg / (100);
     return duty_cycle;
 }
 
