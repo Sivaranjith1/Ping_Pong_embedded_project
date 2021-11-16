@@ -1,8 +1,9 @@
 #include "can_messages.h"
-#include "../JOYSTICK/joystick.h"
 
 #include "../GLOBAL_DATA/global_data.h"
 #include "../system_config.h"
+#include "../JOYSTICK/joystick.h"
+#include "../MOTOR/motor.h"
 
 #if CAN_DEBUG
 #include "../UART/printf-stdarg.h"
@@ -58,6 +59,15 @@ uint8_t can_process_message(CAN_MESSAGE* can_msg){
     case (CAN_CAL_JOYSTICK_RIGHT_ID):
     {
         joystick_set_range_calibration(JOYSTICK_X, MAX, can_msg->data.char_array);
+        break;
+    }
+    case (CAN_FSM_STATE_ID):
+    {
+        if(can_msg->data.char_array[0] == FSM_PLAY){
+            motor_enable_soft();
+        } else {
+            motor_disable_soft();
+        }
         break;
     }
     default:

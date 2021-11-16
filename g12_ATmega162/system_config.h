@@ -34,6 +34,7 @@
  * 
  */
 #define TIMER1_DEBUG 0
+#define TIMER3_DEBUG 0
 #define ADC_DEBUG 0
 
 

@@ -12,7 +12,7 @@ void can_init(void){
 
     mcp_write(MCP_TXRTSCTRL, 0b000); //Sets TXnRTS pins to digital inputs
 
-    mcp_write(MCP_CANINTE, 1 << 2); //Enables CAN interrupt to TXB0
+    //mcp_write(MCP_CANINTE, 1 << 2); //Enables CAN interrupt to TXB0
     mcp_write(MCP_CANINTE, MCP_RX_INT); 
 }
 

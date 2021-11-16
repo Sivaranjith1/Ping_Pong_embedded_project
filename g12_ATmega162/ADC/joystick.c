@@ -42,13 +42,19 @@ void joystick_calibration_sequence(uint8_t step){
     {
       oled_pos(0, 0);
       oled_print("JOYSTICK CAL");
-      oled_pos(3, 0);
-      oled_print("PRESS JOYSTICK BTN");
+      oled_pos(3, 25);
+      oled_print("PRESS");
+      oled_pos(4, 25);
+      oled_print("JOYSTICK");
+      oled_pos(5, 25);
+      oled_print("BTN");
       break;
     }
     case 1:
     {
       oled_clear_line(3);
+      oled_clear_line(4);
+      oled_clear_line(5);
       oled_pos(3, 0);
       oled_print("JOYSTICK LEFT");
       

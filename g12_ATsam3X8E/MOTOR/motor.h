@@ -23,6 +23,18 @@ typedef enum {
 void motor_init(void);
 
 /**
+ * @brief Will enable the dacc output for the motor in software
+ * 
+ */
+void motor_enable_soft(void);
+
+/**
+ * @brief Will disable the dacc output for the motor in software
+ * 
+ */
+void motor_disable_soft(void);
+
+/**
  * @brief sets the direction and speed of the motor
  * @param speed 0 - 0.5 will result in a movement to the left and 0.5 to 1 will result in a movement to the right
  */

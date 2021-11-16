@@ -21,6 +21,7 @@
 #include "TIMER/timer.h"
 #include "DACC/dacc.h"
 #include "MOTOR/motor.h"
+#include "EEFC/eefc.h"
 
 
 /**
@@ -37,6 +38,7 @@ void init(void){
     dacc_init();
     motor_init();
     joystick_init();
+    //eefc_init();
 }
 
 /**
@@ -50,12 +52,13 @@ int main(void)
 	printf("\n\rAtsame starting ...\n\r");
     
     WDT->WDT_MR = WDT_MR_WDDIS;
+
     while (1) 
     {
-        if(goal_check_for_goal()){
-            printf("GOOOOOOOAL %d \n\r", goal_get_goals());
-            //for (uint16_t i = 0; i < 100000; i++){};
-        }
+        // if(goal_check_for_goal()){
+        //     printf("GOOOOOOOAL %d \n\r", goal_get_goals());
+        //     //for (uint16_t i = 0; i < 100000; i++){};
+        // }
     }
     return 0;
 }

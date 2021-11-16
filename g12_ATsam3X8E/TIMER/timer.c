@@ -13,7 +13,7 @@
 
 #define RC_COMP_TC0 840000 // 50 Hz
 #define RC_COMP_TC1 52500 // 50 Hz
-#define RC_COMP_TC2 328125 // 2 Hz
+#define RC_COMP_TC2 65625 // 10 Hz
 
 #if TC0_DEBUG
 #include "../UART/printf-stdarg.h"
@@ -118,7 +118,7 @@ void TC2_Handler(void){
         goal.id = CAN_GOAL_SCORED_ID;
         goal.data_length = 1;
         goal.data.char_array[0] = goal_get_goals();
-        can_send(&goal, goal.id);
+        can_send(&goal, 0);
     }
     TC0->TC_CHANNEL[2].TC_CCR = TC_CCR_SWTRG; // restart timer
     NVIC_ClearPendingIRQ(TC2_IRQn);

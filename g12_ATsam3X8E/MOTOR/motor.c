@@ -6,6 +6,9 @@
 #define MOTOR_ENCODER_DATA_SHIFT 1
 #define MOTOR_ENCODER_ENCODER_MAX_VALUE 65535
 
+//when this is 1 the dacc can give a output to the motor, otherwise it will be zero
+static uint8_t motor_soft_enable = 0;
+
 static uint8_t motor_read_encoder_data();
 
 typedef struct {
@@ -43,8 +46,21 @@ void motor_init(){
     PIOC->PIO_PER = 0xFF << MOTOR_ENCODER_DATA_SHIFT;
 }
 
+void motor_enable_soft(void){
+    motor_soft_enable = 1;
+}
+
+void motor_disable_soft(void){
+    motor_soft_enable = 0;
+}
+
 void motor_set_speed(float speed){
     //printf("Speed %d\n\r", (uint8_t)speed);
+    if(!motor_soft_enable) {
+        dacc_convert(0);
+        return;
+    }
+
     float dac_input = 0;
     if(speed <= 0){
         if(speed <= -1) {

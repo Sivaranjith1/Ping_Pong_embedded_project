@@ -41,6 +41,6 @@ float pid_vel_controller(float joystick_data, float encoder_data){
     PID_DEBUG_PRINT("ED: %d\n\r", (uint8_t)encoder_speed*100);
     PID_DEBUG_PRINT("Error: %d\n\r", (uint8_t)e*100);
 
-    volatile float speed = pid_pos_controller(joystick_data, encoder_speed + 0.5);
+    float speed = pid_pos_controller(joystick_data, encoder_speed + 0.5);
 	return speed;
 }

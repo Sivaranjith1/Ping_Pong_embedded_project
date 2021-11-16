@@ -124,16 +124,19 @@ static void fsm_state_calibration(uint8_t event_id){
         case FSM_EV_LEAVE_CAL:
         {
             current_state = &fsm_state_menu;
+            menu_update_menu();
             fsm_can_transmit_state(FSM_MENU);
             break;
         }
         case FSM_EV_JOYSTICK_BUTTON:
         {
           joystick_calibration_step += 1;
-          if (joystick_calibration_step > 6)
-            fsm_state_calibration(FSM_EV_LEAVE_CAL);
-          else
+          if (joystick_calibration_step > 6) {
+            fsm_add_event(FSM_EV_LEAVE_CAL);
+          }
+          else {
             joystick_calibration_sequence(joystick_calibration_step);
+          }
         }
         default:
             break;

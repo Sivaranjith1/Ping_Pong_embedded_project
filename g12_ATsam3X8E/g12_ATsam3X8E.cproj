@@ -201,6 +201,12 @@
     <Compile Include="Device_Startup\system_sam3xa.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="EEFC\eefc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EEFC\eefc.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="GLOBAL_DATA\global_data.c">
       <SubType>compile</SubType>
     </Compile>
@@ -263,6 +269,7 @@
     <Folder Include="Debug\" />
     <Folder Include="Debug\MOTOR\" />
     <Folder Include="Device_Startup\" />
+    <Folder Include="EEFC\" />
     <Folder Include="GLOBAL_DATA\" />
     <Folder Include="JOYSTICK\" />
     <Folder Include="MOTOR\" />
