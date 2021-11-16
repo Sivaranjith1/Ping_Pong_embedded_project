@@ -12,6 +12,7 @@
 static void fsm_state_menu(uint8_t event_id);
 static void fsm_state_calibration(uint8_t event_id);
 static void fsm_state_play(uint8_t event_id);
+static void fsm_can_transmit_state(can_fsm_state_t state);
 
 static queue_t fsm_queue;
 static void (*current_state)(uint8_t) = &fsm_state_menu;
@@ -29,13 +30,13 @@ void fsm_run(){
     {
         case FSM_EV_TIMER_1:
         {
-            adc_start_conversion();
             joystick_read_button_polled();
             break;
         }
 
         case FSM_EV_TIMER_3:
         {
+            adc_start_conversion();
             oled_refresh();
             break;
         }
@@ -92,6 +93,7 @@ static void fsm_state_menu(uint8_t event_id){
         case FSM_EV_GO_TO_PLAY:
         {
             current_state = &fsm_state_play;
+            fsm_can_transmit_state(FSM_PLAY);
             timer_start();
             break;
         }
@@ -100,6 +102,7 @@ static void fsm_state_menu(uint8_t event_id){
         {
             joystick_calibration_step = 0;
             current_state = &fsm_state_calibration;
+            fsm_can_transmit_state(FSM_CALIBRATION);
             joystick_calibration_sequence(joystick_calibration_step);
             break;
         }
@@ -121,6 +124,7 @@ static void fsm_state_calibration(uint8_t event_id){
         case FSM_EV_LEAVE_CAL:
         {
             current_state = &fsm_state_menu;
+            fsm_can_transmit_state(FSM_MENU);
             break;
         }
         case FSM_EV_JOYSTICK_BUTTON:
@@ -146,13 +150,13 @@ static void fsm_state_play(uint8_t event_id){
     {
         case FSM_EV_STATE_TIMER_1:
         {
-            joystick_can_transmit_pos(CAN_JOYSTICK_POS_ID);
             joystick_extend_solenoid();
             break;    
         }
 
         case FSM_EV_STATE_TIMER_3:
         {
+            joystick_can_transmit_pos(CAN_JOYSTICK_POS_ID);
             menu_update_timer(timer_get_time());
             break;
         }
@@ -160,6 +164,7 @@ static void fsm_state_play(uint8_t event_id){
         case FSM_EV_LEAVE_PLAY:
         {
             current_state = &fsm_state_menu;
+            fsm_can_transmit_state(FSM_MENU);
             break;
         }
 
@@ -178,4 +183,14 @@ static void fsm_state_play(uint8_t event_id){
         default:
             break;
     }
+}
+
+static void fsm_can_transmit_state(can_fsm_state_t state){
+    can_frame_t fsm_state_msg =  {
+        .id = CAN_FSM_STATE_ID,
+        .rtr = DATA_FRAME,
+        .data_len = 1,
+        .data.char_array = { state }
+    };
+    can_transmit(&fsm_state_msg);
 }

@@ -24,12 +24,9 @@
 
 // raw data saved in the interrupt
 static uint8_t adc_raw_data[4] = {0};
-static uint8_t adc_conversion_finished = 1;
 
 void adc_start_conversion(){
-	if(!adc_conversion_finished) return;
 	xmem_write(0, ADC_BASE_ADDRESS); //send a command to read all channels
-	adc_conversion_finished = 0;
 }
 
 uint8_t adc_get_channel_data(uint8_t channel){
@@ -49,7 +46,6 @@ ISR(INT2_vect){
 	{
 		adc_raw_data[i] = xmem_read(ADC_BASE_ADDRESS);
 	}
-	adc_conversion_finished = 1;
 	GIFR = (1 << INTF2);  // clear flags
 	sei();
 }

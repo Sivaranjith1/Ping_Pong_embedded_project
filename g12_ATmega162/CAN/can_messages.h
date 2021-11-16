@@ -21,18 +21,22 @@
 // ------------------------
 //          Messages
 // ------------------------
-#define CAN_GOAL_SCORED_ID 0x20
-#define CAN_JOYSTICK_POS_ID 0x50
-#define CAN_CAL_JOYSTICK_IDLE_ID 0x60
-#define CAN_CAL_JOYSTICK_UP_ID 0x61
-#define CAN_CAL_JOYSTICK_DOWN_ID 0x62
-#define CAN_CAL_JOYSTICK_LEFT_ID 0x63
-#define CAN_CAL_JOYSTICK_RIGHT_ID 0x64
+#define CAN_GOAL_SCORED_ID          0x20
 
-typedef struct {
-    float x_pos;
-    float y_pos;
-} can_joystick_pos_t;
+// state of the atmega
+#define CAN_FSM_STATE_ID             0x45
+typedef enum {FSM_MENU, FSM_PLAY, FSM_CALIBRATION} can_fsm_state_t;
+
+// joystick position data
+#define CAN_JOYSTICK_POS_ID         0x50
+
+// calibration for joystick values
+#define CAN_CAL_JOYSTICK_IDLE_ID    0x60
+#define CAN_CAL_JOYSTICK_UP_ID      0x61
+#define CAN_CAL_JOYSTICK_DOWN_ID    0x62
+#define CAN_CAL_JOYSTICK_LEFT_ID    0x63
+#define CAN_CAL_JOYSTICK_RIGHT_ID   0x64
+
 
 /**
  * @brief Handle incomming can messages and do the required actions

@@ -71,4 +71,5 @@ ISR(TIMER3_COMPA_vect){
         timer = 0;
     }
     fsm_add_event(FSM_EV_TIMER_3);
+    fsm_add_event(FSM_EV_STATE_TIMER_3);
 }
