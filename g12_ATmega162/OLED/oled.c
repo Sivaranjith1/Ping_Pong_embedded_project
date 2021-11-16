@@ -179,12 +179,8 @@ void oled_set_brightness(uint8_t level){
 	last_set_brightness = level;
 }
 
-uint8_t* oled_get_brightness(){
-	uint8_t brightness[3];
-	brightness[0] = (last_set_brightness / 100) + CHAR_TO_NUM;
-	brightness[1] = ((last_set_brightness % 100) / 10) + CHAR_TO_NUM;
-	brightness[2] = ((last_set_brightness % 100) % 10) + CHAR_TO_NUM;
-	return brightness;
+uint8_t oled_get_brightness(){
+	return last_set_brightness;
 }
 
 void oled_clear_line(uint8_t line){

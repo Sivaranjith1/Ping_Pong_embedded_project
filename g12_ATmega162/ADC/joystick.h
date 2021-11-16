@@ -13,6 +13,8 @@
 
 #include "../CAN/can.h"
 
+void joystick_init(void);
+
 /**
  * @brief Read the joystick position and update menu based on the input
  * 
@@ -33,6 +35,6 @@ void joystick_calibration_sequence(uint8_t step);
  */
 void joystick_can_transmit_pos(uint8_t can_id);
 
-void joystick_poll_buttons(void);
+void joystick_extend_solenoid(void);
 
 #endif //JOYSTICK_H

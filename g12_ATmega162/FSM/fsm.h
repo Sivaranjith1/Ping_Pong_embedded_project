@@ -17,7 +17,9 @@
  * Timer events
  */
 #define FSM_EV_TIMER_1          10U //when timer 1 is activated, common for all states
-#define FSM_EV_STATE_TIMER_1    11U //when timer 1 is activated, spesific for the current state
+#define FSM_EV_STATE_TIMER_1    11U //when timer 1 is activated, specific for the current state
+#define FSM_EV_TIMER_3          12U
+#define FSM_EV_STATE_TIMER_3    13U
 /*
  * Joystick events
  */
@@ -37,6 +39,12 @@
  */
 #define FSM_EV_GO_TO_CAL        60U
 #define FSM_EV_LEAVE_CAL        61U
+
+/**
+ * Game events
+ */
+#define FSM_EV_END_GAME         70U
+
 
 /**
  * @brief Get a event from the event queue and perform the action based on the current state

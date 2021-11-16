@@ -255,9 +255,12 @@ void menu_update_menu(void){
     }
 }
 
-void menu_update_goal(uint8_t goals){
-	oled_pos(0,0);
-	oled_print("GOALS:");
+void menu_update_timer(uint8_t time){
+    unsigned char time_char[5] = {0};
+    sprintf(time_char, "%d", time);
+
 	oled_pos(3,0);
-	oled_print(goals + CHAR_TO_NUM);
+	oled_print("TIME:");
+    oled_pos(3, 40);
+	oled_print(time_char);
 }

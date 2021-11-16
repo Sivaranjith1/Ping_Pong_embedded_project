@@ -75,7 +75,7 @@ void oled_set_brightness(uint8_t level);
  * 
  * @return uint8_t the current brightness between 0 - 255
  */
-uint8_t* oled_get_brightness();
+uint8_t oled_get_brightness();
 
 /**
  * @brief Test function that creates an arrow on the LED screen

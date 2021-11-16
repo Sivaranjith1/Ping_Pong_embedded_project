@@ -12,27 +12,7 @@
 #ifndef MENU_H
 #define MENU_H
 
-/*
-TO-DO:
-init-funksjon
-redraw
-FSM
-
-meny innhold:
-- start/play
-- highscore
-- quit
-- options
-	- brightness
-	- calibrate joystick
-	- set difficulty
-	- single/multiplayer
-	- main menu
-- Fancy title
-
-extra:
-- Musikk (8-bit mario-esque)
-*/
+#include <stdint.h>
 
 /**
  * @brief Draws the elements in the main menu. Calls the
@@ -63,6 +43,6 @@ void menu_increment_arrow(int incrementation);
  */
 void menu_update_menu(void);
 
-//void menu_update_goal(uint8_t goals);
+void menu_update_timer(uint8_t time);
 
 #endif //MENU_H
