@@ -37,7 +37,7 @@ void adc_stop_conversion(void);
  * @param channel the channel to read from
  * @return float voltage in V
  */
-float adc_get_data(uint8_t channel);
+uint16_t adc_get_data(uint8_t channel);
 
 
 /**
@@ -48,7 +48,7 @@ ema filtering data
  * @param alpha 
  * @return float 
  */
-float adc_get_ema_filtered_data(uint8_t channel, float alpha);
+uint16_t adc_get_ema_filtered_data(uint8_t channel, float alpha);
 
 /**
  * @brief The interrupt handler for the convertion is finished

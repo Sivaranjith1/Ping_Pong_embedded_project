@@ -54,7 +54,7 @@ int main(void)
     {
         if(goal_check_for_goal()){
             printf("GOOOOOOOAL %d \n\r", goal_get_goals());
-            for (uint16_t i = 0; i < 100000; i++){};
+            //for (uint16_t i = 0; i < 100000; i++){};
         }
     }
     return 0;

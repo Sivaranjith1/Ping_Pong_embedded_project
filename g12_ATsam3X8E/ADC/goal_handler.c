@@ -3,7 +3,7 @@
 
 #define GOAL_CHANNEL 0
 #define GOAL_ALPHA 0.5 // For the EMA filter
-#define VOLTAGE_NOISE 1.5 // limit for logical 0 or 1
+#define VOLTAGE_NOISE 800U // limit for millivoltage
 
 static uint8_t goal_counter = 0;
 static uint8_t goal_is_blocked = 1;
@@ -11,7 +11,8 @@ static uint8_t goal_adc_read_state(uint8_t channel);
 
 
 static uint8_t goal_adc_read_state(uint8_t channel){
-    if(adc_get_ema_filtered_data(channel, GOAL_ALPHA) < VOLTAGE_NOISE)
+	uint16_t adc_read_out = adc_get_ema_filtered_data(channel, GOAL_ALPHA);
+    if(adc_read_out < VOLTAGE_NOISE)
     {
         return 1;   
     }

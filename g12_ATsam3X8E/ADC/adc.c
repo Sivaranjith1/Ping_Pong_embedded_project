@@ -14,12 +14,12 @@
 #endif // ADC_DEBUG
 
 
-static float adc_latest_data[ADC_NUM_CHANNELS] = { 0 }; //the last data from the interrupt
-static float adc_last_ema_value[ADC_NUM_CHANNELS] = { 0 };
+static uint16_t adc_latest_data[ADC_NUM_CHANNELS] = { 0 }; //the last data from the interrupt
+static uint16_t adc_last_ema_value[ADC_NUM_CHANNELS] = { 0 };
 
-static float adc_ema_filter(float newest_update, float last_update, float alpha);
+static uint16_t adc_ema_filter(float newest_update, float last_update, float alpha);
 static uint8_t adc_get_channel(void);
-static float adc_get_lcdr_data(void);
+static uint16_t adc_get_lcdr_data(void);
 
 void adc_init(void){
     //PIOA->PIO_PDR |= PIO_PDR_P16;
@@ -45,7 +45,8 @@ void adc_init(void){
 
 void ADC_Handler(void){
     ADC_DEBUG_PRINT("ADC says EOC \n\r");
-    adc_latest_data[adc_get_channel()] = adc_get_lcdr_data();
+	uint8_t channel = adc_get_channel();
+    adc_latest_data[channel] = adc_get_lcdr_data(); 
     NVIC_ClearPendingIRQ(ADC_IRQn);
 }
 
@@ -57,30 +58,30 @@ void adc_stop_conversion(void){
     ADC->ADC_CR &= ~(1 << 1);
 }
 
-float adc_get_data(uint8_t channel){
+uint16_t adc_get_data(uint8_t channel){
     return adc_latest_data[channel];
 }
 
 
-float adc_get_ema_filtered_data(uint8_t channel, float alpha){
-    float last_update = adc_last_ema_value[channel];
-    float newest_update = adc_get_data(channel);
-    float filtered_value = adc_ema_filter(newest_update, last_update, alpha);
+uint16_t adc_get_ema_filtered_data(uint8_t channel, float alpha){
+    uint16_t last_update = adc_last_ema_value[channel];
+    uint16_t newest_update = adc_get_data(channel);
+    uint16_t filtered_value = adc_ema_filter(newest_update, last_update, alpha);
 
     adc_last_ema_value[channel] = filtered_value;
     return filtered_value;
 }
 
-static float adc_get_lcdr_data(void){
-    return (ADC->ADC_LCDR & 0xFFF)/1000;
+static uint16_t adc_get_lcdr_data(void){
+    return (ADC->ADC_LCDR & 0xFFF);
 }
 
 static uint8_t adc_get_channel(void){
     return (ADC->ADC_LCDR >> 12);
 }
 
-static float adc_ema_filter(float newest_update, float last_update, float alpha){
-    return alpha*newest_update + (1 - alpha)*last_update;
+static uint16_t adc_ema_filter(float newest_update, float last_update, float alpha){
+    return (uint16_t)(alpha*newest_update + (1 - alpha)*last_update);
 }
 
 

@@ -24,6 +24,8 @@ typedef struct
     float range_max;
 } joystick_calibrate_t;
 
+void joystick_init();
+
 void joystick_set_offset_calibration(enum cal_channel, char* data);
 
 void joystick_set_range_calibration(enum cal_channel, enum cal_range, char* data);
