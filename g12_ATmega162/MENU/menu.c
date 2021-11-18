@@ -192,6 +192,7 @@ static void menu_brightness_draw(void){
     uint8_t brightness = oled_get_brightness();
     unsigned char bright_char[5] = {0};
     sprintf(bright_char, "%d", brightness);
+    oled_clear_line(2);
 
     oled_pos(0,0);
     oled_print("CURRENT");
@@ -255,6 +256,12 @@ void menu_update_menu(void){
     else if(prev_menu == &calibrate_joystick && current_menu != &calibrate_joystick){
         fsm_add_event(FSM_EV_LEAVE_CAL);
     }
+    else if(current_menu == &brightness){
+        fsm_add_event(FSM_EV_GO_TO_BRIGHTNESS);
+    }
+    else if(prev_menu == &brightness && current_menu != &brightness){
+        fsm_add_event(FSM_EV_LEAVE_BRIGHTNESS);
+    }
     else if(current_menu == &sram_test){
         fsm_add_event(FSM_EV_GO_TO_SRAM);
     }
@@ -267,7 +274,7 @@ void menu_update_menu(void){
 void menu_update_timer(uint16_t time){
     unsigned char time_char[8] = {0};
     sprintf(time_char, "%d", time);
-
+    oled_clear_line(3);
 	oled_pos(3,20);
 	oled_print("TIME:");
     oled_pos(3, 60);

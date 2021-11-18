@@ -52,6 +52,11 @@
  */
 #define FSM_EV_END_GAME         70U
 
+/**
+ * Brightness events
+ */
+#define FSM_EV_GO_TO_BRIGHTNESS 80U
+#define FSM_EV_LEAVE_BRIGHTNESS 81U
 
 /**
  * @brief Get a event from the event queue and perform the action based on the current state

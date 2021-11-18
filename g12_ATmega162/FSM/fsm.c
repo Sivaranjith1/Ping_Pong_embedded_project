@@ -13,6 +13,8 @@
 static void fsm_state_menu(uint8_t event_id);
 static void fsm_state_calibration(uint8_t event_id);
 static void fsm_state_play(uint8_t event_id);
+static void fsm_state_brightness(uint8_t event_id);
+
 static void fsm_can_transmit_state(can_fsm_state_t state);
 
 static queue_t fsm_queue;
@@ -124,6 +126,12 @@ static void fsm_state_menu(uint8_t event_id){
             break;
         }
 
+        case FSM_EV_GO_TO_BRIGHTNESS:
+        {
+            current_state = &fsm_state_brightness;
+            break;
+        }
+
         case FSM_EV_GO_TO_SRAM:
         {
             xmem_SRAM_test();
@@ -184,11 +192,11 @@ static void fsm_state_play(uint8_t event_id){
         case FSM_EV_LEAVE_PLAY:
         {
             current_state = &fsm_state_menu;
-            fsm_can_transmit_state(FSM_MENU);
         } //Fallthrough
         case FSM_EV_END_GAME:
         {
             uint8_t is_playing = timer_get_play();
+            fsm_can_transmit_state(FSM_MENU);
             timer_stop();
             menu_draw_game_over();
             if(is_playing){
@@ -205,6 +213,48 @@ static void fsm_state_play(uint8_t event_id){
         }
 
     
+        default:
+            break;
+    }
+}
+
+static void fsm_state_brightness(uint8_t event_id){
+    uint8_t brightness = oled_get_brightness();
+    switch (event_id)
+    {
+        case FSM_EV_STATE_TIMER_1:
+        {
+            joystick_read();
+            break;
+        }
+
+        case FSM_EV_JOYSTICK_UP:
+        {
+            oled_set_brightness(brightness + 10);
+            menu_current_menu_draw();
+            break;
+        }
+
+        case FSM_EV_JOYSTICK_DOWN:
+        {
+                        
+            oled_set_brightness(brightness - 10);
+            menu_current_menu_draw();
+            break;
+        }
+
+        case FSM_EV_JOYSTICK_BUTTON:
+        {
+            menu_update_menu();
+            break;
+        }
+
+        case FSM_EV_LEAVE_BRIGHTNESS:
+        {
+            current_state = &fsm_state_menu;
+            break;
+        }
+
         default:
             break;
     }
