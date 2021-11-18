@@ -11,15 +11,15 @@ static uint8_t polled_joystick = 0;
 static uint8_t polled_button = 0;
 
 void joystick_init(){
-  DDRB &= ~(1 << PIN1);
-  DDRB &= ~(1 << PIN2);
+  DDRB &= ~(1 << PINB1);
+  DDRB &= ~(1 << PINB2);
   PORTB |= 0x03;
 }
 
 void joystick_read(void){
-  uint8_t joystick_y = adc_get_channel_data(JOYSTICK_Y)-35;
+  uint8_t joystick_y = adc_get_channel_data(JOYSTICK_Y);
 
-  if(joystick_y >= 90){
+  if(joystick_y >= 200){
     if(!move_menu){
       fsm_add_event(FSM_EV_JOYSTICK_UP);
       move_menu = 1;
@@ -126,10 +126,10 @@ void joystick_can_transmit_pos(uint8_t can_id){
     .rtr = DATA_FRAME, 
     .data_len = 4, 
     .data.char_array = {
-      adc_get_channel_data(0),
-      adc_get_channel_data(1),
-      adc_get_channel_data(2),
-      adc_get_channel_data(3)
+      adc_get_channel_data(JOYSTICK_X),
+      adc_get_channel_data(JOYSTICK_Y),
+      adc_get_channel_data(SLIDER_R),
+      adc_get_channel_data(SLIDER_L)
     }
   };
   can_transmit(&joystick_data);

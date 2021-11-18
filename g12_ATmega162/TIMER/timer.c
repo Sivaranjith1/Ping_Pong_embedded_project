@@ -3,8 +3,8 @@
 #include "../system_config.h"
 #include "../FSM/fsm.h"
 
-// 25 Hz
-#define COMP_1A_REG  3072
+// 20 Hz
+#define COMP_1A_REG  3840
 
 // 10 Hz
 #define COMP_3A_REG 1920

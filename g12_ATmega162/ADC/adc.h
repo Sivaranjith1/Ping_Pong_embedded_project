@@ -14,7 +14,7 @@
 #include <stdint.h>
 
 enum cal_range {MIN, MAX};
-enum cal_channel {JOYSTICK_X, JOYSTICK_Y, SLIDER_R, SLIDER_L};
+enum cal_channel {JOYSTICK_Y, JOYSTICK_X, SLIDER_R, SLIDER_L};
 
 /**
  * @brief Start conversion of all data channels. When the conversion is finish a isr will be called and data will be updated. 
