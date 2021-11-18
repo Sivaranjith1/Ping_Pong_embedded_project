@@ -53,6 +53,10 @@ void timer_stop(){
     play = 0;
 }
 
+uint8_t timer_get_play(){
+    return play;
+}
+
 uint8_t timer_get_time(){
     uint8_t current_time = curr_time;
     return current_time;

@@ -7,6 +7,8 @@ void timer_init(void);
 
 uint8_t timer_get_time(void);
 
+uint8_t timer_get_play();
+
 void timer_start(void);
 
 void timer_stop(void);

@@ -16,6 +16,7 @@
 #include "XMEM/xmem.h"
 #include "OLED/oled.h"
 #include "MENU/menu.h"
+#include "MENU/highscore.h"
 #include "GPIO/gpio.h"
 #include "SRAM/sram.h"
 #include "SPI/spi.h"
@@ -42,9 +43,11 @@ void init(void){
   spi_init();
   mcp_init();
   can_init();
+  highscore_init();
 }
 
 /**
+r
  * @brief The main function with the infinite while loop 
  * 
  */

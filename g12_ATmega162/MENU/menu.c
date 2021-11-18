@@ -2,6 +2,7 @@
 #define OPTIONS_CHILDREN 4
 
 #include "menu.h"
+#include "highscore.h"
 #include "../ADC/adc.h"
 #include "../ADC/joystick.h"
 #include "../OLED/oled.h"
@@ -173,7 +174,17 @@ static void menu_quit_draw(void){
     oled_turn_off();
 }
 
-static void menu_high_score_draw(void){}
+static void menu_high_score_draw(void){
+    menu_children_dropdown_draw(&high_score);
+
+    for(uint8_t i = 0; i < HIGHSCORE_SCORES_NUM; i++){
+        oled_pos(1 + i, 30);
+        unsigned char score_char[8] = {0};
+        sprintf(score_char, "P%d: %d", i, highscore_get_scores(i));
+        oled_print(score_char);
+    }
+}
+
 static void menu_calibrate_draw(void){
 }
 
@@ -253,8 +264,8 @@ void menu_update_menu(void){
     menu_current_menu_draw();
 }
 
-void menu_update_timer(uint8_t time){
-    unsigned char time_char[5] = {0};
+void menu_update_timer(uint16_t time){
+    unsigned char time_char[8] = {0};
     sprintf(time_char, "%d", time);
 
 	oled_pos(3,20);

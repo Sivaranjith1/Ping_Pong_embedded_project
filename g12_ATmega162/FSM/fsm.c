@@ -5,6 +5,7 @@
 #include "../OLED/oled.h"
 #include "../ADC/joystick.h"
 #include "../MENU/menu.h"
+#include "../MENU/highscore.h"
 #include "../CAN/can_messages.h"
 #include "../XMEM/xmem.h"
 #include "../TIMER/timer.h"
@@ -184,7 +185,16 @@ static void fsm_state_play(uint8_t event_id){
         {
             current_state = &fsm_state_menu;
             fsm_can_transmit_state(FSM_MENU);
+        } //Fallthrough
+        case FSM_EV_END_GAME:
+        {
+            uint8_t is_playing = timer_get_play();
             timer_stop();
+            menu_draw_game_over();
+            if(is_playing){
+                highscore_add_score(timer_get_time());
+            }
+
             break;
         }
 
@@ -194,12 +204,6 @@ static void fsm_state_play(uint8_t event_id){
             break;
         }
 
-        case FSM_EV_END_GAME:
-        {
-            timer_stop();
-            menu_draw_game_over();
-            break;
-        }
     
         default:
             break;

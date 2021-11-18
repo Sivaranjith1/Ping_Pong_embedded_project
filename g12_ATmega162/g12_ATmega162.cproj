@@ -195,6 +195,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="MENU\highscore.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MENU\highscore.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="MENU\menu.c">
       <SubType>compile</SubType>
     </Compile>

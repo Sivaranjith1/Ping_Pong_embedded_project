@@ -43,7 +43,7 @@ void menu_increment_arrow(int incrementation);
  */
 void menu_update_menu(void);
 
-void menu_update_timer(uint8_t time);
+void menu_update_timer(uint16_t time);
 void menu_draw_game_over();
 
 #endif //MENU_H
