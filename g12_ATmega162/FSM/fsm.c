@@ -41,6 +41,22 @@ void fsm_run(){
             break;
         }
 
+        case FSM_EV_CAN_RX_0:
+        {
+            can_frame_t can_msg;
+            can_receive(0, &can_msg);
+            can_process_message(&can_msg);
+            break;
+        }
+
+        case FSM_EV_CAN_RX_1:
+        {
+            can_frame_t can_msg;
+            can_receive(1, &can_msg);
+            can_process_message(&can_msg);
+            break;
+        }
+
         default: 
         {
             (*current_state)(event_id);
@@ -168,6 +184,7 @@ static void fsm_state_play(uint8_t event_id){
         {
             current_state = &fsm_state_menu;
             fsm_can_transmit_state(FSM_MENU);
+            timer_stop();
             break;
         }
 
@@ -180,6 +197,7 @@ static void fsm_state_play(uint8_t event_id){
         case FSM_EV_END_GAME:
         {
             timer_stop();
+            menu_draw_game_over();
             break;
         }
     

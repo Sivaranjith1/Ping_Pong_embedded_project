@@ -160,13 +160,9 @@ static void menu_main_draw(void){
 
 static void menu_play_draw(void){
     menu_children_dropdown_draw(&play);
+    oled_pos(6, 10);
+    oled_print("It's a trap");
     
-    oled_pos(3, 50);
-    oled_print("Its");
-    oled_pos(4, 50);
-    oled_print("A");
-    oled_pos(5, 50);
-    oled_print("TRAP!");
 }
 
 static void menu_options_draw(void){
@@ -227,7 +223,6 @@ void menu_increment_arrow(int incrementation){
 }
 
 void menu_update_menu(void){
-    oled_reset();
     menu_item* prev_menu = current_menu;
     if(menu_children_arrow_line < current_menu->num_children){   
         current_menu = current_menu->children[menu_children_arrow_line];
@@ -235,13 +230,12 @@ void menu_update_menu(void){
         current_menu = current_menu->parent;
     }
 
-    menu_children_arrow_line = 0;
-    menu_current_menu_draw();
 
     if(current_menu == &play){
         fsm_add_event(FSM_EV_GO_TO_PLAY);
     }
     else if(prev_menu == &play && current_menu != &play){
+        oled_clear_line(3);
         fsm_add_event(FSM_EV_LEAVE_PLAY);
     }
     else if(current_menu == &calibrate_joystick){
@@ -253,14 +247,24 @@ void menu_update_menu(void){
     else if(current_menu == &sram_test){
         fsm_add_event(FSM_EV_GO_TO_SRAM);
     }
+
+    oled_reset();
+    menu_children_arrow_line = 0;
+    menu_current_menu_draw();
 }
 
 void menu_update_timer(uint8_t time){
     unsigned char time_char[5] = {0};
     sprintf(time_char, "%d", time);
 
-	oled_pos(3,0);
+	oled_pos(3,20);
 	oled_print("TIME:");
-    oled_pos(3, 40);
+    oled_pos(3, 60);
 	oled_print(time_char);
+}
+
+void menu_draw_game_over(){
+    oled_clear_line(6);
+    oled_pos(6, 10);
+    oled_print("Game over");
 }

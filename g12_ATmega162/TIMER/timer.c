@@ -21,9 +21,9 @@
 #define TIMER3_DEBUG_PRINT(...)
 #endif // TIMER3_DEBUG
 
-static uint8_t play = 0;
-static uint8_t timer = 0;
-static uint8_t curr_time = 0;
+static uint8_t play = 0; //if the timer variable should count
+static uint8_t timer = 0; //internal variable to count to 1 sek
+static uint8_t curr_time = 0; //the time since timer start
 
 void timer_init(){
     // Setup for timer counter 1 and 3
@@ -44,6 +44,7 @@ void timer_init(){
 void timer_start(){
     // start counting timer
     timer = 0;
+    curr_time = 0;
     play = 1;
 }
 

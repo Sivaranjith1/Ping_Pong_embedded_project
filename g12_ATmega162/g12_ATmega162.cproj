@@ -153,6 +153,9 @@
     <Compile Include="CAN\can.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="CAN\can_messages.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="CAN\can_messages.h">
       <SubType>compile</SubType>
     </Compile>

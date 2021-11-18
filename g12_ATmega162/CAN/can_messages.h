@@ -12,6 +12,7 @@
 #define CAN_MESSAGES_H_
 
 #include <stdint.h>
+#include "can.h"
 
 // ------------------------
 //          Request
