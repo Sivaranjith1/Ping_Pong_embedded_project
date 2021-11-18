@@ -14,11 +14,10 @@
 #include "sam.h"
 
 #include "../UART/printf-stdarg.h"
-#include "../PWM/pwm.h"
-
+#include "can_messages.h"
 #include "can_controller.h"
+#include "../system_config.h"
 
-#define DEBUG_INTERRUPT 0
 
 /**
  * \brief CAN0 Interrupt handler for RX, TX and bus error interrupts
@@ -39,28 +38,17 @@ void CAN0_Handler( void )
 		if(can_sr & CAN_SR_MB1)  //Mailbox 1 event
 		{
 			can_receive(&message, 1);
-
+			can_process_message(&message);
 		}
 		else if(can_sr & CAN_SR_MB2) //Mailbox 2 event
 		
 		{
 			can_receive(&message, 2);
+			can_process_message(&message);
 		}
 		else
 		{
 			printf("CAN0 message arrived in non-used mailbox\n\r");
-		}
-
-		if(DEBUG_INTERRUPT)printf("message id: %d\n\r", message.id);
-		if(DEBUG_INTERRUPT)printf("message data length: %d\n\r", message.data_length);
-		for (int i = 0; i < message.data_length; i++)
-		{
-			if(DEBUG_INTERRUPT)printf("%d ", message.data.char_array[i]);
-		}
-		if(DEBUG_INTERRUPT)printf("\n\r");
-		if(message.id == 0x01){
-			if(DEBUG_INTERRUPT)printf("joystick %d %d \n\r", (uint8_t)(message.data.f32[0]*100),(uint8_t)(message.data.f32[1]*100));
-			pwm_update_from_joystick(message.data.f32);
 		}
 	}
 	

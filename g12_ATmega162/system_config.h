@@ -1,9 +1,13 @@
-/*
- * system_config.h
- *
- * Created: 31.08.2021 11:56:49
- *  Author: Sivaranjith Sivarasa
- */ 
+/**
+ * @file system_config.h
+ * @author Ask Øren, Steffen Folåsen, Sivaranjith Sivarasa
+ * @brief Global configuration for the ATMEGA
+ * @version 0.1
+ * @date 2021-08-31
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 
 
 #ifndef SYSTEM_CONFIG_H_
@@ -25,6 +29,13 @@
 #define OLED_SRAM_ADDRESS_START 0x800
 #define OLED_SRAM_ADDRESS_END 0x1000
 
+/**
+ * @brief All debug modes
+ * 
+ */
+#define TIMER1_DEBUG 0
+#define TIMER3_DEBUG 0
+#define ADC_DEBUG 0
 
 
 #endif /* SYSTEM_CONFIG_H_ */

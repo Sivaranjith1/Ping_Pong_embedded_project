@@ -52,7 +52,7 @@
         <documentation help="" />
         <offline-documentation help="" />
         <dependencies>
-          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.42.0" />
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.34.1" />
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
@@ -183,13 +183,55 @@
     <Compile Include="CAN\can_interrupt.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="CAN\can_messages.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN\can_messages.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DACC\dacc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DACC\dacc.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Device_Startup\startup_sam3xa.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Device_Startup\system_sam3xa.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="EEFC\eefc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EEFC\eefc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="GLOBAL_DATA\global_data.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="GLOBAL_DATA\global_data.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="JOYSTICK\joystick.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="JOYSTICK\joystick.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MOTOR\motor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MOTOR\motor.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MOTOR\pid.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MOTOR\pid.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="PWM\pwm.c">
@@ -199,6 +241,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="system_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TIMER\timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TIMER\timer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UART\printf-stdarg.c">
@@ -217,11 +265,25 @@
   <ItemGroup>
     <Folder Include="ADC\" />
     <Folder Include="CAN\" />
+    <Folder Include="DACC\" />
+    <Folder Include="Debug\" />
+    <Folder Include="Debug\MOTOR\" />
     <Folder Include="Device_Startup\" />
+    <Folder Include="EEFC\" />
+    <Folder Include="GLOBAL_DATA\" />
+    <Folder Include="JOYSTICK\" />
+    <Folder Include="MOTOR\" />
     <Folder Include="PWM\" />
+    <Folder Include="TIMER\" />
     <Folder Include="UART\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Debug\MOTOR\motor.d">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="Debug\MOTOR\motor.o">
+      <SubType>compile</SubType>
+    </None>
     <None Include="Device_Startup\sam3x8e_flash.ld">
       <SubType>compile</SubType>
     </None>

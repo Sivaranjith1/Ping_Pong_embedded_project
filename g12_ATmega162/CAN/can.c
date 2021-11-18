@@ -2,6 +2,7 @@
 #include "mcp2515.h"
 #include "mcp_constants.h"
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 void can_init(void){
     mcp_write(MCP_CNF3, 0x83); // PS2 = 3, SOF enable so that CNF2 and CNF1 can be written to
@@ -11,37 +12,25 @@ void can_init(void){
 
     mcp_write(MCP_TXRTSCTRL, 0b000); //Sets TXnRTS pins to digital inputs
 
-    mcp_write(MCP_CANINTE, 1 << 2); //Enables CAN interrupt to TXB0
+    //mcp_write(MCP_CANINTE, 1 << 2); //Enables CAN interrupt to TXB0
     mcp_write(MCP_CANINTE, MCP_RX_INT); 
-    
-    
-    SREG = (0 << 8); // disable global interrupt
-    GICR = (1 << INT2); // enable interrupt for pin INT2
-    EMCUCR = 1; // external interrupt enable on INT2
-    GIFR = (1 << INTF2); // clear flag
-    SREG = (1 << 8); // enable global interrupt
-    /*
-    SREG = (0 << 8); // disable global interrupts
-    GICR = (1 << INT1) | (1 << INT0) | (1 << INT2); // enable interrupts for pins INT0 - INT2
-    MCUCR = (2 << ISC10) | (2 << ISC00); // falling edge interrupt for both INT0 and INT1
-    EMCUCR = 1; // External interrupt enable on INT2
-    GIFR = (1 << INTF0) | (1 << INTF1) | (1 << INTF2); // clear flags
-    SREG = (1 << 8); // enable global interrupts
-    */
 }
 
 void can_transmit(can_frame_t* can_frame){
-    mcp_write(MCP_TXB0SIDH, 0xFF & (can_frame->id >> 3)); // setting higher id fields
-    mcp_write(MCP_TXB0SIDL, 0xFF & (can_frame->id << 5)); // setting lower id fields
-    mcp_write(MCP_TXB0DLC, (uint8_t)(can_frame->rtr) << 6 | can_frame->data_len); // setting data_len
+    static uint8_t can_buffer = 1; //which of the three buffers on the mcp to use
+    uint8_t buffer_address = 16*can_buffer; //each registor is 16 places apart
+    mcp_write(MCP_TXB0SIDH + buffer_address, 0xFF & (can_frame->id >> 3)); // setting higher id fields
+    mcp_write(MCP_TXB0SIDL + buffer_address, 0xFF & (can_frame->id << 5)); // setting lower id fields
+    mcp_write(MCP_TXB0DLC  + buffer_address, (uint8_t)(can_frame->rtr) << 6 | can_frame->data_len); // setting data_len
     for (uint8_t i = 0; i < 8; i++)
     {
-        mcp_write(MCP_TXB0D0 + i, can_frame->data.char_array[i]);
+        mcp_write(MCP_TXB0D0 + i + buffer_address, can_frame->data.char_array[i]);
     }
 
-    mcp_write(MCP_TXB0CTRL, 0x8);    //Set Message transmit request
-    mcp_request_to_send(0);
+    mcp_write(MCP_TXB0CTRL + buffer_address, 0x8);    //Set Message transmit request
+    mcp_request_to_send(can_buffer);
     
+    if(++can_buffer >= 3) can_buffer = 0;
 }
 
 void can_receive(uint8_t rxb_register, can_frame_t* can_frame){
@@ -82,4 +71,9 @@ void can_receive(uint8_t rxb_register, can_frame_t* can_frame){
     for(uint8_t i = 0; i < can_frame->data_len; i++){
         can_frame->data.char_array[i] = mcp_read(RXBnD0 + i);
     }
+}
+
+ISR(INT1_vect){
+    printf("Hello from INT1\n\r");
+    GIFR = (1 << INTF1);
 }
