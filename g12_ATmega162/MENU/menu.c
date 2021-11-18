@@ -2,9 +2,15 @@
 #define OPTIONS_CHILDREN 4
 
 #include "menu.h"
+#include "../ADC/adc.h"
+#include "../ADC/joystick.h"
 #include "../OLED/oled.h"
 #include "../SRAM/sram.h"
+#include "../FSM/fsm.h"
 #include <stdint.h>
+#include "../system_config.h"
+
+ 
 
 /////////////////////////////////////////////////////////////////////////
 //  Local Function Pointer Declaration
@@ -34,8 +40,7 @@ static menu_item high_score;
 static menu_item quit;
 static menu_item calibrate_joystick;
 static menu_item brightness;
-static menu_item set_difficulty;
-static menu_item sp_mp;
+static menu_item sram_test;
 
 /////////////////////////////////////////////////////////////////////////
 //  Local Functions Definitions
@@ -50,8 +55,7 @@ static void menu_high_score_draw(void);
 static void menu_quit_draw(void);
 static void menu_calibrate_draw(void);
 static void menu_brightness_draw(void);
-static void menu_players_draw(void);
-static void menu_difficulty_draw(void);
+static void menu_sram_test(void);
 
 /////////////////////////////////////////////////////////////////////////
 //  Local Menu Items Declarations
@@ -86,9 +90,9 @@ static menu_item high_score = {
 
 static menu_item options = {
     .name = "OPTIONS",
-    .num_children = 4,
+    .num_children = 3,
     .parent = &main_menu,
-    .children = {&brightness, &calibrate_joystick, &set_difficulty, &sp_mp},
+    .children = {&brightness, &calibrate_joystick, &sram_test},
     .draw_func = &menu_options_draw
 };
 
@@ -116,21 +120,14 @@ static menu_item brightness = {
     .draw_func = &menu_brightness_draw
 };
 
-static menu_item sp_mp = {
-    .name = "PLAYERS",
+static menu_item sram_test = {
+    .name = "SRAM TEST",
     .num_children = 0,
     .parent = &options,
     .children = {0},
-    .draw_func = &menu_players_draw
+    .draw_func = &menu_sram_test
 };
 
-static menu_item set_difficulty = {
-    .name = "DIFFICULTY",
-    .num_children = 0,
-    .parent = &options,
-    .children = {0},
-    .draw_func = &menu_difficulty_draw
-};
 
 /////////////////////////////////////////////////////////////////////////
 //  Local Function Declarations
@@ -162,11 +159,13 @@ static void menu_main_draw(void){
 }
 
 static void menu_play_draw(void){
-    oled_pos(0, 50);
+    menu_children_dropdown_draw(&play);
+    
+    oled_pos(3, 50);
     oled_print("Its");
-    oled_pos(1, 50);
+    oled_pos(4, 50);
     oled_print("A");
-    oled_pos(2, 50);
+    oled_pos(5, 50);
     oled_print("TRAP!");
 }
 
@@ -179,21 +178,28 @@ static void menu_quit_draw(void){
 }
 
 static void menu_high_score_draw(void){}
-static void menu_calibrate_draw(void){}
-static void menu_brightness_draw(void){}
-static void menu_players_draw(void){
-    oled_pos(0, 50);
-    oled_print("YOU");
-    oled_pos(1, 50);
-    oled_print("WANNA");
-    oled_pos(2, 50);
-    oled_print("PLAY");
-    oled_pos(3, 50);
-    oled_print("A");
-    oled_pos(4, 50);
-    oled_print("GAME?");
+static void menu_calibrate_draw(void){
 }
-static void menu_difficulty_draw(void){}
+
+static void menu_brightness_draw(void){
+    uint8_t brightness = oled_get_brightness();
+    unsigned char bright_char[5] = {0};
+    sprintf(bright_char, "%d", brightness);
+
+    oled_pos(0,0);
+    oled_print("CURRENT");
+    oled_pos(1,0);
+    oled_print("BRIGHTNESS");
+    oled_pos(2,40);
+    oled_print(bright_char);
+    // NOT DONE, NEEDS SUPPORT FOR JOYSTICK MOVEMENT
+}
+
+static void menu_sram_test(void){
+    menu_children_dropdown_draw(&sram_test);
+    oled_pos(3, 30);
+    oled_print("Running test");
+}
 
 /////////////////////////////////////////////////////////////////////////
 //  Global Function Declarations
@@ -221,8 +227,8 @@ void menu_increment_arrow(int incrementation){
 }
 
 void menu_update_menu(void){
-    sram_reset();
     oled_reset();
+    menu_item* prev_menu = current_menu;
     if(menu_children_arrow_line < current_menu->num_children){   
         current_menu = current_menu->children[menu_children_arrow_line];
     } else if(current_menu->parent != 0){
@@ -231,5 +237,30 @@ void menu_update_menu(void){
 
     menu_children_arrow_line = 0;
     menu_current_menu_draw();
-	oled_fade_in();
+
+    if(current_menu == &play){
+        fsm_add_event(FSM_EV_GO_TO_PLAY);
+    }
+    else if(prev_menu == &play && current_menu != &play){
+        fsm_add_event(FSM_EV_LEAVE_PLAY);
+    }
+    else if(current_menu == &calibrate_joystick){
+        fsm_add_event(FSM_EV_GO_TO_CAL);
+    }
+    else if(prev_menu == &calibrate_joystick && current_menu != &calibrate_joystick){
+        fsm_add_event(FSM_EV_LEAVE_CAL);
+    }
+    else if(current_menu == &sram_test){
+        fsm_add_event(FSM_EV_GO_TO_SRAM);
+    }
+}
+
+void menu_update_timer(uint8_t time){
+    unsigned char time_char[5] = {0};
+    sprintf(time_char, "%d", time);
+
+	oled_pos(3,0);
+	oled_print("TIME:");
+    oled_pos(3, 40);
+	oled_print(time_char);
 }

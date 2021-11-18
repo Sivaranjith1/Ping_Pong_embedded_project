@@ -1,27 +1,18 @@
+/**
+ * @file menu.h
+ * @author Ask Øren, Steffen Folåsen, Sivaranjith Sivarasa
+ * @brief Driver for controlling the menu and elements on the screen
+ * @version 0.1
+ * @date 2021-10-14
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #ifndef MENU_H
 #define MENU_H
 
-/*
-TO-DO:
-init-funksjon
-redraw
-FSM
-
-meny innhold:
-- start/play
-- highscore
-- quit
-- options
-	- brightness
-	- calibrate joystick
-	- set difficulty
-	- single/multiplayer
-	- main menu
-- Fancy title
-
-extra:
-- Musikk (8-bit mario-esque)
-*/
+#include <stdint.h>
 
 /**
  * @brief Draws the elements in the main menu. Calls the
@@ -51,5 +42,7 @@ void menu_increment_arrow(int incrementation);
  * 
  */
 void menu_update_menu(void);
+
+void menu_update_timer(uint8_t time);
 
 #endif //MENU_H

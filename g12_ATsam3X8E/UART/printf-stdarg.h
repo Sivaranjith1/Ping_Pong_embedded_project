@@ -1,3 +1,15 @@
+/**
+ * @file printf-stdarg.h
+ * @author your name (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2021-11-02
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
+
 /*
 	Copyright 2001, 2002 Georges Menie (www.menie.org)
 	stdarg version contributed by Christian Ettinger
@@ -18,7 +30,13 @@
 #ifndef PRINTF-STDARG_H_
 #define PRINTF-STDARG_H_
 
-
+/**
+ * @brief 
+ * 
+ * @param format 
+ * @param ... 
+ * @return int 
+ */
 int printf(const char *format, ...);
 
 

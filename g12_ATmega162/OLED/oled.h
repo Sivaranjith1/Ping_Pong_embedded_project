@@ -1,14 +1,18 @@
-﻿/*
- * IncFile1.h
- *
- * Created: 9/14/2021 8:47:57 AM
- *  Author: Steffen Folåsen
- */ 
-
+﻿/**
+ * @file oled.h
+ * @author your name (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2021-09-14
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 
 #ifndef OLED_H_
 #define OLED_H_
 
+#define CHAR_TO_NUM 30 // conversion between ASCII char and numbers
 #include <stdint.h>
 
 /**
@@ -49,6 +53,8 @@ void oled_pos(uint8_t line, uint8_t column);
  */
 void oled_redraw(unsigned char data);
 
+void oled_refresh();
+
 
 /**
  * @brief Uses the oled_print_char function to print an array 
@@ -63,6 +69,13 @@ void oled_print(unsigned char* data);
  * @param level How bright the screen should be adjusted to be.
  */
 void oled_set_brightness(uint8_t level);
+
+/**
+ * @brief Returns the current brightness level of the screen
+ * 
+ * @return uint8_t the current brightness between 0 - 255
+ */
+uint8_t oled_get_brightness();
 
 /**
  * @brief Test function that creates an arrow on the LED screen
