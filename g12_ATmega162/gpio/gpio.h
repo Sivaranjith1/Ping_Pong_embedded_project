@@ -1,6 +1,6 @@
 /**
  * @file gpio.h
- * @author Ask Øren
+ * @author Ask Øren, Steffen Folåsen, Sivaranjith Sivarasa
  * @brief Driver for controlling GPIO pins on the ATMEGA
  * @version 0.1
  * @date 2021-08-31
@@ -15,13 +15,6 @@
 
 #include <stdint.h>
 #include <avr/io.h>
-
-/*Ta i mot port, pin, og set direction (input/output)
-Enable
-Disable
-Toggle kanskje
-Read
-*/
 
 /**
  * @brief Sets the pin high

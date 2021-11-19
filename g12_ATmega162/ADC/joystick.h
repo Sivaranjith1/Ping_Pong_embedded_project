@@ -1,6 +1,6 @@
 /**
  * @file joystick.h
- * @author Steffen Folåsen
+ * @author Steffen Folåsen, Ask Øren, Sivaranjith Sivarasa
  * @brief Read the joystick value from the ADC. Depends on the adc.h
  * @version 0.1
  * @date 2021-11-02
@@ -13,6 +13,10 @@
 
 #include "../CAN/can.h"
 
+/**
+ * @brief Enable pins for reading joystick buttons 
+ * 
+ */
 void joystick_init(void);
 
 /**
@@ -27,6 +31,11 @@ void joystick_read(void);
  */
 void joystick_read_button_polled(void);
 
+/**
+ * @brief Calibration for joystick values
+ * 
+ * @param step Step of the calibration. I.e left value or middle value
+ */
 void joystick_calibration_sequence(uint8_t step);
 
 /**
@@ -35,6 +44,10 @@ void joystick_calibration_sequence(uint8_t step);
  */
 void joystick_can_transmit_pos(uint8_t can_id);
 
+/**
+ * @brief Check if the button for extending solenoid is pressed
+ * 
+ */
 void joystick_extend_solenoid(void);
 
 #endif //JOYSTICK_H

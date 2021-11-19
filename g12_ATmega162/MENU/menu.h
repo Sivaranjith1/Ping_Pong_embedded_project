@@ -51,7 +51,7 @@ void menu_update_menu(void);
 void menu_update_timer(uint16_t time);
 
 /**
- * @brief Stops the game, displays game over on the screen and freezes the timer
+ * @brief Stops the game, displays game over on the screen
  * 
  */
 void menu_draw_game_over();

@@ -38,5 +38,3 @@ void spi_transmit(unsigned char data);
 unsigned char spi_receive(void);
 
 #endif
-
-// PA15 - PIN24

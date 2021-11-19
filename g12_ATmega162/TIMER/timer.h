@@ -1,7 +1,7 @@
 /**
  * @file timer.h
- * @author your name (you@domain.com)
- * @brief 
+ * @author Ask Øren, Steffen Folåsen, Sivaranjith Sivarasa
+ * @brief Timer functionality both for interrupts and in-game time counting
  * @version 0.1
  * @date 2021-11-19
  * 
@@ -14,33 +14,34 @@
 #include <stdint.h>
 
 /**
- * @brief 
- * 
+ * @brief Initialises TC 1 and 3, as well as their interrupts.
+ * Both have adjustable frequencies, and are enabled in compare mode.
+ * TC 1 uses MCK/64, while TC uses MCK/256 
  */
 void timer_init(void);
 
 /**
- * @brief 
+ * @brief Gives the time since the clock started, used for counting in-game time.
  * 
- * @return uint8_t 
+ * @return uint16_t The time(in seconds) since timer started.
  */
-uint8_t timer_get_time(void);
+uint16_t timer_get_time(void);
 
 /**
- * @brief 
- * 
- * @return uint8_t 
+ * @brief Tells whether the game is currently playing, and thus whether the timer
+ * should be counting upwards
+ * @return uint8_t Either 0 or 1 depending on if the game is playing or not.
  */
 uint8_t timer_get_play();
 
 /**
- * @brief 
+ * @brief Starts the timer, sets @p play to 1
  * 
  */
 void timer_start(void);
 
 /**
- * @brief 
+ * @brief Stops the timer, sets @p play to 0
  * 
  */
 void timer_stop(void);

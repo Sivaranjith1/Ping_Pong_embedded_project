@@ -1,6 +1,6 @@
 /**
  * @file xmem.h
- * @author Steffen Folåsen
+ * @author Steffen Folåsen, Ask Øren, Sivaranjith Sivarasa
  * @brief Library for interfacing with AVR's external memory, xmem
  * @version 0.1
  * @date 2021-09-07
@@ -27,6 +27,13 @@ void xmem_init(void);
  */
 void xmem_write(uint8_t data, uint16_t addr);
 
+/**
+ * @brief Write to the external memory and check if the returned value is the same. If they differ try again max 3 times 
+ * 
+ * @param data The data to write
+ * @param addr The address to write data to
+ * @return uint8_t 0 if the check was the same as the @p data. 0 otherwise
+ */
 uint8_t xmem_write_with_check(uint8_t data, uint16_t addr);
 
 /**
