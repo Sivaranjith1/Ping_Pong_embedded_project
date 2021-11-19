@@ -1,0 +1,11 @@
+digraph "SRAM" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  dir_79ae44a4ffeb960a88162a0b32a77625 [shape=box, label="SRAM", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_79ae44a4ffeb960a88162a0b32a77625.html"];
+  dir_8a7e001c042a03b21535b66fcd2606ec [shape=box label="XMEM" URL="dir_8a7e001c042a03b21535b66fcd2606ec.html"];
+  dir_d638c3b6eaa8f09f7cafd070dffb79d1 [shape=box label="OLED" URL="dir_d638c3b6eaa8f09f7cafd070dffb79d1.html"];
+  dir_79ae44a4ffeb960a88162a0b32a77625->dir_8a7e001c042a03b21535b66fcd2606ec [headlabel="1", labeldistance=1.5 headhref="dir_000008_000011.html"];
+  dir_79ae44a4ffeb960a88162a0b32a77625->dir_d638c3b6eaa8f09f7cafd070dffb79d1 [headlabel="1", labeldistance=1.5 headhref="dir_000008_000006.html"];
+  dir_d638c3b6eaa8f09f7cafd070dffb79d1->dir_8a7e001c042a03b21535b66fcd2606ec [headlabel="1", labeldistance=1.5 headhref="dir_000006_000011.html"];
+}
