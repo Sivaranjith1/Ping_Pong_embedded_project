@@ -1,0 +1,15 @@
+digraph "TIMER" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  dir_f13d34a2797cd5258e5fc25f252f92a1 [shape=box, label="TIMER", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_f13d34a2797cd5258e5fc25f252f92a1.html"];
+  dir_739e530fc6fa038c379ec8b4170d8153 [shape=box label="ADC" URL="dir_739e530fc6fa038c379ec8b4170d8153.html"];
+  dir_0a69cf46a61eed75dfa538db18e69e1d [shape=box label="MOTOR" URL="dir_0a69cf46a61eed75dfa538db18e69e1d.html"];
+  dir_85f99c390bf4c27b62435416daf93629 [shape=box label="CAN" URL="dir_85f99c390bf4c27b62435416daf93629.html"];
+  dir_3019c187a4dd8408cd979e2223f115c0 [shape=box label="PWM" URL="dir_3019c187a4dd8408cd979e2223f115c0.html"];
+  dir_85f99c390bf4c27b62435416daf93629->dir_0a69cf46a61eed75dfa538db18e69e1d [headlabel="1", labeldistance=1.5 headhref="dir_000001_000007.html"];
+  dir_f13d34a2797cd5258e5fc25f252f92a1->dir_739e530fc6fa038c379ec8b4170d8153 [headlabel="2", labeldistance=1.5 headhref="dir_000009_000000.html"];
+  dir_f13d34a2797cd5258e5fc25f252f92a1->dir_0a69cf46a61eed75dfa538db18e69e1d [headlabel="2", labeldistance=1.5 headhref="dir_000009_000007.html"];
+  dir_f13d34a2797cd5258e5fc25f252f92a1->dir_85f99c390bf4c27b62435416daf93629 [headlabel="1", labeldistance=1.5 headhref="dir_000009_000001.html"];
+  dir_f13d34a2797cd5258e5fc25f252f92a1->dir_3019c187a4dd8408cd979e2223f115c0 [headlabel="1", labeldistance=1.5 headhref="dir_000009_000008.html"];
+}

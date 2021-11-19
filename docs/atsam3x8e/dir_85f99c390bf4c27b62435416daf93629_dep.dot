@@ -1,0 +1,10 @@
+digraph "CAN" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  dir_85f99c390bf4c27b62435416daf93629 [shape=box, label="CAN", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_85f99c390bf4c27b62435416daf93629.html"];
+  dir_0a69cf46a61eed75dfa538db18e69e1d [shape=box label="MOTOR" URL="dir_0a69cf46a61eed75dfa538db18e69e1d.html"];
+  dir_ebc9cec7537ff1d4a79631ef79929747 [shape=box label="UART" URL="dir_ebc9cec7537ff1d4a79631ef79929747.html"];
+  dir_85f99c390bf4c27b62435416daf93629->dir_0a69cf46a61eed75dfa538db18e69e1d [headlabel="1", labeldistance=1.5 headhref="dir_000001_000007.html"];
+  dir_85f99c390bf4c27b62435416daf93629->dir_ebc9cec7537ff1d4a79631ef79929747 [headlabel="2", labeldistance=1.5 headhref="dir_000001_000010.html"];
+}
