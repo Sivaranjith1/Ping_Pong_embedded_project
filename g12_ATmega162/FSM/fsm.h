@@ -20,12 +20,19 @@
 #define FSM_EV_STATE_TIMER_1    11U //when timer 1 is activated, specific for the current state
 #define FSM_EV_TIMER_3          12U
 #define FSM_EV_STATE_TIMER_3    13U
+
+/*
+ * Can events
+ */
+#define FSM_EV_CAN_RX_0         20U //when receiving a can message in frame 0
+#define FSM_EV_CAN_RX_1         21U //when receiving a can message in frame 1
+
 /*
  * Joystick events
  */
-#define FSM_EV_JOYSTICK_UP      20U
-#define FSM_EV_JOYSTICK_DOWN    21U
-#define FSM_EV_JOYSTICK_BUTTON  25U
+#define FSM_EV_JOYSTICK_UP      30U
+#define FSM_EV_JOYSTICK_DOWN    31U
+#define FSM_EV_JOYSTICK_BUTTON  35U
 
 /*
  * Menu events
@@ -45,6 +52,11 @@
  */
 #define FSM_EV_END_GAME         70U
 
+/**
+ * Brightness events
+ */
+#define FSM_EV_GO_TO_BRIGHTNESS 80U
+#define FSM_EV_LEAVE_BRIGHTNESS 81U
 
 /**
  * @brief Get a event from the event queue and perform the action based on the current state

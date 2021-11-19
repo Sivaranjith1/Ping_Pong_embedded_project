@@ -153,6 +153,9 @@
     <Compile Include="CAN\can.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="CAN\can_messages.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="CAN\can_messages.h">
       <SubType>compile</SubType>
     </Compile>
@@ -190,6 +193,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MENU\highscore.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MENU\highscore.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="MENU\menu.c">

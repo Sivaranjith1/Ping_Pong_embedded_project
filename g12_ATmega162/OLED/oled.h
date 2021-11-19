@@ -1,7 +1,7 @@
 ﻿/**
  * @file oled.h
- * @author your name (you@domain.com)
- * @brief 
+ * @author Ask Øren, Steffen Folåsen, Sivaranjith Sivarasa
+ * @brief Basic OLED driver, provides the baseline for the menu 
  * @version 0.1
  * @date 2021-09-14
  * 
@@ -27,9 +27,6 @@ void oled_init(void);
  */
 void oled_reset(void);
 
-// Not in use atm
-void oled_home(void);
-
 /**
  * @brief Clears an entire segment by writing 0 to all the columns
  *
@@ -53,8 +50,11 @@ void oled_pos(uint8_t line, uint8_t column);
  */
 void oled_redraw(unsigned char data);
 
+/**
+ * @brief Refreshes the OLED using the data saved in the SRAM
+ * 
+ */
 void oled_refresh();
-
 
 /**
  * @brief Uses the oled_print_char function to print an array 

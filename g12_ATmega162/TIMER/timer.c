@@ -3,8 +3,8 @@
 #include "../system_config.h"
 #include "../FSM/fsm.h"
 
-// 25 Hz
-#define COMP_1A_REG  3072
+// 20 Hz
+#define COMP_1A_REG  3840
 
 // 10 Hz
 #define COMP_3A_REG 1920
@@ -21,9 +21,9 @@
 #define TIMER3_DEBUG_PRINT(...)
 #endif // TIMER3_DEBUG
 
-static uint8_t play = 0;
-static uint8_t timer = 0;
-static uint8_t curr_time = 0;
+static uint8_t play = 0; //if the timer variable should count
+static uint8_t timer = 0; //internal variable to count to 1 sek
+static uint16_t curr_time = 0; //the time since timer start
 
 void timer_init(){
     // Setup for timer counter 1 and 3
@@ -44,6 +44,7 @@ void timer_init(){
 void timer_start(){
     // start counting timer
     timer = 0;
+    curr_time = 0;
     play = 1;
 }
 
@@ -52,8 +53,12 @@ void timer_stop(){
     play = 0;
 }
 
-uint8_t timer_get_time(){
-    uint8_t current_time = curr_time;
+uint8_t timer_get_play(){
+    return play;
+}
+
+uint16_t timer_get_time(){
+    uint16_t current_time = curr_time;
     return current_time;
 }
 

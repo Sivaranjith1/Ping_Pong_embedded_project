@@ -43,6 +43,17 @@ void menu_increment_arrow(int incrementation);
  */
 void menu_update_menu(void);
 
-void menu_update_timer(uint8_t time);
+/**
+ * @brief Updates the game timer indicating how long you have been playing for
+ * 
+ * @param time the time to be written to the screen
+ */
+void menu_update_timer(uint16_t time);
+
+/**
+ * @brief Stops the game, displays game over on the screen
+ * 
+ */
+void menu_draw_game_over();
 
 #endif //MENU_H

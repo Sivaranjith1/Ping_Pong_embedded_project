@@ -2,6 +2,7 @@
 #define OPTIONS_CHILDREN 4
 
 #include "menu.h"
+#include "highscore.h"
 #include "../ADC/adc.h"
 #include "../ADC/joystick.h"
 #include "../OLED/oled.h"
@@ -17,8 +18,9 @@
 /////////////////////////////////////////////////////////////////////////
 
 typedef void (*menu_draw_function)(void);
+
 /**
- * 
+ * @brief A menu to be displayed on the oled display 
  */
 typedef struct menu_item menu_item;
 struct menu_item {
@@ -160,13 +162,9 @@ static void menu_main_draw(void){
 
 static void menu_play_draw(void){
     menu_children_dropdown_draw(&play);
+    oled_pos(6, 10);
+    oled_print("It's a trap");
     
-    oled_pos(3, 50);
-    oled_print("Its");
-    oled_pos(4, 50);
-    oled_print("A");
-    oled_pos(5, 50);
-    oled_print("TRAP!");
 }
 
 static void menu_options_draw(void){
@@ -177,7 +175,17 @@ static void menu_quit_draw(void){
     oled_turn_off();
 }
 
-static void menu_high_score_draw(void){}
+static void menu_high_score_draw(void){
+    menu_children_dropdown_draw(&high_score);
+
+    for(uint8_t i = 0; i < HIGHSCORE_SCORES_NUM; i++){
+        oled_pos(1 + i, 30);
+        unsigned char score_char[8] = {0};
+        sprintf(score_char, "P%d: %d", i, highscore_get_scores(i));
+        oled_print(score_char);
+    }
+}
+
 static void menu_calibrate_draw(void){
 }
 
@@ -185,6 +193,7 @@ static void menu_brightness_draw(void){
     uint8_t brightness = oled_get_brightness();
     unsigned char bright_char[5] = {0};
     sprintf(bright_char, "%d", brightness);
+    oled_clear_line(2);
 
     oled_pos(0,0);
     oled_print("CURRENT");
@@ -192,7 +201,6 @@ static void menu_brightness_draw(void){
     oled_print("BRIGHTNESS");
     oled_pos(2,40);
     oled_print(bright_char);
-    // NOT DONE, NEEDS SUPPORT FOR JOYSTICK MOVEMENT
 }
 
 static void menu_sram_test(void){
@@ -227,7 +235,6 @@ void menu_increment_arrow(int incrementation){
 }
 
 void menu_update_menu(void){
-    oled_reset();
     menu_item* prev_menu = current_menu;
     if(menu_children_arrow_line < current_menu->num_children){   
         current_menu = current_menu->children[menu_children_arrow_line];
@@ -235,13 +242,12 @@ void menu_update_menu(void){
         current_menu = current_menu->parent;
     }
 
-    menu_children_arrow_line = 0;
-    menu_current_menu_draw();
 
     if(current_menu == &play){
         fsm_add_event(FSM_EV_GO_TO_PLAY);
     }
     else if(prev_menu == &play && current_menu != &play){
+        oled_clear_line(3);
         fsm_add_event(FSM_EV_LEAVE_PLAY);
     }
     else if(current_menu == &calibrate_joystick){
@@ -250,17 +256,33 @@ void menu_update_menu(void){
     else if(prev_menu == &calibrate_joystick && current_menu != &calibrate_joystick){
         fsm_add_event(FSM_EV_LEAVE_CAL);
     }
+    else if(current_menu == &brightness){
+        fsm_add_event(FSM_EV_GO_TO_BRIGHTNESS);
+    }
+    else if(prev_menu == &brightness && current_menu != &brightness){
+        fsm_add_event(FSM_EV_LEAVE_BRIGHTNESS);
+    }
     else if(current_menu == &sram_test){
         fsm_add_event(FSM_EV_GO_TO_SRAM);
     }
+
+    oled_reset();
+    menu_children_arrow_line = 0;
+    menu_current_menu_draw();
 }
 
-void menu_update_timer(uint8_t time){
-    unsigned char time_char[5] = {0};
+void menu_update_timer(uint16_t time){
+    unsigned char time_char[8] = {0};
     sprintf(time_char, "%d", time);
-
-	oled_pos(3,0);
+    oled_clear_line(3);
+	oled_pos(3,20);
 	oled_print("TIME:");
-    oled_pos(3, 40);
+    oled_pos(3, 60);
 	oled_print(time_char);
+}
+
+void menu_draw_game_over(){
+    oled_clear_line(6);
+    oled_pos(6, 10);
+    oled_print("Game over");
 }

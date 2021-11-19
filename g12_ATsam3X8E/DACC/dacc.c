@@ -9,12 +9,6 @@
 #define DACC_DEBUG_PRINT(...)
 #endif // DACC_DEBUG
 
-//void DACC_Handler(void){
-//	DACC_DEBUG_PRINT("DACC debugger says hi \n\r");
-//	NVIC_ClearPendingIRQ(DACC_IRQn);
-//}
-
-
 void dacc_init(){
     PIOB->PIO_PDR |= PIO_PDR_P16;   // Disables IO on pin 2
 	PIOB->PIO_ABSR |= PIO_ABSR_P16; // Selects peripheral on pin 2

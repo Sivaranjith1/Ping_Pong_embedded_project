@@ -41,12 +41,10 @@ uint16_t adc_get_data(uint8_t channel);
 
 
 /**
- * @brief Helper functio
- * 
-ema filtering data
- * @param channel 
- * @param alpha 
- * @return float 
+ * @brief Helper function, ema filtering data, this should be used instead of adc_get_data for best results
+ * @param channel the channel to do ema filtering on 
+ * @param alpha weighting for measurement. Should be between 0 and 1. A higher number means a higher weighting of the measurement
+ * @return uint16_t the filtered values
  */
 uint16_t adc_get_ema_filtered_data(uint8_t channel, float alpha);
 

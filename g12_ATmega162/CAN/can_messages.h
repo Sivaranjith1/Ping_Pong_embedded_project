@@ -12,11 +12,12 @@
 #define CAN_MESSAGES_H_
 
 #include <stdint.h>
+#include "can.h"
 
 // ------------------------
 //          Request
 // ------------------------
-#define CAN_BUTTON_PRESSED_ID 0x40
+#define CAN_BUTTON_PRESSED_ID       0x40
 
 // ------------------------
 //          Messages
@@ -24,7 +25,7 @@
 #define CAN_GOAL_SCORED_ID          0x20
 
 // state of the atmega
-#define CAN_FSM_STATE_ID             0x45
+#define CAN_FSM_STATE_ID            0x45
 typedef enum {FSM_MENU, FSM_PLAY, FSM_CALIBRATION} can_fsm_state_t;
 
 // joystick position data
@@ -36,6 +37,7 @@ typedef enum {FSM_MENU, FSM_PLAY, FSM_CALIBRATION} can_fsm_state_t;
 #define CAN_CAL_JOYSTICK_DOWN_ID    0x62
 #define CAN_CAL_JOYSTICK_LEFT_ID    0x63
 #define CAN_CAL_JOYSTICK_RIGHT_ID   0x64
+#define CAN_CAL_JOYSTICK_DONE_ID    0x65
 
 
 /**
