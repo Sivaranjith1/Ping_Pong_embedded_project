@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @author Ask Øren, Steffen Folåsen 
+ * @author Ask Øren, Steffen Folåsen, Sivaranjith Sivarasa
  * @brief The main application of the ATSAME3X8E for this project
  * @version 1.0 
  * @date 2021-10-05
@@ -22,6 +22,7 @@
 #include "DACC/dacc.h"
 #include "MOTOR/motor.h"
 #include "EEFC/eefc.h"
+#include "TWI/twi.h"
 
 
 /**
@@ -37,8 +38,9 @@ void init(void){
     timer_init();
     dacc_init();
     motor_init();
+    eefc_init();
     joystick_init();
-    //eefc_init();
+    twi_init();
 }
 
 /**
@@ -52,13 +54,16 @@ int main(void)
 	printf("\n\rAtsame starting ...\n\r");
     
     WDT->WDT_MR = WDT_MR_WDDIS;
-
-    while (1) 
-    {
-        // if(goal_check_for_goal()){
-        //     printf("GOOOOOOOAL %d \n\r", goal_get_goals());
-        //     //for (uint16_t i = 0; i < 100000; i++){};
-        // }
+    //eefc_read_flash_descriptor();
+    uint32_t data[8];
+    for (int i = 0; i < 8; ++i){
+        data[i] = i;
+		//printf("DATALOOP \n\r");
     }
+  
+    //eefc_write(50, data);
+    //eefc_read_single_page(50);
+    while (1);
+
     return 0;
 }

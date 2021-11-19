@@ -137,7 +137,6 @@ static void fsm_state_menu(uint8_t event_id){
             xmem_SRAM_test();
             break;
         }
-
         default:
             break;
     }

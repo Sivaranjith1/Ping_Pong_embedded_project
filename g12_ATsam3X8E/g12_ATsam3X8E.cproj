@@ -249,6 +249,12 @@
     <Compile Include="TIMER\timer.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="TWI\twi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TWI\twi.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UART\printf-stdarg.c">
       <SubType>compile</SubType>
     </Compile>
@@ -275,6 +281,7 @@
     <Folder Include="MOTOR\" />
     <Folder Include="PWM\" />
     <Folder Include="TIMER\" />
+    <Folder Include="TWI\" />
     <Folder Include="UART\" />
   </ItemGroup>
   <ItemGroup>

@@ -48,9 +48,9 @@ void motor_set_speed(float speed);
 void motor_set_direction(motor_direction_t direction);
 
 /**
- * @brief 
+ * @brief Read the raw encoder values. Negative values will indicate moving to the left
  * 
- * @return int16_t 
+ * @return int16_t A 2ers complement value of the encoder position
  */
 int16_t motor_read_encoder(void);
 
@@ -60,8 +60,17 @@ int16_t motor_read_encoder(void);
  */
 void motor_reset_encoder();
 
+/**
+ * @brief get the position of the motor on the shaft relative to the walls. 0 is the position next to the leftwall
+ * 
+ * @return float 0 to 1 scaled value of the motor position on the shaft 
+ */
 float motor_get_position();
 
+/**
+ * @brief set the current position to the max value. Used for calibration of the motor. This will be position 1 for @p motor_get_position()
+ * 
+ */
 void motor_position_set_max_value();
 
 #endif

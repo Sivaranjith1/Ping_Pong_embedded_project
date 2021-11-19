@@ -9,6 +9,7 @@
 #include "../MOTOR/pid.h"
 #include "../DACC/dacc.h"
 #include "../CAN/can_controller.h"
+#include "../TWI/twi.h"
 #include "../system_config.h"
 
 #define RC_COMP_TC0 840000 // 50 Hz

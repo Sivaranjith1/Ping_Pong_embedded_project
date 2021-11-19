@@ -32,5 +32,7 @@
 #define DEBUG_INTERRUPT 0
 #define ADC_DEBUG 0
 #define PID_DEBUG 0
+#define JOYSTICK_DEBUG 0
+#define EEFC_DEBUG 0
 
 #endif /* SYSTEM_CONFIG_H_ */

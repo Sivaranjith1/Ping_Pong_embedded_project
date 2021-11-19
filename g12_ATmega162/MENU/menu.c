@@ -18,6 +18,7 @@
 /////////////////////////////////////////////////////////////////////////
 
 typedef void (*menu_draw_function)(void);
+
 /**
  * @brief A menu to be displayed on the oled display 
  */
@@ -200,7 +201,6 @@ static void menu_brightness_draw(void){
     oled_print("BRIGHTNESS");
     oled_pos(2,40);
     oled_print(bright_char);
-    // NOT DONE, NEEDS SUPPORT FOR JOYSTICK MOVEMENT
 }
 
 static void menu_sram_test(void){

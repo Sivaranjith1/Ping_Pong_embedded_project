@@ -100,7 +100,18 @@ void joystick_calibration_sequence(uint8_t step){
       oled_pos(0, 0);
       oled_print("CALIBRATION");
       oled_pos(1, 0);
-      oled_print("FINNISHED");
+      oled_print("FINISHED");
+      //oled_pos(3, 0);
+      //oled_print("REBOOT");
+      //oled_pos(4, 0);
+      //oled_print("ATSAM");
+      can_frame_t done ={
+        .id = CAN_CAL_JOYSTICK_DONE_ID,
+        .rtr = 1,
+        .data_len = 1,
+        .data = {1}
+      };
+      can_transmit(&done);
       break;
     }
 

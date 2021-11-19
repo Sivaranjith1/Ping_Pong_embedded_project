@@ -18,7 +18,7 @@
 // ------------------------
 //          Request
 // ------------------------
-#define CAN_BUTTON_PRESSED_ID 0x40
+#define CAN_BUTTON_PRESSED_ID       0x40
 
 // ------------------------
 //          Messages
@@ -38,8 +38,12 @@ typedef enum {FSM_MENU, FSM_PLAY, FSM_CALIBRATION} can_fsm_state_t;
 #define CAN_CAL_JOYSTICK_DOWN_ID    0x62
 #define CAN_CAL_JOYSTICK_LEFT_ID    0x63
 #define CAN_CAL_JOYSTICK_RIGHT_ID   0x64
+#define CAN_CAL_JOYSTICK_DONE_ID    0x65
 
-
+/**
+ * @brief Current position of the joystick, both x and y axis
+ * 
+ */
 typedef struct {
     float x_pos;
     float y_pos;
