@@ -1,0 +1,8 @@
+digraph "EEFC" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  dir_7951fa9e96d04dd67aa350de3a644ce0 [shape=box, label="EEFC", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_7951fa9e96d04dd67aa350de3a644ce0.html"];
+  dir_ebc9cec7537ff1d4a79631ef79929747 [shape=box label="UART" URL="dir_ebc9cec7537ff1d4a79631ef79929747.html"];
+  dir_7951fa9e96d04dd67aa350de3a644ce0->dir_ebc9cec7537ff1d4a79631ef79929747 [headlabel="1", labeldistance=1.5 headhref="dir_000004_000011.html"];
+}

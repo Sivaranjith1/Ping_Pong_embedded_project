@@ -1,11 +1,7 @@
 var searchData=
 [
-  ['main_96',['main',['../main_8c.html#a840291bc02cba5474a4cb46a9b9566fe',1,'main.c']]],
-  ['motor_5fdisable_5fsoft_97',['motor_disable_soft',['../motor_8h.html#a9040fd95d694b69f681dc8f13a7059a7',1,'motor.c']]],
-  ['motor_5fenable_5fsoft_98',['motor_enable_soft',['../motor_8h.html#add147f61790b1573878f192fa5e2e1ca',1,'motor.c']]],
-  ['motor_5finit_99',['motor_init',['../motor_8h.html#aa2a5af0fb9c1fa2047a5ca0af110f806',1,'motor.c']]],
-  ['motor_5fread_5fencoder_100',['motor_read_encoder',['../motor_8h.html#a623dddcf396565fb0cc7f4525edf77db',1,'motor.c']]],
-  ['motor_5freset_5fencoder_101',['motor_reset_encoder',['../motor_8h.html#a6d8492ce306acf783db39e537bdf28f3',1,'motor.c']]],
-  ['motor_5fset_5fdirection_102',['motor_set_direction',['../motor_8h.html#ac641ed08aebbf3b50840adaed8915212',1,'motor.c']]],
-  ['motor_5fset_5fspeed_103',['motor_set_speed',['../motor_8h.html#a37bd6671db8d780e1586a6f7f1e1d99c',1,'motor.c']]]
+  ['global_5fdata_5fget_5fjoystick_130',['global_data_get_joystick',['../global__data_8h.html#a04e8946ed9e533ab967fecb8d2cde70d',1,'global_data.c']]],
+  ['global_5fdata_5fset_5fjoystick_131',['global_data_set_joystick',['../global__data_8h.html#a99502ddac906dcc5ef42f880fd4fb466',1,'global_data.c']]],
+  ['goal_5fcheck_5ffor_5fgoal_132',['goal_check_for_goal',['../goal__handler_8h.html#a42575e69fe7adfe7bbfa28b6191a3a76',1,'goal_handler.c']]],
+  ['goal_5fget_5fgoals_133',['goal_get_goals',['../goal__handler_8h.html#a36edf796f6c27ee7378a67b225d128fb',1,'goal_handler.c']]]
 ];

@@ -4,5 +4,6 @@ digraph "GLOBAL_DATA" {
   edge [ labelfontsize="10", labelfontname="Helvetica"];
   dir_44a5a6bb2d0311402a695e793fbbe5ac [shape=box, label="GLOBAL_DATA", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_44a5a6bb2d0311402a695e793fbbe5ac.html"];
   dir_85f99c390bf4c27b62435416daf93629 [shape=box label="CAN" URL="dir_85f99c390bf4c27b62435416daf93629.html"];
+  dir_85f99c390bf4c27b62435416daf93629->dir_44a5a6bb2d0311402a695e793fbbe5ac [headlabel="1", labeldistance=1.5 headhref="dir_000001_000005.html"];
   dir_44a5a6bb2d0311402a695e793fbbe5ac->dir_85f99c390bf4c27b62435416daf93629 [headlabel="1", labeldistance=1.5 headhref="dir_000005_000001.html"];
 }

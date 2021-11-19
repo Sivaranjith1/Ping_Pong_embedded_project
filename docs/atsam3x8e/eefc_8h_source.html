@@ -69,17 +69,28 @@ $(function() {
 <div class="title">eefc.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef EEFC_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define EEFC_H</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keywordtype">void</span> eefc_init(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keywordtype">void</span> eefc_read_single_page(uint16_t page_number);</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#endif //EEFC_H</span></div>
+<a href="eefc_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#ifndef EEFC_H</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define EEFC_H</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define FLASH_PAGE_JOYSTICK_CALIBRATION 50</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eefc_8h.html#a85133810a1bf9b26db9fe4811fcde213">eefc_init</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;uint32_t *<a class="code" href="eefc_8h.html#aaeb481eb7fb19515cff87fd6b98cbaa2">eefc_read_single_page</a>(uint16_t page_number);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eefc_8h.html#a044275c71de5abacd789f589d9342baa">eefc_write_page</a>(uint16_t page_number, uint32_t* data);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">void</span> <a class="code" href="eefc_8h.html#a6eabe6ab10b7737a01202d22297d03fb">eefc_read_flash_descriptor</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif //EEFC_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aeefc_8h_html_aaeb481eb7fb19515cff87fd6b98cbaa2"><div class="ttname"><a href="eefc_8h.html#aaeb481eb7fb19515cff87fd6b98cbaa2">eefc_read_single_page</a></div><div class="ttdeci">uint32_t * eefc_read_single_page(uint16_t page_number)</div><div class="ttdoc">Reads the content of a single page following the steps described in 49.1.1.2.</div><div class="ttdef"><b>Definition:</b> <a href="eefc_8c_source.html#l00076">eefc.c:76</a></div></div>
+<div class="ttc" id="aeefc_8h_html_a6eabe6ab10b7737a01202d22297d03fb"><div class="ttname"><a href="eefc_8h.html#a6eabe6ab10b7737a01202d22297d03fb">eefc_read_flash_descriptor</a></div><div class="ttdeci">void eefc_read_flash_descriptor(void)</div><div class="ttdoc">Fetches and prints the flash descriptor by passing GETD to the EFC control register.</div><div class="ttdef"><b>Definition:</b> <a href="eefc_8c_source.html#l00043">eefc.c:43</a></div></div>
+<div class="ttc" id="aeefc_8h_html_a044275c71de5abacd789f589d9342baa"><div class="ttname"><a href="eefc_8h.html#a044275c71de5abacd789f589d9342baa">eefc_write_page</a></div><div class="ttdeci">void eefc_write_page(uint16_t page_number, uint32_t *data)</div><div class="ttdoc">Writes a set of data into a specific page number. This function also erases previous data found in sa...</div><div class="ttdef"><b>Definition:</b> <a href="eefc_8c_source.html#l00101">eefc.c:101</a></div></div>
+<div class="ttc" id="aeefc_8h_html_a85133810a1bf9b26db9fe4811fcde213"><div class="ttname"><a href="eefc_8h.html#a85133810a1bf9b26db9fe4811fcde213">eefc_init</a></div><div class="ttdeci">void eefc_init(void)</div><div class="ttdoc">Initialises both EFC0 and EFC1 with FWS = 6 As per 49.1.1.1.</div><div class="ttdef"><b>Definition:</b> <a href="eefc_8c_source.html#l00037">eefc.c:37</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

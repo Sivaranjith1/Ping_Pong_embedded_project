@@ -75,85 +75,96 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../system_config.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../JOYSTICK/joystick.h&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../MOTOR/motor.h&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#if CAN_DEBUG</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;../UART/printf-stdarg.h&quot;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#define CAN_DEBUG_PRINT(...) printf(__VA_ARGS__)</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define CAN_DEBUG_PRINT(...)</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#endif // CAN_DEBUG</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#if CAN_DEBUG_BUTTON</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;../UART/printf-stdarg.h&quot;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#define CAN_DEBUG_BUTTON_PRINT(...) printf(__VA_ARGS__)</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#define CAN_DEBUG_BUTTON_PRINT(...)</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif // Button</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="can__messages_8h.html#a731643db02d141b1bb2324702291ee51">   22</a></span>&#160;uint8_t <a class="code" href="can__messages_8h.html#a731643db02d141b1bb2324702291ee51">can_process_message</a>(<a class="code" href="structcan__message__t.html">CAN_MESSAGE</a>* can_msg){</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">switch</span> (can_msg-&gt;id)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">case</span> CAN_JOYSTICK_POS_ID:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <a class="code" href="structcan__joystick__pos__t.html">can_joystick_pos_t</a> pos_message = joystick_convert(can_msg-&gt;data.char_array);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        global_data_set_joystick(&amp;pos_message);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        CAN_DEBUG_PRINT(<span class="stringliteral">&quot;Pos XY: %d %d\n\r&quot;</span>, (<span class="keywordtype">int</span>)(pos_message.x_pos*100), (<span class="keywordtype">int</span>)(pos_message.y_pos*100));</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">case</span> CAN_BUTTON_PRESSED_ID:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        CAN_DEBUG_BUTTON_PRINT(<span class="stringliteral">&quot;Button pressed: %d\n\r&quot;</span>, can_msg-&gt;data.char_array[0]);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        joystick_pulse_on();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">case</span> (CAN_CAL_JOYSTICK_IDLE_ID):</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        joystick_set_offset_calibration(JOYSTICK_X, can_msg-&gt;data.char_array);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        joystick_set_offset_calibration(JOYSTICK_Y, can_msg-&gt;data.char_array);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">case</span> (CAN_CAL_JOYSTICK_UP_ID):</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        joystick_set_range_calibration(JOYSTICK_Y, MAX, can_msg-&gt;data.char_array);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">case</span> (CAN_CAL_JOYSTICK_DOWN_ID):</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        joystick_set_range_calibration(JOYSTICK_Y, MIN, can_msg-&gt;data.char_array);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">case</span> (CAN_CAL_JOYSTICK_LEFT_ID):</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        joystick_set_range_calibration(JOYSTICK_X, MIN, can_msg-&gt;data.char_array);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">case</span> (CAN_CAL_JOYSTICK_RIGHT_ID):</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        joystick_set_range_calibration(JOYSTICK_X, MAX, can_msg-&gt;data.char_array);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">case</span> (CAN_FSM_STATE_ID):</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">if</span>(can_msg-&gt;data.char_array[0] == FSM_PLAY){</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <a class="code" href="motor_8h.html#add147f61790b1573878f192fa5e2e1ca">motor_enable_soft</a>();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <a class="code" href="motor_8h.html#a9040fd95d694b69f681dc8f13a7059a7">motor_disable_soft</a>();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;../EEFC/eefc.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#if CAN_DEBUG</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;../UART/printf-stdarg.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#define CAN_DEBUG_PRINT(...) printf(__VA_ARGS__)</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define CAN_DEBUG_PRINT(...)</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#endif // CAN_DEBUG</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#if CAN_DEBUG_BUTTON</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;../UART/printf-stdarg.h&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#define CAN_DEBUG_BUTTON_PRINT(...) printf(__VA_ARGS__)</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define CAN_DEBUG_BUTTON_PRINT(...)</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#endif // Button</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="can__messages_8h.html#a731643db02d141b1bb2324702291ee51">   23</a></span>&#160;uint8_t <a class="code" href="can__messages_8h.html#a731643db02d141b1bb2324702291ee51">can_process_message</a>(<a class="code" href="structcan__message__t.html">CAN_MESSAGE</a>* can_msg){</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">switch</span> (can_msg-&gt;id)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">case</span> CAN_JOYSTICK_POS_ID:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <a class="code" href="structcan__joystick__pos__t.html">can_joystick_pos_t</a> pos_message = <a class="code" href="joystick_8h.html#ab1edee02662bd7b0f701865c0a659e6a">joystick_convert</a>(can_msg-&gt;data.char_array);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <a class="code" href="global__data_8h.html#a99502ddac906dcc5ef42f880fd4fb466">global_data_set_joystick</a>(&amp;pos_message);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        CAN_DEBUG_PRINT(<span class="stringliteral">&quot;Pos XY: %d %d\n\r&quot;</span>, (<span class="keywordtype">int</span>)(pos_message.x_pos*100), (<span class="keywordtype">int</span>)(pos_message.y_pos*100));</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">case</span> CAN_BUTTON_PRESSED_ID:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        CAN_DEBUG_BUTTON_PRINT(<span class="stringliteral">&quot;Button pressed: %d\n\r&quot;</span>, can_msg-&gt;data.char_array[0]);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <a class="code" href="joystick_8h.html#a3390c473c35d40e6ec201c5c2a7f0be4">joystick_pulse_on</a>();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">case</span> (CAN_CAL_JOYSTICK_IDLE_ID):</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="joystick_8h.html#a432e1eb875c6ee14d140a67c2c8b52f1">joystick_set_offset_calibration</a>(JOYSTICK_X, can_msg-&gt;data.char_array);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <a class="code" href="joystick_8h.html#a432e1eb875c6ee14d140a67c2c8b52f1">joystick_set_offset_calibration</a>(JOYSTICK_Y, can_msg-&gt;data.char_array);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">case</span> (CAN_CAL_JOYSTICK_UP_ID):</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="joystick_8h.html#a0bda8cf0e213c0f5e8e8ea522d58f4c2">joystick_set_range_calibration</a>(JOYSTICK_Y, MAX, can_msg-&gt;data.char_array);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">case</span> (CAN_CAL_JOYSTICK_DOWN_ID):</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="joystick_8h.html#a0bda8cf0e213c0f5e8e8ea522d58f4c2">joystick_set_range_calibration</a>(JOYSTICK_Y, MIN, can_msg-&gt;data.char_array);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">case</span> (CAN_CAL_JOYSTICK_LEFT_ID):</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="joystick_8h.html#a0bda8cf0e213c0f5e8e8ea522d58f4c2">joystick_set_range_calibration</a>(JOYSTICK_X, MIN, can_msg-&gt;data.char_array);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">case</span> (CAN_CAL_JOYSTICK_RIGHT_ID):</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <a class="code" href="joystick_8h.html#a0bda8cf0e213c0f5e8e8ea522d58f4c2">joystick_set_range_calibration</a>(JOYSTICK_X, MAX, can_msg-&gt;data.char_array);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">case</span> CAN_CAL_JOYSTICK_DONE_ID:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="comment">//joystick_store_calibration();</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">case</span> (CAN_FSM_STATE_ID):</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">if</span>(can_msg-&gt;data.char_array[0] == FSM_PLAY){</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <a class="code" href="motor_8h.html#add147f61790b1573878f192fa5e2e1ca">motor_enable_soft</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <a class="code" href="motor_8h.html#a9040fd95d694b69f681dc8f13a7059a7">motor_disable_soft</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="acan__messages_8h_html_a731643db02d141b1bb2324702291ee51"><div class="ttname"><a href="can__messages_8h.html#a731643db02d141b1bb2324702291ee51">can_process_message</a></div><div class="ttdeci">uint8_t can_process_message(CAN_MESSAGE *can_msg)</div><div class="ttdoc">Handle incomming can messages and do the required actions.</div><div class="ttdef"><b>Definition:</b> <a href="can__messages_8c_source.html#l00022">can_messages.c:22</a></div></div>
-<div class="ttc" id="astructcan__joystick__pos__t_html"><div class="ttname"><a href="structcan__joystick__pos__t.html">can_joystick_pos_t</a></div><div class="ttdef"><b>Definition:</b> <a href="can__messages_8h_source.html#l00043">can_messages.h:43</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_a0bda8cf0e213c0f5e8e8ea522d58f4c2"><div class="ttname"><a href="joystick_8h.html#a0bda8cf0e213c0f5e8e8ea522d58f4c2">joystick_set_range_calibration</a></div><div class="ttdeci">void joystick_set_range_calibration(enum cal_channel, enum cal_range, char *data)</div><div class="ttdoc">Sets min and maximum limits for the joystick.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00107">joystick.c:107</a></div></div>
+<div class="ttc" id="acan__messages_8h_html_a731643db02d141b1bb2324702291ee51"><div class="ttname"><a href="can__messages_8h.html#a731643db02d141b1bb2324702291ee51">can_process_message</a></div><div class="ttdeci">uint8_t can_process_message(CAN_MESSAGE *can_msg)</div><div class="ttdoc">Handle incomming can messages and do the required actions.</div><div class="ttdef"><b>Definition:</b> <a href="can__messages_8c_source.html#l00023">can_messages.c:23</a></div></div>
+<div class="ttc" id="astructcan__joystick__pos__t_html"><div class="ttname"><a href="structcan__joystick__pos__t.html">can_joystick_pos_t</a></div><div class="ttdoc">Current position of the joystick, both x and y axis.</div><div class="ttdef"><b>Definition:</b> <a href="can__messages_8h_source.html#l00047">can_messages.h:47</a></div></div>
 <div class="ttc" id="amotor_8h_html_add147f61790b1573878f192fa5e2e1ca"><div class="ttname"><a href="motor_8h.html#add147f61790b1573878f192fa5e2e1ca">motor_enable_soft</a></div><div class="ttdeci">void motor_enable_soft(void)</div><div class="ttdoc">Will enable the dacc output for the motor in software.</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00049">motor.c:49</a></div></div>
 <div class="ttc" id="astructcan__message__t_html"><div class="ttname"><a href="structcan__message__t.html">can_message_t</a></div><div class="ttdoc">Struct for defining a can frame.</div><div class="ttdef"><b>Definition:</b> <a href="can__controller_8h_source.html#l00032">can_controller.h:32</a></div></div>
 <div class="ttc" id="acan__messages_8h_html"><div class="ttname"><a href="can__messages_8h.html">can_messages.h</a></div><div class="ttdoc">The ids and content of the can frames.</div></div>
 <div class="ttc" id="amotor_8h_html_a9040fd95d694b69f681dc8f13a7059a7"><div class="ttname"><a href="motor_8h.html#a9040fd95d694b69f681dc8f13a7059a7">motor_disable_soft</a></div><div class="ttdeci">void motor_disable_soft(void)</div><div class="ttdoc">Will disable the dacc output for the motor in software.</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00053">motor.c:53</a></div></div>
+<div class="ttc" id="aglobal__data_8h_html_a99502ddac906dcc5ef42f880fd4fb466"><div class="ttname"><a href="global__data_8h.html#a99502ddac906dcc5ef42f880fd4fb466">global_data_set_joystick</a></div><div class="ttdeci">void global_data_set_joystick(can_joystick_pos_t *joystick_data)</div><div class="ttdoc">Set the global value with the joystick value from can.</div><div class="ttdef"><b>Definition:</b> <a href="global__data_8c_source.html#l00005">global_data.c:5</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_a432e1eb875c6ee14d140a67c2c8b52f1"><div class="ttname"><a href="joystick_8h.html#a432e1eb875c6ee14d140a67c2c8b52f1">joystick_set_offset_calibration</a></div><div class="ttdeci">void joystick_set_offset_calibration(enum cal_channel, char *data)</div><div class="ttdoc">Gets the offset values for idle position of the joystick and stores them in the joystick calibrate st...</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00084">joystick.c:84</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_ab1edee02662bd7b0f701865c0a659e6a"><div class="ttname"><a href="joystick_8h.html#ab1edee02662bd7b0f701865c0a659e6a">joystick_convert</a></div><div class="ttdeci">can_joystick_pos_t joystick_convert(char *data)</div><div class="ttdoc">Converts the joystick data recieved from the CAN bus to floats using the offest and range from the ca...</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00153">joystick.c:153</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_a3390c473c35d40e6ec201c5c2a7f0be4"><div class="ttname"><a href="joystick_8h.html#a3390c473c35d40e6ec201c5c2a7f0be4">joystick_pulse_on</a></div><div class="ttdeci">void joystick_pulse_on(void)</div><div class="ttdoc">Extends the solenoid.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00191">joystick.c:191</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

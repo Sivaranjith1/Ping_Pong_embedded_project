@@ -80,132 +80,137 @@ $(function() {
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;../MOTOR/pid.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;../DACC/dacc.h&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;../CAN/can_controller.h&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;../system_config.h&quot;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define RC_COMP_TC0 840000 // 50 Hz</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define RC_COMP_TC1 52500 // 50 Hz</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define RC_COMP_TC2 65625 // 10 Hz</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#if TC0_DEBUG</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;../UART/printf-stdarg.h&quot;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define TC0_DEBUG_PRINT(...) printf(__VA_ARGS__)</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#define TC0_DEBUG_PRINT(...)</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#endif // TC0_DEBUG</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#if TC1_DEBUG</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;../UART/printf-stdarg.h&quot;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#define TC1_DEBUG_PRINT(...) printf(__VA_ARGS__)</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define TC1_DEBUG_PRINT(...)</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#endif // TC1_DEBUG</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#if TC2_DEBUG</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;../UART/printf-stdarg.h&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#define TC2_DEBUG_PRINT(...) printf(__VA_ARGS__)</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#define TC2_DEBUG_PRINT(...)</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif // TC2_DEBUG</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="timer_8h.html#a7b8ab79df77b57475a5494f5f81c3bd9">   39</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="timer_8h.html#a7b8ab79df77b57475a5494f5f81c3bd9">timer_init</a>(<span class="keywordtype">void</span>){</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">// Setup for TC0</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    PIOB-&gt;PIO_PDR |= PIO_PDR_P26; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    PIOB-&gt;PIO_ABSR |= PIO_ABSR_P26; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="comment">// Setup for TC1</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    PIOA-&gt;PIO_PDR |= PIO_PDR_P23; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    PIOA-&gt;PIO_ABSR |= PIO_ABSR_P23;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">// Setup for TC2 </span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    PIOD-&gt;PIO_PDR |= PIO_PDR_P9;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    PIOD-&gt;PIO_ABSR |= PIO_ABSR_P9;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">// Enable clocks in PMC</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    PMC-&gt;PMC_PCR |= PMC_PCR_EN | PMC_PCR_DIV_PERIPH_DIV_MCK | (ID_TC0 &lt;&lt; PMC_PCR_PID_Pos) | (ID_TC1 &lt;&lt; PMC_PCR_PID_Pos) | (ID_TC2 &lt;&lt; PMC_PCR_PID_Pos); </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    PMC-&gt;PMC_PCER0 |= (1 &lt;&lt; ID_TC0) | (1 &lt;&lt; ID_TC1) | (1 &lt;&lt; ID_TC2); </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">// Disables WP</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    TC0-&gt;TC_WPMR = (0x54494D &lt;&lt; 8);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    TC1-&gt;TC_WPMR = (0x54494D &lt;&lt; 8);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    TC2-&gt;TC_WPMR = (0x54494D &lt;&lt; 8);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="comment">// Sets clock to be MCK/2, MCK/32 and MCK/128 respectively</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    TC0-&gt;TC_CHANNEL[0].TC_CMR = TC_CMR_TCCLKS_TIMER_CLOCK1;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    TC0-&gt;TC_CHANNEL[1].TC_CMR = TC_CMR_TCCLKS_TIMER_CLOCK3;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    TC0-&gt;TC_CHANNEL[2].TC_CMR = TC_CMR_TCCLKS_TIMER_CLOCK4;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// Sets the compare-value to be used in interrupts</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    TC0-&gt;TC_CHANNEL[0].TC_RC = RC_COMP_TC0;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    TC0-&gt;TC_CHANNEL[1].TC_RC = RC_COMP_TC1;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    TC0-&gt;TC_CHANNEL[2].TC_RC = RC_COMP_TC2;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="comment">// Enables and starts clock, also enables compare with RC</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    TC0-&gt;TC_CHANNEL[0].TC_CCR = TC_CCR_CLKEN | TC_CCR_SWTRG | TC_CMR_CPCTRG;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    TC0-&gt;TC_CHANNEL[1].TC_CCR = TC_CCR_CLKEN | TC_CCR_SWTRG | TC_CMR_CPCTRG;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    TC0-&gt;TC_CHANNEL[2].TC_CCR = TC_CCR_CLKEN | TC_CCR_SWTRG | TC_CMR_CPCTRG;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="comment">// Enable interrupt requests, compare with the RC-value</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    TC0-&gt;TC_CHANNEL[0].TC_IER = TC_IER_CPCS;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    TC0-&gt;TC_CHANNEL[1].TC_IER = TC_IER_CPCS;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    TC0-&gt;TC_CHANNEL[2].TC_IER = TC_IER_CPCS;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="comment">// Interrupt enable</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    NVIC_EnableIRQ(TC0_IRQn);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    NVIC_EnableIRQ(TC1_IRQn);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    NVIC_EnableIRQ(TC2_IRQn);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="timer_8h.html#a2eca52a9a80dbd2067f9dbbba597f63f">   87</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="timer_8h.html#a2eca52a9a80dbd2067f9dbbba597f63f">TC0_Handler</a>(<span class="keywordtype">void</span>){</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    TC0_DEBUG_PRINT(<span class="stringliteral">&quot;ADC TIMER TRIGGER\n\r&quot;</span>);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    uint8_t status = TC0-&gt;TC_CHANNEL[0].TC_SR; <span class="comment">// clear interrupt flag </span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="adc_8h.html#acec96a02bae816e24b67875114d526f5">adc_start_conversion</a>();</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    joystick_pulse_off();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    TC0-&gt;TC_CHANNEL[0].TC_CCR = TC_CCR_SWTRG; <span class="comment">// restart timer</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    NVIC_ClearPendingIRQ(TC0_IRQn);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="timer_8h.html#a167104520375d36a7d8e8263779920b0">   96</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="timer_8h.html#a167104520375d36a7d8e8263779920b0">TC1_Handler</a>(<span class="keywordtype">void</span>){</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment">//TC1_DEBUG_PRINT(&quot;PID TIMER TRIGGER\n\r&quot;);</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    uint8_t status = TC0-&gt;TC_CHANNEL[1].TC_SR; <span class="comment">// clear interrupt flag</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="structcan__joystick__pos__t.html">can_joystick_pos_t</a> joystick_data;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    global_data_get_joystick(&amp;joystick_data);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="pwm_8h.html#ab778cfa5c53e34a8c3759c397870cf50">pwm_update_from_joystick</a>(joystick_data.x_pos);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="motor_8h.html#a37bd6671db8d780e1586a6f7f1e1d99c">motor_set_speed</a>(pid_vel_controller(joystick_data.y_pos, motor_get_position()));</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    TC1_DEBUG_PRINT(<span class="stringliteral">&quot;joystick from timer %d\n\r&quot;</span>, (uint8_t)(joystick_data.y_pos*100));</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    TC0-&gt;TC_CHANNEL[1].TC_CCR = TC_CCR_SWTRG; <span class="comment">// restart timer</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    NVIC_ClearPendingIRQ(TC1_IRQn);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="timer_8h.html#a56908176571ec5eaa118a712eea280f0">  112</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="timer_8h.html#a56908176571ec5eaa118a712eea280f0">TC2_Handler</a>(<span class="keywordtype">void</span>){</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    TC2_DEBUG_PRINT(<span class="stringliteral">&quot;SCORE TIMER INTERRUPT \n\r&quot;</span>);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    uint8_t status = TC0-&gt;TC_CHANNEL[2].TC_SR; <span class="comment">// clear interrupt flag</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="goal__handler_8h.html#a42575e69fe7adfe7bbfa28b6191a3a76">goal_check_for_goal</a>()){</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <a class="code" href="structcan__message__t.html">CAN_MESSAGE</a> goal;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        goal.id = CAN_GOAL_SCORED_ID;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        goal.data_length = 1;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        goal.data.char_array[0] = <a class="code" href="goal__handler_8h.html#a36edf796f6c27ee7378a67b225d128fb">goal_get_goals</a>();</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <a class="code" href="can__controller_8h.html#ac81681fa36cdf9fe6bdefdbb8164df07">can_send</a>(&amp;goal, 0);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    TC0-&gt;TC_CHANNEL[2].TC_CCR = TC_CCR_SWTRG; <span class="comment">// restart timer</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    NVIC_ClearPendingIRQ(TC2_IRQn);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;../TWI/twi.h&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;../system_config.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define RC_COMP_TC0 840000 // 50 Hz</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define RC_COMP_TC1 52500 // 50 Hz</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#define RC_COMP_TC2 65625 // 10 Hz</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#if TC0_DEBUG</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;../UART/printf-stdarg.h&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#define TC0_DEBUG_PRINT(...) printf(__VA_ARGS__)</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#define TC0_DEBUG_PRINT(...)</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif // TC0_DEBUG</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#if TC1_DEBUG</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;../UART/printf-stdarg.h&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#define TC1_DEBUG_PRINT(...) printf(__VA_ARGS__)</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#define TC1_DEBUG_PRINT(...)</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif // TC1_DEBUG</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#if TC2_DEBUG</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;../UART/printf-stdarg.h&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#define TC2_DEBUG_PRINT(...) printf(__VA_ARGS__)</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#define TC2_DEBUG_PRINT(...)</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif // TC2_DEBUG</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="timer_8h.html#a7b8ab79df77b57475a5494f5f81c3bd9">   40</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="timer_8h.html#a7b8ab79df77b57475a5494f5f81c3bd9">timer_init</a>(<span class="keywordtype">void</span>){</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">// Setup for TC0</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    PIOB-&gt;PIO_PDR |= PIO_PDR_P26; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    PIOB-&gt;PIO_ABSR |= PIO_ABSR_P26; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// Setup for TC1</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    PIOA-&gt;PIO_PDR |= PIO_PDR_P23; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    PIOA-&gt;PIO_ABSR |= PIO_ABSR_P23;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">// Setup for TC2 </span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    PIOD-&gt;PIO_PDR |= PIO_PDR_P9;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    PIOD-&gt;PIO_ABSR |= PIO_ABSR_P9;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// Enable clocks in PMC</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    PMC-&gt;PMC_PCR |= PMC_PCR_EN | PMC_PCR_DIV_PERIPH_DIV_MCK | (ID_TC0 &lt;&lt; PMC_PCR_PID_Pos) | (ID_TC1 &lt;&lt; PMC_PCR_PID_Pos) | (ID_TC2 &lt;&lt; PMC_PCR_PID_Pos); </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    PMC-&gt;PMC_PCER0 |= (1 &lt;&lt; ID_TC0) | (1 &lt;&lt; ID_TC1) | (1 &lt;&lt; ID_TC2); </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">// Disables WP</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    TC0-&gt;TC_WPMR = (0x54494D &lt;&lt; 8);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    TC1-&gt;TC_WPMR = (0x54494D &lt;&lt; 8);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    TC2-&gt;TC_WPMR = (0x54494D &lt;&lt; 8);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">// Sets clock to be MCK/2, MCK/32 and MCK/128 respectively</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    TC0-&gt;TC_CHANNEL[0].TC_CMR = TC_CMR_TCCLKS_TIMER_CLOCK1;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    TC0-&gt;TC_CHANNEL[1].TC_CMR = TC_CMR_TCCLKS_TIMER_CLOCK3;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    TC0-&gt;TC_CHANNEL[2].TC_CMR = TC_CMR_TCCLKS_TIMER_CLOCK4;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">// Sets the compare-value to be used in interrupts</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    TC0-&gt;TC_CHANNEL[0].TC_RC = RC_COMP_TC0;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    TC0-&gt;TC_CHANNEL[1].TC_RC = RC_COMP_TC1;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    TC0-&gt;TC_CHANNEL[2].TC_RC = RC_COMP_TC2;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// Enables and starts clock, also enables compare with RC</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    TC0-&gt;TC_CHANNEL[0].TC_CCR = TC_CCR_CLKEN | TC_CCR_SWTRG | TC_CMR_CPCTRG;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    TC0-&gt;TC_CHANNEL[1].TC_CCR = TC_CCR_CLKEN | TC_CCR_SWTRG | TC_CMR_CPCTRG;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    TC0-&gt;TC_CHANNEL[2].TC_CCR = TC_CCR_CLKEN | TC_CCR_SWTRG | TC_CMR_CPCTRG;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="comment">// Enable interrupt requests, compare with the RC-value</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    TC0-&gt;TC_CHANNEL[0].TC_IER = TC_IER_CPCS;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    TC0-&gt;TC_CHANNEL[1].TC_IER = TC_IER_CPCS;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    TC0-&gt;TC_CHANNEL[2].TC_IER = TC_IER_CPCS;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="comment">// Interrupt enable</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    NVIC_EnableIRQ(TC0_IRQn);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    NVIC_EnableIRQ(TC1_IRQn);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    NVIC_EnableIRQ(TC2_IRQn);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="timer_8h.html#a2eca52a9a80dbd2067f9dbbba597f63f">   88</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="timer_8h.html#a2eca52a9a80dbd2067f9dbbba597f63f">TC0_Handler</a>(<span class="keywordtype">void</span>){</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    TC0_DEBUG_PRINT(<span class="stringliteral">&quot;ADC TIMER TRIGGER\n\r&quot;</span>);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    uint8_t status = TC0-&gt;TC_CHANNEL[0].TC_SR; <span class="comment">// clear interrupt flag </span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="adc_8h.html#acec96a02bae816e24b67875114d526f5">adc_start_conversion</a>();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="joystick_8h.html#a051b4d2a6c544c26622a921a6f35c989">joystick_pulse_off</a>();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    TC0-&gt;TC_CHANNEL[0].TC_CCR = TC_CCR_SWTRG; <span class="comment">// restart timer</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    NVIC_ClearPendingIRQ(TC0_IRQn);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="timer_8h.html#a167104520375d36a7d8e8263779920b0">   97</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="timer_8h.html#a167104520375d36a7d8e8263779920b0">TC1_Handler</a>(<span class="keywordtype">void</span>){</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="comment">//TC1_DEBUG_PRINT(&quot;PID TIMER TRIGGER\n\r&quot;);</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    uint8_t status = TC0-&gt;TC_CHANNEL[1].TC_SR; <span class="comment">// clear interrupt flag</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="structcan__joystick__pos__t.html">can_joystick_pos_t</a> joystick_data;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="global__data_8h.html#a04e8946ed9e533ab967fecb8d2cde70d">global_data_get_joystick</a>(&amp;joystick_data);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="pwm_8h.html#ab778cfa5c53e34a8c3759c397870cf50">pwm_update_from_joystick</a>(joystick_data.x_pos);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="motor_8h.html#a37bd6671db8d780e1586a6f7f1e1d99c">motor_set_speed</a>(<a class="code" href="pid_8h.html#a39dc71a2fab498c31d699c9051f45578">pid_vel_controller</a>(joystick_data.y_pos, <a class="code" href="motor_8h.html#adc69eaec5e0de5032636e3c547031e1c">motor_get_position</a>()));</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    TC1_DEBUG_PRINT(<span class="stringliteral">&quot;joystick from timer %d\n\r&quot;</span>, (uint8_t)(joystick_data.y_pos*100));</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    TC0-&gt;TC_CHANNEL[1].TC_CCR = TC_CCR_SWTRG; <span class="comment">// restart timer</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    NVIC_ClearPendingIRQ(TC1_IRQn);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="timer_8h.html#a56908176571ec5eaa118a712eea280f0">  113</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="timer_8h.html#a56908176571ec5eaa118a712eea280f0">TC2_Handler</a>(<span class="keywordtype">void</span>){</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    TC2_DEBUG_PRINT(<span class="stringliteral">&quot;SCORE TIMER INTERRUPT \n\r&quot;</span>);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    uint8_t status = TC0-&gt;TC_CHANNEL[2].TC_SR; <span class="comment">// clear interrupt flag</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="goal__handler_8h.html#a42575e69fe7adfe7bbfa28b6191a3a76">goal_check_for_goal</a>()){</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <a class="code" href="structcan__message__t.html">CAN_MESSAGE</a> goal;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        goal.id = CAN_GOAL_SCORED_ID;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        goal.data_length = 1;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        goal.data.char_array[0] = <a class="code" href="goal__handler_8h.html#a36edf796f6c27ee7378a67b225d128fb">goal_get_goals</a>();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <a class="code" href="can__controller_8h.html#ac81681fa36cdf9fe6bdefdbb8164df07">can_send</a>(&amp;goal, 0);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    }</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    TC0-&gt;TC_CHANNEL[2].TC_CCR = TC_CCR_SWTRG; <span class="comment">// restart timer</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    NVIC_ClearPendingIRQ(TC2_IRQn);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="atimer_8h_html_a7b8ab79df77b57475a5494f5f81c3bd9"><div class="ttname"><a href="timer_8h.html#a7b8ab79df77b57475a5494f5f81c3bd9">timer_init</a></div><div class="ttdeci">void timer_init(void)</div><div class="ttdoc">Initialize timer channel 0 and 1.</div><div class="ttdef"><b>Definition:</b> <a href="timer_8c_source.html#l00039">timer.c:39</a></div></div>
-<div class="ttc" id="atimer_8h_html_a56908176571ec5eaa118a712eea280f0"><div class="ttname"><a href="timer_8h.html#a56908176571ec5eaa118a712eea280f0">TC2_Handler</a></div><div class="ttdeci">void TC2_Handler(void)</div><div class="ttdoc">Timer interrupt handler for timer channel 2 - used for CAN transfer back to node one with score.</div><div class="ttdef"><b>Definition:</b> <a href="timer_8c_source.html#l00112">timer.c:112</a></div></div>
-<div class="ttc" id="astructcan__joystick__pos__t_html"><div class="ttname"><a href="structcan__joystick__pos__t.html">can_joystick_pos_t</a></div><div class="ttdef"><b>Definition:</b> <a href="can__messages_8h_source.html#l00043">can_messages.h:43</a></div></div>
+<div class="ttc" id="atimer_8h_html_a7b8ab79df77b57475a5494f5f81c3bd9"><div class="ttname"><a href="timer_8h.html#a7b8ab79df77b57475a5494f5f81c3bd9">timer_init</a></div><div class="ttdeci">void timer_init(void)</div><div class="ttdoc">Initialize timer channel 0 and 1.</div><div class="ttdef"><b>Definition:</b> <a href="timer_8c_source.html#l00040">timer.c:40</a></div></div>
+<div class="ttc" id="atimer_8h_html_a56908176571ec5eaa118a712eea280f0"><div class="ttname"><a href="timer_8h.html#a56908176571ec5eaa118a712eea280f0">TC2_Handler</a></div><div class="ttdeci">void TC2_Handler(void)</div><div class="ttdoc">Timer interrupt handler for timer channel 2 - used for CAN transfer back to node one with score.</div><div class="ttdef"><b>Definition:</b> <a href="timer_8c_source.html#l00113">timer.c:113</a></div></div>
+<div class="ttc" id="astructcan__joystick__pos__t_html"><div class="ttname"><a href="structcan__joystick__pos__t.html">can_joystick_pos_t</a></div><div class="ttdoc">Current position of the joystick, both x and y axis.</div><div class="ttdef"><b>Definition:</b> <a href="can__messages_8h_source.html#l00047">can_messages.h:47</a></div></div>
 <div class="ttc" id="aadc_8h_html_acec96a02bae816e24b67875114d526f5"><div class="ttname"><a href="adc_8h.html#acec96a02bae816e24b67875114d526f5">adc_start_conversion</a></div><div class="ttdeci">void adc_start_conversion(void)</div><div class="ttdoc">Start converting the analog signals to digital.</div><div class="ttdef"><b>Definition:</b> <a href="adc_8c_source.html#l00053">adc.c:53</a></div></div>
 <div class="ttc" id="apwm_8h_html_ab778cfa5c53e34a8c3759c397870cf50"><div class="ttname"><a href="pwm_8h.html#ab778cfa5c53e34a8c3759c397870cf50">pwm_update_from_joystick</a></div><div class="ttdeci">void pwm_update_from_joystick(float data)</div><div class="ttdoc">Update the pwms for the servo motor based on the joystick can message.</div><div class="ttdef"><b>Definition:</b> <a href="pwm_8c_source.html#l00059">pwm.c:59</a></div></div>
+<div class="ttc" id="aglobal__data_8h_html_a04e8946ed9e533ab967fecb8d2cde70d"><div class="ttname"><a href="global__data_8h.html#a04e8946ed9e533ab967fecb8d2cde70d">global_data_get_joystick</a></div><div class="ttdeci">void global_data_get_joystick(can_joystick_pos_t *joystick_data)</div><div class="ttdoc">Get the global value with the joystick values from can.</div><div class="ttdef"><b>Definition:</b> <a href="global__data_8c_source.html#l00010">global_data.c:10</a></div></div>
+<div class="ttc" id="amotor_8h_html_adc69eaec5e0de5032636e3c547031e1c"><div class="ttname"><a href="motor_8h.html#adc69eaec5e0de5032636e3c547031e1c">motor_get_position</a></div><div class="ttdeci">float motor_get_position()</div><div class="ttdoc">get the position of the motor on the shaft relative to the walls. 0 is the position next to the leftw...</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00119">motor.c:119</a></div></div>
 <div class="ttc" id="astructcan__message__t_html"><div class="ttname"><a href="structcan__message__t.html">can_message_t</a></div><div class="ttdoc">Struct for defining a can frame.</div><div class="ttdef"><b>Definition:</b> <a href="can__controller_8h_source.html#l00032">can_controller.h:32</a></div></div>
 <div class="ttc" id="amotor_8h_html_a37bd6671db8d780e1586a6f7f1e1d99c"><div class="ttname"><a href="motor_8h.html#a37bd6671db8d780e1586a6f7f1e1d99c">motor_set_speed</a></div><div class="ttdeci">void motor_set_speed(float speed)</div><div class="ttdoc">sets the direction and speed of the motor</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00057">motor.c:57</a></div></div>
-<div class="ttc" id="atimer_8h_html_a2eca52a9a80dbd2067f9dbbba597f63f"><div class="ttname"><a href="timer_8h.html#a2eca52a9a80dbd2067f9dbbba597f63f">TC0_Handler</a></div><div class="ttdeci">void TC0_Handler(void)</div><div class="ttdoc">Timer interrupt handler for timer channel 0 - used for adc conversion.</div><div class="ttdef"><b>Definition:</b> <a href="timer_8c_source.html#l00087">timer.c:87</a></div></div>
+<div class="ttc" id="atimer_8h_html_a2eca52a9a80dbd2067f9dbbba597f63f"><div class="ttname"><a href="timer_8h.html#a2eca52a9a80dbd2067f9dbbba597f63f">TC0_Handler</a></div><div class="ttdeci">void TC0_Handler(void)</div><div class="ttdoc">Timer interrupt handler for timer channel 0 - used for adc conversion.</div><div class="ttdef"><b>Definition:</b> <a href="timer_8c_source.html#l00088">timer.c:88</a></div></div>
 <div class="ttc" id="atimer_8h_html"><div class="ttname"><a href="timer_8h.html">timer.h</a></div><div class="ttdoc">ATSAM's internal timer drivers.</div></div>
+<div class="ttc" id="ajoystick_8h_html_a051b4d2a6c544c26622a921a6f35c989"><div class="ttname"><a href="joystick_8h.html#a051b4d2a6c544c26622a921a6f35c989">joystick_pulse_off</a></div><div class="ttdeci">void joystick_pulse_off(void)</div><div class="ttdoc">Counts how long the solenoid has been extended for after a set amount of time it pulls the solenoid b...</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00197">joystick.c:197</a></div></div>
 <div class="ttc" id="acan__controller_8h_html_ac81681fa36cdf9fe6bdefdbb8164df07"><div class="ttname"><a href="can__controller_8h.html#ac81681fa36cdf9fe6bdefdbb8164df07">can_send</a></div><div class="ttdeci">uint8_t can_send(CAN_MESSAGE *can_msg, uint8_t mailbox_id)</div><div class="ttdoc">Send can message from mailbox.</div><div class="ttdef"><b>Definition:</b> <a href="can__controller_8c_source.html#l00131">can_controller.c:131</a></div></div>
-<div class="ttc" id="atimer_8h_html_a167104520375d36a7d8e8263779920b0"><div class="ttname"><a href="timer_8h.html#a167104520375d36a7d8e8263779920b0">TC1_Handler</a></div><div class="ttdeci">void TC1_Handler(void)</div><div class="ttdoc">Timer interrupt handler for timer channel 1 - used for the PID regulator.</div><div class="ttdef"><b>Definition:</b> <a href="timer_8c_source.html#l00096">timer.c:96</a></div></div>
+<div class="ttc" id="atimer_8h_html_a167104520375d36a7d8e8263779920b0"><div class="ttname"><a href="timer_8h.html#a167104520375d36a7d8e8263779920b0">TC1_Handler</a></div><div class="ttdeci">void TC1_Handler(void)</div><div class="ttdoc">Timer interrupt handler for timer channel 1 - used for the PID regulator.</div><div class="ttdef"><b>Definition:</b> <a href="timer_8c_source.html#l00097">timer.c:97</a></div></div>
+<div class="ttc" id="apid_8h_html_a39dc71a2fab498c31d699c9051f45578"><div class="ttname"><a href="pid_8h.html#a39dc71a2fab498c31d699c9051f45578">pid_vel_controller</a></div><div class="ttdeci">float pid_vel_controller(float joystick_data, float enchoder_data)</div><div class="ttdoc">Velocity pid controller for the motor.</div><div class="ttdef"><b>Definition:</b> <a href="pid_8c_source.html#l00030">pid.c:30</a></div></div>
 <div class="ttc" id="agoal__handler_8h_html_a36edf796f6c27ee7378a67b225d128fb"><div class="ttname"><a href="goal__handler_8h.html#a36edf796f6c27ee7378a67b225d128fb">goal_get_goals</a></div><div class="ttdeci">uint8_t goal_get_goals(void)</div><div class="ttdoc">Get the number of goals scored.</div><div class="ttdef"><b>Definition:</b> <a href="goal__handler_8c_source.html#l00045">goal_handler.c:45</a></div></div>
 <div class="ttc" id="agoal__handler_8h_html_a42575e69fe7adfe7bbfa28b6191a3a76"><div class="ttname"><a href="goal__handler_8h.html#a42575e69fe7adfe7bbfa28b6191a3a76">goal_check_for_goal</a></div><div class="ttdeci">uint8_t goal_check_for_goal(void)</div><div class="ttdoc">Read the adc value and check if there are a goal or not.</div><div class="ttdef"><b>Definition:</b> <a href="goal__handler_8c_source.html#l00026">goal_handler.c:26</a></div></div>
 <!-- start footer part -->

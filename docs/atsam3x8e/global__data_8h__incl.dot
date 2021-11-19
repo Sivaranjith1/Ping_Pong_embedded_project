@@ -1,0 +1,14 @@
+digraph "GLOBAL_DATA/global_data.h"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="GLOBAL_DATA/global\l_data.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Functions for copying data into a global place. This can be done to pass data between pointers."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="../CAN/can_messages.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$can__messages_8h.html",tooltip="The ids and content of the can frames."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="stdint.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="can_controller.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$can__controller_8h.html",tooltip="Init, send and receive can frames for ATSAM3X8E."];
+  Node4 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

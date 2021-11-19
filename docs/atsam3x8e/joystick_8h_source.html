@@ -69,45 +69,59 @@ $(function() {
 <div class="title">joystick.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;float.h&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;../CAN/can_messages.h&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">enum</span> cal_range {MIN, MAX};</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">enum</span> cal_channel {JOYSTICK_X, JOYSTICK_Y, SLIDER_R, SLIDER_L};</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="structjoystick__t.html">   12</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordtype">float</span> pos_x;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">float</span> pos_y;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">float</span> slider_l;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">float</span> slider_r;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <a class="code" href="structjoystick__t.html">joystick_t</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="structjoystick__calibrate__t.html">   20</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">float</span> range_min;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">float</span> range_idle;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">float</span> range_max;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <a class="code" href="structjoystick__calibrate__t.html">joystick_calibrate_t</a>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">void</span> joystick_init();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keywordtype">void</span> joystick_set_offset_calibration(<span class="keyword">enum</span> cal_channel, <span class="keywordtype">char</span>* data);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">void</span> joystick_set_range_calibration(<span class="keyword">enum</span> cal_channel, <span class="keyword">enum</span> cal_range, <span class="keywordtype">char</span>* data);</div>
+<a href="joystick_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#ifndef JOYSTICK_H</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define JOYSTICK_H</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;float.h&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;../CAN/can_messages.h&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">enum</span> cal_range {MIN, MAX};</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">enum</span> cal_channel {JOYSTICK_X, JOYSTICK_Y, SLIDER_R, SLIDER_L};</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structjoystick__t.html">   25</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">float</span> pos_x;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">float</span> pos_y;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">float</span> slider_l;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">float</span> slider_r;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <a class="code" href="structjoystick__t.html">joystick_t</a>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<a class="code" href="structcan__joystick__pos__t.html">can_joystick_pos_t</a> joystick_convert(<span class="keywordtype">char</span>* data);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> joystick_init();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">void</span> joystick_pulse_on(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keywordtype">void</span> joystick_pulse_off(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structjoystick__calibrate__t.html">   37</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">float</span> range_min;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">float</span> range_idle;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">float</span> range_max;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <a class="code" href="structjoystick__calibrate__t.html">joystick_calibrate_t</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">void</span> <a class="code" href="joystick_8h.html#adabb2cb0052a9228f61f65d52b9f08ac">joystick_store_calibration</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">void</span> <a class="code" href="joystick_8h.html#a6a02aa5c938b511ffde7a43e8db031c8">joystick_init</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keywordtype">void</span> <a class="code" href="joystick_8h.html#a432e1eb875c6ee14d140a67c2c8b52f1">joystick_set_offset_calibration</a>(<span class="keyword">enum</span> cal_channel, <span class="keywordtype">char</span>* data);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">void</span> <a class="code" href="joystick_8h.html#a0bda8cf0e213c0f5e8e8ea522d58f4c2">joystick_set_range_calibration</a>(<span class="keyword">enum</span> cal_channel, <span class="keyword">enum</span> cal_range, <span class="keywordtype">char</span>* data);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<a class="code" href="structcan__joystick__pos__t.html">can_joystick_pos_t</a> <a class="code" href="joystick_8h.html#ab1edee02662bd7b0f701865c0a659e6a">joystick_convert</a>(<span class="keywordtype">char</span>* data);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keywordtype">void</span> <a class="code" href="joystick_8h.html#a3390c473c35d40e6ec201c5c2a7f0be4">joystick_pulse_on</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keywordtype">void</span> <a class="code" href="joystick_8h.html#a051b4d2a6c544c26622a921a6f35c989">joystick_pulse_off</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#endif //JOYSTICK_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="astructcan__joystick__pos__t_html"><div class="ttname"><a href="structcan__joystick__pos__t.html">can_joystick_pos_t</a></div><div class="ttdef"><b>Definition:</b> <a href="can__messages_8h_source.html#l00043">can_messages.h:43</a></div></div>
-<div class="ttc" id="astructjoystick__calibrate__t_html"><div class="ttname"><a href="structjoystick__calibrate__t.html">joystick_calibrate_t</a></div><div class="ttdef"><b>Definition:</b> <a href="joystick_8h_source.html#l00020">joystick.h:20</a></div></div>
-<div class="ttc" id="astructjoystick__t_html"><div class="ttname"><a href="structjoystick__t.html">joystick_t</a></div><div class="ttdoc">position of the joysticks and sliders, the values will be between -1 and 1.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8h_source.html#l00012">joystick.h:12</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_a0bda8cf0e213c0f5e8e8ea522d58f4c2"><div class="ttname"><a href="joystick_8h.html#a0bda8cf0e213c0f5e8e8ea522d58f4c2">joystick_set_range_calibration</a></div><div class="ttdeci">void joystick_set_range_calibration(enum cal_channel, enum cal_range, char *data)</div><div class="ttdoc">Sets min and maximum limits for the joystick.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00107">joystick.c:107</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_a6a02aa5c938b511ffde7a43e8db031c8"><div class="ttname"><a href="joystick_8h.html#a6a02aa5c938b511ffde7a43e8db031c8">joystick_init</a></div><div class="ttdeci">void joystick_init(void)</div><div class="ttdoc">Initialises the button associated with extending the solenoid.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00076">joystick.c:76</a></div></div>
+<div class="ttc" id="astructcan__joystick__pos__t_html"><div class="ttname"><a href="structcan__joystick__pos__t.html">can_joystick_pos_t</a></div><div class="ttdoc">Current position of the joystick, both x and y axis.</div><div class="ttdef"><b>Definition:</b> <a href="can__messages_8h_source.html#l00047">can_messages.h:47</a></div></div>
+<div class="ttc" id="astructjoystick__calibrate__t_html"><div class="ttname"><a href="structjoystick__calibrate__t.html">joystick_calibrate_t</a></div><div class="ttdoc">Struct used for calibration of the joystick, used for mapping the joystick input from 0 - 100.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8h_source.html#l00037">joystick.h:37</a></div></div>
+<div class="ttc" id="astructjoystick__t_html"><div class="ttname"><a href="structjoystick__t.html">joystick_t</a></div><div class="ttdoc">position of the joysticks and sliders, the values will be between -1 and 1.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8h_source.html#l00025">joystick.h:25</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_a051b4d2a6c544c26622a921a6f35c989"><div class="ttname"><a href="joystick_8h.html#a051b4d2a6c544c26622a921a6f35c989">joystick_pulse_off</a></div><div class="ttdeci">void joystick_pulse_off(void)</div><div class="ttdoc">Counts how long the solenoid has been extended for after a set amount of time it pulls the solenoid b...</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00197">joystick.c:197</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_adabb2cb0052a9228f61f65d52b9f08ac"><div class="ttname"><a href="joystick_8h.html#adabb2cb0052a9228f61f65d52b9f08ac">joystick_store_calibration</a></div><div class="ttdeci">void joystick_store_calibration(void)</div><div class="ttdoc">Stores joystick calibration data to FLASH memory.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00063">joystick.c:63</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_a432e1eb875c6ee14d140a67c2c8b52f1"><div class="ttname"><a href="joystick_8h.html#a432e1eb875c6ee14d140a67c2c8b52f1">joystick_set_offset_calibration</a></div><div class="ttdeci">void joystick_set_offset_calibration(enum cal_channel, char *data)</div><div class="ttdoc">Gets the offset values for idle position of the joystick and stores them in the joystick calibrate st...</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00084">joystick.c:84</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_ab1edee02662bd7b0f701865c0a659e6a"><div class="ttname"><a href="joystick_8h.html#ab1edee02662bd7b0f701865c0a659e6a">joystick_convert</a></div><div class="ttdeci">can_joystick_pos_t joystick_convert(char *data)</div><div class="ttdoc">Converts the joystick data recieved from the CAN bus to floats using the offest and range from the ca...</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00153">joystick.c:153</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_a3390c473c35d40e6ec201c5c2a7f0be4"><div class="ttname"><a href="joystick_8h.html#a3390c473c35d40e6ec201c5c2a7f0be4">joystick_pulse_on</a></div><div class="ttdeci">void joystick_pulse_on(void)</div><div class="ttdoc">Extends the solenoid.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00191">joystick.c:191</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

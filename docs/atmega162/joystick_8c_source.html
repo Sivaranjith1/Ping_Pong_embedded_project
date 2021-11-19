@@ -171,56 +171,67 @@ $(function() {
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      <a class="code" href="oled_8h.html#aa5b68cd012d3f672b1c67efb2b2e7c6b">oled_pos</a>(0, 0);</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;      <a class="code" href="oled_8h.html#ae325951406717249108c17c6257a18e2">oled_print</a>(<span class="stringliteral">&quot;CALIBRATION&quot;</span>);</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;      <a class="code" href="oled_8h.html#aa5b68cd012d3f672b1c67efb2b2e7c6b">oled_pos</a>(1, 0);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      <a class="code" href="oled_8h.html#ae325951406717249108c17c6257a18e2">oled_print</a>(<span class="stringliteral">&quot;FINNISHED&quot;</span>);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;      <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="joystick_8h.html#a85e06b3c2ef11b5ef33c1b7a18a441ef">  112</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="joystick_8h.html#a85e06b3c2ef11b5ef33c1b7a18a441ef">joystick_read_button_polled</a>(<span class="keywordtype">void</span>){</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">if</span>(!<a class="code" href="gpio_8h.html#a6994332c73d33106d2a2a7db2f8e0254">gpio_pin_read</a>(PB3, PINB) &amp;&amp; !polled_joystick){</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      <a class="code" href="fsm_8h.html#a80e38bd9fa15de0991fc7a2c9df92131">fsm_add_event</a>(FSM_EV_JOYSTICK_BUTTON);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;      polled_joystick = 1;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      <a class="code" href="oled_8h.html#ae325951406717249108c17c6257a18e2">oled_print</a>(<span class="stringliteral">&quot;FINISHED&quot;</span>);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;      <span class="comment">//oled_pos(3, 0);</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      <span class="comment">//oled_print(&quot;REBOOT&quot;);</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      <span class="comment">//oled_pos(4, 0);</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      <span class="comment">//oled_print(&quot;ATSAM&quot;);</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      <a class="code" href="structcan__frame__t.html">can_frame_t</a> done ={</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        .id = CAN_CAL_JOYSTICK_DONE_ID,</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        .rtr = 1,</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        .data_len = 1,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        .data = {1}</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      };</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      <a class="code" href="can_8h.html#ad7a72884c9c118eee8c10f42f0f647e6">can_transmit</a>(&amp;done);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;      <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="gpio_8h.html#a6994332c73d33106d2a2a7db2f8e0254">gpio_pin_read</a>(PB3, PINB) &amp;&amp; polled_joystick){</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      polled_joystick = 0;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="joystick_8h.html#a8addec495bd6c53c429482ba7c0aff2e">  122</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="joystick_8h.html#a8addec495bd6c53c429482ba7c0aff2e">joystick_can_transmit_pos</a>(uint8_t can_id){</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <a class="code" href="structcan__frame__t.html">can_frame_t</a> joystick_data = {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    .id = can_id, </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    .rtr = DATA_FRAME, </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    .data_len = 4, </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    .data.char_array = {</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;      <a class="code" href="adc_8c.html#ad3a295ecf0c014e848ea987464a571f0">adc_get_channel_data</a>(JOYSTICK_X),</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;      <a class="code" href="adc_8c.html#ad3a295ecf0c014e848ea987464a571f0">adc_get_channel_data</a>(JOYSTICK_Y),</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;      <a class="code" href="adc_8c.html#ad3a295ecf0c014e848ea987464a571f0">adc_get_channel_data</a>(SLIDER_R),</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;      <a class="code" href="adc_8c.html#ad3a295ecf0c014e848ea987464a571f0">adc_get_channel_data</a>(SLIDER_L)</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    }</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  };</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <a class="code" href="can_8h.html#ad7a72884c9c118eee8c10f42f0f647e6">can_transmit</a>(&amp;joystick_data);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="joystick_8h.html#a349809ddb0d4f4fdb9abbdaae08fb864">  138</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="joystick_8h.html#a349809ddb0d4f4fdb9abbdaae08fb864">joystick_extend_solenoid</a>(){</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  <span class="keywordflow">if</span>((<a class="code" href="gpio_8h.html#a6994332c73d33106d2a2a7db2f8e0254">gpio_pin_read</a>(PINB2, PINB) | <a class="code" href="gpio_8h.html#a6994332c73d33106d2a2a7db2f8e0254">gpio_pin_read</a>(PINB1, PINB)) &amp;&amp; !polled_button){</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <a class="code" href="structcan__frame__t.html">can_frame_t</a> button_pressed = {</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;      .id = CAN_BUTTON_PRESSED_ID,</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;      .rtr = DATA_FRAME,</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;      .data_len = 1,</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;      .data.char_array = { 1 }</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    };</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <a class="code" href="can_8h.html#ad7a72884c9c118eee8c10f42f0f647e6">can_transmit</a>(&amp;button_pressed);</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    polled_button = 1;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  }</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  <span class="keywordflow">else</span> <span class="keywordflow">if</span>(!(<a class="code" href="gpio_8h.html#a6994332c73d33106d2a2a7db2f8e0254">gpio_pin_read</a>(PINB2, PINB) | <a class="code" href="gpio_8h.html#a6994332c73d33106d2a2a7db2f8e0254">gpio_pin_read</a>(PINB1, PINB))){</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    polled_button = 0;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  }</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;}</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="joystick_8h.html#a85e06b3c2ef11b5ef33c1b7a18a441ef">  123</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="joystick_8h.html#a85e06b3c2ef11b5ef33c1b7a18a441ef">joystick_read_button_polled</a>(<span class="keywordtype">void</span>){</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">if</span>(!<a class="code" href="gpio_8h.html#a6994332c73d33106d2a2a7db2f8e0254">gpio_pin_read</a>(PB3, PINB) &amp;&amp; !polled_joystick){</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;      <a class="code" href="fsm_8h.html#a80e38bd9fa15de0991fc7a2c9df92131">fsm_add_event</a>(FSM_EV_JOYSTICK_BUTTON);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      polled_joystick = 1;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="gpio_8h.html#a6994332c73d33106d2a2a7db2f8e0254">gpio_pin_read</a>(PB3, PINB) &amp;&amp; polled_joystick){</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;      polled_joystick = 0;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="joystick_8h.html#a8addec495bd6c53c429482ba7c0aff2e">  133</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="joystick_8h.html#a8addec495bd6c53c429482ba7c0aff2e">joystick_can_transmit_pos</a>(uint8_t can_id){</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <a class="code" href="structcan__frame__t.html">can_frame_t</a> joystick_data = {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    .id = can_id, </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    .rtr = DATA_FRAME, </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    .data_len = 4, </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    .data.char_array = {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;      <a class="code" href="adc_8c.html#ad3a295ecf0c014e848ea987464a571f0">adc_get_channel_data</a>(JOYSTICK_X),</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;      <a class="code" href="adc_8c.html#ad3a295ecf0c014e848ea987464a571f0">adc_get_channel_data</a>(JOYSTICK_Y),</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;      <a class="code" href="adc_8c.html#ad3a295ecf0c014e848ea987464a571f0">adc_get_channel_data</a>(SLIDER_R),</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;      <a class="code" href="adc_8c.html#ad3a295ecf0c014e848ea987464a571f0">adc_get_channel_data</a>(SLIDER_L)</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    }</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  };</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  <a class="code" href="can_8h.html#ad7a72884c9c118eee8c10f42f0f647e6">can_transmit</a>(&amp;joystick_data);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;}</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="joystick_8h.html#a349809ddb0d4f4fdb9abbdaae08fb864">  149</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="joystick_8h.html#a349809ddb0d4f4fdb9abbdaae08fb864">joystick_extend_solenoid</a>(){</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  <span class="keywordflow">if</span>((<a class="code" href="gpio_8h.html#a6994332c73d33106d2a2a7db2f8e0254">gpio_pin_read</a>(PINB2, PINB) | <a class="code" href="gpio_8h.html#a6994332c73d33106d2a2a7db2f8e0254">gpio_pin_read</a>(PINB1, PINB)) &amp;&amp; !polled_button){</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <a class="code" href="structcan__frame__t.html">can_frame_t</a> button_pressed = {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;      .id = CAN_BUTTON_PRESSED_ID,</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;      .rtr = DATA_FRAME,</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;      .data_len = 1,</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;      .data.char_array = { 1 }</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    };</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <a class="code" href="can_8h.html#ad7a72884c9c118eee8c10f42f0f647e6">can_transmit</a>(&amp;button_pressed);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    polled_button = 1;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  }</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  <span class="keywordflow">else</span> <span class="keywordflow">if</span>(!(<a class="code" href="gpio_8h.html#a6994332c73d33106d2a2a7db2f8e0254">gpio_pin_read</a>(PINB2, PINB) | <a class="code" href="gpio_8h.html#a6994332c73d33106d2a2a7db2f8e0254">gpio_pin_read</a>(PINB1, PINB))){</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    polled_button = 0;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="astructcan__frame__t_html"><div class="ttname"><a href="structcan__frame__t.html">can_frame_t</a></div><div class="ttdoc">Struct for defining a can frame.</div><div class="ttdef"><b>Definition:</b> <a href="can_8h_source.html#l00043">can.h:43</a></div></div>
 <div class="ttc" id="ajoystick_8h_html_a6a02aa5c938b511ffde7a43e8db031c8"><div class="ttname"><a href="joystick_8h.html#a6a02aa5c938b511ffde7a43e8db031c8">joystick_init</a></div><div class="ttdeci">void joystick_init(void)</div><div class="ttdoc">Enable pins for reading joystick buttons.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00013">joystick.c:13</a></div></div>
@@ -230,13 +241,13 @@ $(function() {
 <div class="ttc" id="ajoystick_8h_html_a986f0075ddac2166f9cf0feee60d0da0"><div class="ttname"><a href="joystick_8h.html#a986f0075ddac2166f9cf0feee60d0da0">joystick_calibration_sequence</a></div><div class="ttdeci">void joystick_calibration_sequence(uint8_t step)</div><div class="ttdoc">Calibration for joystick values.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00038">joystick.c:38</a></div></div>
 <div class="ttc" id="ajoystick_8h_html"><div class="ttname"><a href="joystick_8h.html">joystick.h</a></div><div class="ttdoc">Read the joystick value from the ADC. Depends on the adc.h.</div></div>
 <div class="ttc" id="ajoystick_8h_html_a8b8d069f631ca41339f5c5b91b660a47"><div class="ttname"><a href="joystick_8h.html#a8b8d069f631ca41339f5c5b91b660a47">joystick_read</a></div><div class="ttdeci">void joystick_read(void)</div><div class="ttdoc">Read the joystick position and update menu based on the input.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00019">joystick.c:19</a></div></div>
-<div class="ttc" id="ajoystick_8h_html_a349809ddb0d4f4fdb9abbdaae08fb864"><div class="ttname"><a href="joystick_8h.html#a349809ddb0d4f4fdb9abbdaae08fb864">joystick_extend_solenoid</a></div><div class="ttdeci">void joystick_extend_solenoid(void)</div><div class="ttdoc">Check if the button for extending solenoid is pressed.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00138">joystick.c:138</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_a349809ddb0d4f4fdb9abbdaae08fb864"><div class="ttname"><a href="joystick_8h.html#a349809ddb0d4f4fdb9abbdaae08fb864">joystick_extend_solenoid</a></div><div class="ttdeci">void joystick_extend_solenoid(void)</div><div class="ttdoc">Check if the button for extending solenoid is pressed.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00149">joystick.c:149</a></div></div>
 <div class="ttc" id="aoled_8h_html_ae325951406717249108c17c6257a18e2"><div class="ttname"><a href="oled_8h.html#ae325951406717249108c17c6257a18e2">oled_print</a></div><div class="ttdeci">void oled_print(unsigned char *data)</div><div class="ttdoc">Uses the oled_print_char function to print an array.</div><div class="ttdef"><b>Definition:</b> <a href="oled_8c_source.html#l00193">oled.c:193</a></div></div>
 <div class="ttc" id="agpio_8h_html_a6994332c73d33106d2a2a7db2f8e0254"><div class="ttname"><a href="gpio_8h.html#a6994332c73d33106d2a2a7db2f8e0254">gpio_pin_read</a></div><div class="ttdeci">uint8_t gpio_pin_read(uint8_t pin, uint8_t port)</div><div class="ttdoc">Reads the gpio pin.</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8c_source.html#l00019">gpio.c:19</a></div></div>
 <div class="ttc" id="afsm_8h_html_a80e38bd9fa15de0991fc7a2c9df92131"><div class="ttname"><a href="fsm_8h.html#a80e38bd9fa15de0991fc7a2c9df92131">fsm_add_event</a></div><div class="ttdeci">void fsm_add_event(uint8_t event_id)</div><div class="ttdoc">Add event to the event queue.</div><div class="ttdef"><b>Definition:</b> <a href="fsm_8c_source.html#l00072">fsm.c:72</a></div></div>
-<div class="ttc" id="ajoystick_8h_html_a8addec495bd6c53c429482ba7c0aff2e"><div class="ttname"><a href="joystick_8h.html#a8addec495bd6c53c429482ba7c0aff2e">joystick_can_transmit_pos</a></div><div class="ttdeci">void joystick_can_transmit_pos(uint8_t can_id)</div><div class="ttdoc">Transmit the joystick positions on the can bus.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00122">joystick.c:122</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_a8addec495bd6c53c429482ba7c0aff2e"><div class="ttname"><a href="joystick_8h.html#a8addec495bd6c53c429482ba7c0aff2e">joystick_can_transmit_pos</a></div><div class="ttdeci">void joystick_can_transmit_pos(uint8_t can_id)</div><div class="ttdoc">Transmit the joystick positions on the can bus.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00133">joystick.c:133</a></div></div>
 <div class="ttc" id="aoled_8h_html_a85a5a98fad0831f9990bdabee35b3f15"><div class="ttname"><a href="oled_8h.html#a85a5a98fad0831f9990bdabee35b3f15">oled_clear_line</a></div><div class="ttdeci">void oled_clear_line(uint8_t line)</div><div class="ttdoc">Clears an entire segment by writing 0 to all the columns.</div><div class="ttdef"><b>Definition:</b> <a href="oled_8c_source.html#l00186">oled.c:186</a></div></div>
-<div class="ttc" id="ajoystick_8h_html_a85e06b3c2ef11b5ef33c1b7a18a441ef"><div class="ttname"><a href="joystick_8h.html#a85e06b3c2ef11b5ef33c1b7a18a441ef">joystick_read_button_polled</a></div><div class="ttdeci">void joystick_read_button_polled(void)</div><div class="ttdoc">Update menu based on if the button is pressed.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00112">joystick.c:112</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_a85e06b3c2ef11b5ef33c1b7a18a441ef"><div class="ttname"><a href="joystick_8h.html#a85e06b3c2ef11b5ef33c1b7a18a441ef">joystick_read_button_polled</a></div><div class="ttdeci">void joystick_read_button_polled(void)</div><div class="ttdoc">Update menu based on if the button is pressed.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00123">joystick.c:123</a></div></div>
 <div class="ttc" id="acan_8h_html_ad7a72884c9c118eee8c10f42f0f647e6"><div class="ttname"><a href="can_8h.html#ad7a72884c9c118eee8c10f42f0f647e6">can_transmit</a></div><div class="ttdeci">void can_transmit(can_frame_t *can_frame)</div><div class="ttdoc">uses can_frame_t to define both where to send data, as well as which data should be sent....</div><div class="ttdef"><b>Definition:</b> <a href="can_8c_source.html#l00026">can.c:26</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

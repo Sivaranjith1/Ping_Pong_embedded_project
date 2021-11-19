@@ -69,22 +69,25 @@ $(function() {
 <div class="title">global_data.c</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;global_data.h&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="global__data_8h.html">global_data.h</a>&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">static</span> <span class="keyword">volatile</span> <a class="code" href="structcan__joystick__pos__t.html">can_joystick_pos_t</a> global_joystick_data;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keywordtype">void</span> global_data_set_joystick(<a class="code" href="structcan__joystick__pos__t.html">can_joystick_pos_t</a>* joystick_data){</div>
+<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="global__data_8h.html#a99502ddac906dcc5ef42f880fd4fb466">    5</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="global__data_8h.html#a99502ddac906dcc5ef42f880fd4fb466">global_data_set_joystick</a>(<a class="code" href="structcan__joystick__pos__t.html">can_joystick_pos_t</a>* joystick_data){</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    memcpy(&amp;global_joystick_data, joystick_data, <span class="keyword">sizeof</span>(<a class="code" href="structcan__joystick__pos__t.html">can_joystick_pos_t</a>));</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="comment">//printf(&quot;Global set %d %d\n\r&quot;, (int)(joystick_data-&gt;x_pos * 100), (int)(global_joystick_data.x_pos * 100));</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;}</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keywordtype">void</span> global_data_get_joystick(<a class="code" href="structcan__joystick__pos__t.html">can_joystick_pos_t</a>* joystick_data){</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="global__data_8h.html#a04e8946ed9e533ab967fecb8d2cde70d">   10</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="global__data_8h.html#a04e8946ed9e533ab967fecb8d2cde70d">global_data_get_joystick</a>(<a class="code" href="structcan__joystick__pos__t.html">can_joystick_pos_t</a>* joystick_data){</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="comment">//printf(&quot;Global get %d %d\n\r&quot;, (int)(joystick_data-&gt;x_pos * 100), (int)(global_joystick_data.x_pos * 100));</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    memcpy(joystick_data, &amp;global_joystick_data, <span class="keyword">sizeof</span>(<a class="code" href="structcan__joystick__pos__t.html">can_joystick_pos_t</a>));</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="astructcan__joystick__pos__t_html"><div class="ttname"><a href="structcan__joystick__pos__t.html">can_joystick_pos_t</a></div><div class="ttdef"><b>Definition:</b> <a href="can__messages_8h_source.html#l00043">can_messages.h:43</a></div></div>
+<div class="ttc" id="astructcan__joystick__pos__t_html"><div class="ttname"><a href="structcan__joystick__pos__t.html">can_joystick_pos_t</a></div><div class="ttdoc">Current position of the joystick, both x and y axis.</div><div class="ttdef"><b>Definition:</b> <a href="can__messages_8h_source.html#l00047">can_messages.h:47</a></div></div>
+<div class="ttc" id="aglobal__data_8h_html_a04e8946ed9e533ab967fecb8d2cde70d"><div class="ttname"><a href="global__data_8h.html#a04e8946ed9e533ab967fecb8d2cde70d">global_data_get_joystick</a></div><div class="ttdeci">void global_data_get_joystick(can_joystick_pos_t *joystick_data)</div><div class="ttdoc">Get the global value with the joystick values from can.</div><div class="ttdef"><b>Definition:</b> <a href="global__data_8c_source.html#l00010">global_data.c:10</a></div></div>
+<div class="ttc" id="aglobal__data_8h_html"><div class="ttname"><a href="global__data_8h.html">global_data.h</a></div><div class="ttdoc">Functions for copying data into a global place. This can be done to pass data between pointers.</div></div>
+<div class="ttc" id="aglobal__data_8h_html_a99502ddac906dcc5ef42f880fd4fb466"><div class="ttname"><a href="global__data_8h.html#a99502ddac906dcc5ef42f880fd4fb466">global_data_set_joystick</a></div><div class="ttdeci">void global_data_set_joystick(can_joystick_pos_t *joystick_data)</div><div class="ttdoc">Set the global value with the joystick value from can.</div><div class="ttdef"><b>Definition:</b> <a href="global__data_8c_source.html#l00005">global_data.c:5</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

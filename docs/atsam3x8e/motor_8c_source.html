@@ -128,7 +128,7 @@ $(function() {
 <div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="motor_8h.html#a37bd6671db8d780e1586a6f7f1e1d99c">   57</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="motor_8h.html#a37bd6671db8d780e1586a6f7f1e1d99c">motor_set_speed</a>(<span class="keywordtype">float</span> speed){</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">//printf(&quot;Speed %d\n\r&quot;, (uint8_t)speed);</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">if</span>(!motor_soft_enable) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        dacc_convert(0);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="dacc_8h.html#a117297657299836ce494a16e89d6b9fa">dacc_convert</a>(0);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
@@ -149,7 +149,7 @@ $(function() {
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        }</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <a class="code" href="motor_8h.html#ac641ed08aebbf3b50840adaed8915212">motor_set_direction</a>(MOTOR_RIGHT);</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    dacc_convert(dac_input);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="dacc_8h.html#a117297657299836ce494a16e89d6b9fa">dacc_convert</a>(dac_input);</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
 <div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="motor_8h.html#ac641ed08aebbf3b50840adaed8915212">   84</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="motor_8h.html#ac641ed08aebbf3b50840adaed8915212">motor_set_direction</a>(motor_direction_t direction){</div>
@@ -187,7 +187,7 @@ $(function() {
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    PIOD-&gt;PIO_SODR |= PIO_SODR_P1; <span class="comment">// pull !RST High</span></div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keywordtype">float</span> motor_get_position(){</div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="motor_8h.html#adc69eaec5e0de5032636e3c547031e1c">  119</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="motor_8h.html#adc69eaec5e0de5032636e3c547031e1c">motor_get_position</a>(){</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="comment">//positive direction to the right</span></div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    int16_t encoder_raw_data = <a class="code" href="motor_8h.html#a623dddcf396565fb0cc7f4525edf77db">motor_read_encoder</a>();</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
@@ -199,7 +199,7 @@ $(function() {
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">return</span> motor_pos;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;}</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keywordtype">void</span> motor_position_set_max_value(){</div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="motor_8h.html#a874f428f243e61814037392bf6e33c4f">  131</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="motor_8h.html#a874f428f243e61814037392bf6e33c4f">motor_position_set_max_value</a>(){</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    int16_t encoder_raw_data = <a class="code" href="motor_8h.html#a623dddcf396565fb0cc7f4525edf77db">motor_read_encoder</a>();</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    motor_encoder_calibration.max_value = encoder_raw_data;</div>
@@ -212,14 +212,17 @@ $(function() {
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="amotor_8h_html_add147f61790b1573878f192fa5e2e1ca"><div class="ttname"><a href="motor_8h.html#add147f61790b1573878f192fa5e2e1ca">motor_enable_soft</a></div><div class="ttdeci">void motor_enable_soft(void)</div><div class="ttdoc">Will enable the dacc output for the motor in software.</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00049">motor.c:49</a></div></div>
+<div class="ttc" id="amotor_8h_html_adc69eaec5e0de5032636e3c547031e1c"><div class="ttname"><a href="motor_8h.html#adc69eaec5e0de5032636e3c547031e1c">motor_get_position</a></div><div class="ttdeci">float motor_get_position()</div><div class="ttdoc">get the position of the motor on the shaft relative to the walls. 0 is the position next to the leftw...</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00119">motor.c:119</a></div></div>
 <div class="ttc" id="amotor_8h_html_a37bd6671db8d780e1586a6f7f1e1d99c"><div class="ttname"><a href="motor_8h.html#a37bd6671db8d780e1586a6f7f1e1d99c">motor_set_speed</a></div><div class="ttdeci">void motor_set_speed(float speed)</div><div class="ttdoc">sets the direction and speed of the motor</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00057">motor.c:57</a></div></div>
 <div class="ttc" id="amotor_8h_html_a6d8492ce306acf783db39e537bdf28f3"><div class="ttname"><a href="motor_8h.html#a6d8492ce306acf783db39e537bdf28f3">motor_reset_encoder</a></div><div class="ttdeci">void motor_reset_encoder()</div><div class="ttdoc">Resets the encoder. This will say that the current position will give a read-out of zero.</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00113">motor.c:113</a></div></div>
 <div class="ttc" id="amotor_8h_html_ac641ed08aebbf3b50840adaed8915212"><div class="ttname"><a href="motor_8h.html#ac641ed08aebbf3b50840adaed8915212">motor_set_direction</a></div><div class="ttdeci">void motor_set_direction(motor_direction_t direction)</div><div class="ttdoc">Sets the direction for the motor.</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00084">motor.c:84</a></div></div>
 <div class="ttc" id="amotor_8h_html"><div class="ttname"><a href="motor_8h.html">motor.h</a></div><div class="ttdoc">Motor controller driver for position.</div></div>
-<div class="ttc" id="amotor_8h_html_a623dddcf396565fb0cc7f4525edf77db"><div class="ttname"><a href="motor_8h.html#a623dddcf396565fb0cc7f4525edf77db">motor_read_encoder</a></div><div class="ttdeci">int16_t motor_read_encoder(void)</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00092">motor.c:92</a></div></div>
+<div class="ttc" id="amotor_8h_html_a874f428f243e61814037392bf6e33c4f"><div class="ttname"><a href="motor_8h.html#a874f428f243e61814037392bf6e33c4f">motor_position_set_max_value</a></div><div class="ttdeci">void motor_position_set_max_value()</div><div class="ttdoc">set the current position to the max value. Used for calibration of the motor. This will be position 1...</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00131">motor.c:131</a></div></div>
+<div class="ttc" id="amotor_8h_html_a623dddcf396565fb0cc7f4525edf77db"><div class="ttname"><a href="motor_8h.html#a623dddcf396565fb0cc7f4525edf77db">motor_read_encoder</a></div><div class="ttdeci">int16_t motor_read_encoder(void)</div><div class="ttdoc">Read the raw encoder values. Negative values will indicate moving to the left.</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00092">motor.c:92</a></div></div>
 <div class="ttc" id="amotor_8h_html_aa2a5af0fb9c1fa2047a5ca0af110f806"><div class="ttname"><a href="motor_8h.html#aa2a5af0fb9c1fa2047a5ca0af110f806">motor_init</a></div><div class="ttdeci">void motor_init(void)</div><div class="ttdoc">Enable the motor for controlling position.</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00026">motor.c:26</a></div></div>
 <div class="ttc" id="apid_8h_html"><div class="ttname"><a href="pid_8h.html">pid.h</a></div><div class="ttdoc">Driver for creating pid controllers.</div></div>
 <div class="ttc" id="amotor_8h_html_a9040fd95d694b69f681dc8f13a7059a7"><div class="ttname"><a href="motor_8h.html#a9040fd95d694b69f681dc8f13a7059a7">motor_disable_soft</a></div><div class="ttdeci">void motor_disable_soft(void)</div><div class="ttdoc">Will disable the dacc output for the motor in software.</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00053">motor.c:53</a></div></div>
+<div class="ttc" id="adacc_8h_html_a117297657299836ce494a16e89d6b9fa"><div class="ttname"><a href="dacc_8h.html#a117297657299836ce494a16e89d6b9fa">dacc_convert</a></div><div class="ttdeci">void dacc_convert(float data)</div><div class="ttdoc">Convert digital data to analog signal on the pin.</div><div class="ttdef"><b>Definition:</b> <a href="dacc_8c_source.html#l00025">dacc.c:25</a></div></div>
 <div class="ttc" id="astructmotor__encoder__calibration__t_html"><div class="ttname"><a href="structmotor__encoder__calibration__t.html">motor_encoder_calibration_t</a></div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00014">motor.c:14</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

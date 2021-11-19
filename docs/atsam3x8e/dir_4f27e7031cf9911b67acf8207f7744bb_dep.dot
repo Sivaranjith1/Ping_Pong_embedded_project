@@ -3,6 +3,10 @@ digraph "JOYSTICK" {
   node [ fontsize="10", fontname="Helvetica"];
   edge [ labelfontsize="10", labelfontname="Helvetica"];
   dir_4f27e7031cf9911b67acf8207f7744bb [shape=box, label="JOYSTICK", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_4f27e7031cf9911b67acf8207f7744bb.html"];
+  dir_7951fa9e96d04dd67aa350de3a644ce0 [shape=box label="EEFC" URL="dir_7951fa9e96d04dd67aa350de3a644ce0.html"];
   dir_85f99c390bf4c27b62435416daf93629 [shape=box label="CAN" URL="dir_85f99c390bf4c27b62435416daf93629.html"];
+  dir_4f27e7031cf9911b67acf8207f7744bb->dir_7951fa9e96d04dd67aa350de3a644ce0 [headlabel="1", labeldistance=1.5 headhref="dir_000006_000004.html"];
   dir_4f27e7031cf9911b67acf8207f7744bb->dir_85f99c390bf4c27b62435416daf93629 [headlabel="1", labeldistance=1.5 headhref="dir_000006_000001.html"];
+  dir_85f99c390bf4c27b62435416daf93629->dir_4f27e7031cf9911b67acf8207f7744bb [headlabel="1", labeldistance=1.5 headhref="dir_000001_000006.html"];
+  dir_85f99c390bf4c27b62435416daf93629->dir_7951fa9e96d04dd67aa350de3a644ce0 [headlabel="1", labeldistance=1.5 headhref="dir_000001_000004.html"];
 }

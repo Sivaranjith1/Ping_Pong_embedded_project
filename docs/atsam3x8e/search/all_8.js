@@ -1,8 +1,13 @@
 var searchData=
 [
-  ['tc0_5fhandler_49',['TC0_Handler',['../timer_8h.html#a2eca52a9a80dbd2067f9dbbba597f63f',1,'timer.c']]],
-  ['tc1_5fhandler_50',['TC1_Handler',['../timer_8h.html#a167104520375d36a7d8e8263779920b0',1,'timer.c']]],
-  ['tc2_5fhandler_51',['TC2_Handler',['../timer_8h.html#a56908176571ec5eaa118a712eea280f0',1,'timer.c']]],
-  ['timer_2eh_52',['timer.h',['../timer_8h.html',1,'']]],
-  ['timer_5finit_53',['timer_init',['../timer_8h.html#a7b8ab79df77b57475a5494f5f81c3bd9',1,'timer.c']]]
+  ['pid_2eh_60',['pid.h',['../pid_8h.html',1,'']]],
+  ['pid_5fpos_5fcontroller_61',['pid_pos_controller',['../pid_8h.html#ac562e4f03d4eaaeb53911b7d45e9ba98',1,'pid.c']]],
+  ['pid_5fvel_5fcontroller_62',['pid_vel_controller',['../pid_8h.html#a39dc71a2fab498c31d699c9051f45578',1,'pid.c']]],
+  ['printf_63',['printf',['../printf-stdarg_8h.html#a98631211a4a8aee62f572375d5b637be',1,'printf-stdarg.c']]],
+  ['printf_2dstdarg_2eh_64',['printf-stdarg.h',['../printf-stdarg_8h.html',1,'']]],
+  ['pwm_2eh_65',['pwm.h',['../pwm_8h.html',1,'']]],
+  ['pwm_5fdeg_5fto_5fduty_5fcycle_66',['pwm_deg_to_duty_cycle',['../pwm_8h.html#a719e8d78ab5c6e0818adc203d7f73611',1,'pwm.c']]],
+  ['pwm_5finit_67',['pwm_init',['../pwm_8h.html#a1e8fdae3fd7118582ffa427dad05b6e1',1,'pwm.c']]],
+  ['pwm_5fupdate_5fduty_5fcycle_68',['pwm_update_duty_cycle',['../pwm_8h.html#a07ee5da3c09a0c0e8dfe919bab97ce86',1,'pwm.c']]],
+  ['pwm_5fupdate_5ffrom_5fjoystick_69',['pwm_update_from_joystick',['../pwm_8h.html#ab778cfa5c53e34a8c3759c397870cf50',1,'pwm.c']]]
 ];

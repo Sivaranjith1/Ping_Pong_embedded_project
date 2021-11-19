@@ -31,11 +31,14 @@ digraph "main.c"
   Node1 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node12 [label="TIMER/timer.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$timer_8h.html",tooltip="ATSAM's internal timer drivers."];
   Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node13 [label="DACC/dacc.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dacc_8h_source.html",tooltip=" "];
+  Node13 [label="DACC/dacc.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dacc_8h.html",tooltip="A driver for using the ATSAMS internal DACC. Converting digital values to analog signals."];
   Node13 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node1 -> Node14 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node14 [label="MOTOR/motor.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$motor_8h.html",tooltip="Motor controller driver for position."];
   Node1 -> Node15 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node15 [label="EEFC/eefc.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$eefc_8h_source.html",tooltip=" "];
+  Node15 [label="EEFC/eefc.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$eefc_8h.html",tooltip="Driver for the use of flash memory, includes both reading and writing functionality."];
   Node15 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node16 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="TWI/twi.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$twi_8h.html",tooltip="Set-up for TWI and I2C use, sadly ran out of time before being able to finalise its use,..."];
+  Node16 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
 }

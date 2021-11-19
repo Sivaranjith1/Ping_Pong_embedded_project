@@ -76,61 +76,73 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="adc_8h.html">ADC/adc.h</a>&quot;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="goal__handler_8h.html">ADC/goal_handler.h</a>&quot;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="timer_8h.html">TIMER/timer.h</a>&quot;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;DACC/dacc.h&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="dacc_8h.html">DACC/dacc.h</a>&quot;</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="motor_8h.html">MOTOR/motor.h</a>&quot;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;EEFC/eefc.h&quot;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="eefc_8h.html">EEFC/eefc.h</a>&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="twi_8h.html">TWI/twi.h</a>&quot;</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="main_8c.html#a2858154e2009b0e6e616f313177762bc">   31</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#a2858154e2009b0e6e616f313177762bc">init</a>(<span class="keywordtype">void</span>){</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    SystemInit();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="uart_8h.html#ab5b2eb7c61969e61bef72eeb48dd058d">configure_uart</a>();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="can__controller_8h.html#a75e7e1428e5ce309c0087602721bf57d">can_init_def_tx_rx_mb</a>(CAN_BR_VALUES);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="pwm_8h.html#a1e8fdae3fd7118582ffa427dad05b6e1">pwm_init</a>();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="adc_8h.html#a2b815e6730e8723a6d1d06d9ef8f31c0">adc_init</a>();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="timer_8h.html#a7b8ab79df77b57475a5494f5f81c3bd9">timer_init</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    dacc_init();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="motor_8h.html#aa2a5af0fb9c1fa2047a5ca0af110f806">motor_init</a>();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    joystick_init();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">//eefc_init();</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">   48</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">/* Initialize the SAM system */</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="main_8c.html#a2858154e2009b0e6e616f313177762bc">init</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="printf-stdarg_8h.html#a98631211a4a8aee62f572375d5b637be">printf</a>(<span class="stringliteral">&quot;\n\rAtsame starting ...\n\r&quot;</span>);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    WDT-&gt;WDT_MR = WDT_MR_WDDIS;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">while</span> (1) </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="comment">// if(goal_check_for_goal()){</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="comment">//     printf(&quot;GOOOOOOOAL %d \n\r&quot;, goal_get_goals());</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="comment">//     //for (uint16_t i = 0; i &lt; 100000; i++){};</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="comment">// }</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="main_8c.html#a2858154e2009b0e6e616f313177762bc">   32</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#a2858154e2009b0e6e616f313177762bc">init</a>(<span class="keywordtype">void</span>){</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    SystemInit();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="uart_8h.html#ab5b2eb7c61969e61bef72eeb48dd058d">configure_uart</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="can__controller_8h.html#a75e7e1428e5ce309c0087602721bf57d">can_init_def_tx_rx_mb</a>(CAN_BR_VALUES);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="pwm_8h.html#a1e8fdae3fd7118582ffa427dad05b6e1">pwm_init</a>();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="adc_8h.html#a2b815e6730e8723a6d1d06d9ef8f31c0">adc_init</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="timer_8h.html#a7b8ab79df77b57475a5494f5f81c3bd9">timer_init</a>();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="dacc_8h.html#a0cadd066051a2a3cfd5ba12ecd989ad6">dacc_init</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="motor_8h.html#aa2a5af0fb9c1fa2047a5ca0af110f806">motor_init</a>();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="eefc_8h.html#a85133810a1bf9b26db9fe4811fcde213">eefc_init</a>();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="joystick_8h.html#a6a02aa5c938b511ffde7a43e8db031c8">joystick_init</a>();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="twi_8h.html#a16f0e6b2fa5a26eadbf4086ab6d54467">twi_init</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">   50</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">/* Initialize the SAM system */</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="main_8c.html#a2858154e2009b0e6e616f313177762bc">init</a>();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="printf-stdarg_8h.html#a98631211a4a8aee62f572375d5b637be">printf</a>(<span class="stringliteral">&quot;\n\rAtsame starting ...\n\r&quot;</span>);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    WDT-&gt;WDT_MR = WDT_MR_WDDIS;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">//eefc_read_flash_descriptor();</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    uint32_t data[8];</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 8; ++i){</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        data[i] = i;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="comment">//printf(&quot;DATALOOP \n\r&quot;);</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">//eefc_write(50, data);</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">//eefc_read_single_page(50);</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">while</span> (1);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="atimer_8h_html_a7b8ab79df77b57475a5494f5f81c3bd9"><div class="ttname"><a href="timer_8h.html#a7b8ab79df77b57475a5494f5f81c3bd9">timer_init</a></div><div class="ttdeci">void timer_init(void)</div><div class="ttdoc">Initialize timer channel 0 and 1.</div><div class="ttdef"><b>Definition:</b> <a href="timer_8c_source.html#l00039">timer.c:39</a></div></div>
+<div class="ttc" id="atimer_8h_html_a7b8ab79df77b57475a5494f5f81c3bd9"><div class="ttname"><a href="timer_8h.html#a7b8ab79df77b57475a5494f5f81c3bd9">timer_init</a></div><div class="ttdeci">void timer_init(void)</div><div class="ttdoc">Initialize timer channel 0 and 1.</div><div class="ttdef"><b>Definition:</b> <a href="timer_8c_source.html#l00040">timer.c:40</a></div></div>
 <div class="ttc" id="auart_8h_html_ab5b2eb7c61969e61bef72eeb48dd058d"><div class="ttname"><a href="uart_8h.html#ab5b2eb7c61969e61bef72eeb48dd058d">configure_uart</a></div><div class="ttdeci">void configure_uart(void)</div><div class="ttdoc">Configure the uart device and the ringbuffer.</div><div class="ttdef"><b>Definition:</b> <a href="uart_8c_source.html#l00026">uart.c:26</a></div></div>
 <div class="ttc" id="acan__controller_8h_html_a75e7e1428e5ce309c0087602721bf57d"><div class="ttname"><a href="can__controller_8h.html#a75e7e1428e5ce309c0087602721bf57d">can_init_def_tx_rx_mb</a></div><div class="ttdeci">uint8_t can_init_def_tx_rx_mb(uint32_t can_br)</div><div class="ttdoc">Initialize can bus with predefined number of rx and tx mailboxes,.</div><div class="ttdef"><b>Definition:</b> <a href="can__controller_8c_source.html#l00027">can_controller.c:27</a></div></div>
+<div class="ttc" id="ajoystick_8h_html_a6a02aa5c938b511ffde7a43e8db031c8"><div class="ttname"><a href="joystick_8h.html#a6a02aa5c938b511ffde7a43e8db031c8">joystick_init</a></div><div class="ttdeci">void joystick_init(void)</div><div class="ttdoc">Initialises the button associated with extending the solenoid.</div><div class="ttdef"><b>Definition:</b> <a href="joystick_8c_source.html#l00076">joystick.c:76</a></div></div>
 <div class="ttc" id="acan__interrupt_8h_html"><div class="ttname"><a href="can__interrupt_8h.html">can_interrupt.h</a></div><div class="ttdoc">Interrupt function when receiving CAN messages on CAN0.</div></div>
 <div class="ttc" id="aadc_8h_html"><div class="ttname"><a href="adc_8h.html">adc.h</a></div><div class="ttdoc">Driver for reading internal ADC values from ATSAM3X8E.</div></div>
+<div class="ttc" id="adacc_8h_html_a0cadd066051a2a3cfd5ba12ecd989ad6"><div class="ttname"><a href="dacc_8h.html#a0cadd066051a2a3cfd5ba12ecd989ad6">dacc_init</a></div><div class="ttdeci">void dacc_init()</div><div class="ttdoc">Enable DACC and pins for the dacc output.</div><div class="ttdef"><b>Definition:</b> <a href="dacc_8c_source.html#l00012">dacc.c:12</a></div></div>
+<div class="ttc" id="atwi_8h_html_a16f0e6b2fa5a26eadbf4086ab6d54467"><div class="ttname"><a href="twi_8h.html#a16f0e6b2fa5a26eadbf4086ab6d54467">twi_init</a></div><div class="ttdeci">void twi_init(void)</div><div class="ttdoc">Initilises TWI0, follows the procedure of; Setting PINA17 &amp; PINA18 to peripheral Enables TWI0 in PMC ...</div><div class="ttdef"><b>Definition:</b> <a href="twi_8c_source.html#l00007">twi.c:7</a></div></div>
 <div class="ttc" id="aprintf-stdarg_8h_html_a98631211a4a8aee62f572375d5b637be"><div class="ttname"><a href="printf-stdarg_8h.html#a98631211a4a8aee62f572375d5b637be">printf</a></div><div class="ttdeci">int printf(const char *format,...)</div><div class="ttdef"><b>Definition:</b> <a href="printf-stdarg_8c_source.html#l00176">printf-stdarg.c:176</a></div></div>
-<div class="ttc" id="amain_8c_html_a2858154e2009b0e6e616f313177762bc"><div class="ttname"><a href="main_8c.html#a2858154e2009b0e6e616f313177762bc">init</a></div><div class="ttdeci">void init(void)</div><div class="ttdoc">Run all init functions for different peripherals in one function.</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00031">main.c:31</a></div></div>
+<div class="ttc" id="amain_8c_html_a2858154e2009b0e6e616f313177762bc"><div class="ttname"><a href="main_8c.html#a2858154e2009b0e6e616f313177762bc">init</a></div><div class="ttdeci">void init(void)</div><div class="ttdoc">Run all init functions for different peripherals in one function.</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00032">main.c:32</a></div></div>
 <div class="ttc" id="auart_8h_html"><div class="ttname"><a href="uart_8h.html">uart.h</a></div><div class="ttdoc">A simple interface for receiving and transmitting characters to a computer using UART via the on boar...</div></div>
 <div class="ttc" id="acan__controller_8h_html"><div class="ttname"><a href="can__controller_8h.html">can_controller.h</a></div><div class="ttdoc">Init, send and receive can frames for ATSAM3X8E.</div></div>
 <div class="ttc" id="aprintf-stdarg_8h_html"><div class="ttname"><a href="printf-stdarg_8h.html">printf-stdarg.h</a></div></div>
+<div class="ttc" id="aeefc_8h_html"><div class="ttname"><a href="eefc_8h.html">eefc.h</a></div><div class="ttdoc">Driver for the use of flash memory, includes both reading and writing functionality.</div></div>
 <div class="ttc" id="atimer_8h_html"><div class="ttname"><a href="timer_8h.html">timer.h</a></div><div class="ttdoc">ATSAM's internal timer drivers.</div></div>
 <div class="ttc" id="amotor_8h_html"><div class="ttname"><a href="motor_8h.html">motor.h</a></div><div class="ttdoc">Motor controller driver for position.</div></div>
-<div class="ttc" id="amain_8c_html_a840291bc02cba5474a4cb46a9b9566fe"><div class="ttname"><a href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a></div><div class="ttdeci">int main(void)</div><div class="ttdoc">The main function with the infinite while loop.</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00048">main.c:48</a></div></div>
+<div class="ttc" id="amain_8c_html_a840291bc02cba5474a4cb46a9b9566fe"><div class="ttname"><a href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a></div><div class="ttdeci">int main(void)</div><div class="ttdoc">The main function with the infinite while loop.</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00050">main.c:50</a></div></div>
 <div class="ttc" id="agoal__handler_8h_html"><div class="ttname"><a href="goal__handler_8h.html">goal_handler.h</a></div><div class="ttdoc">Driver for keeping account of Goals, it read the IR sensor value. Depends on the ADC.</div></div>
 <div class="ttc" id="asystem__config_8h_html"><div class="ttname"><a href="system__config_8h.html">system_config.h</a></div><div class="ttdoc">Global configuration for the ATSAME3X8E.</div></div>
 <div class="ttc" id="amotor_8h_html_aa2a5af0fb9c1fa2047a5ca0af110f806"><div class="ttname"><a href="motor_8h.html#aa2a5af0fb9c1fa2047a5ca0af110f806">motor_init</a></div><div class="ttdeci">void motor_init(void)</div><div class="ttdoc">Enable the motor for controlling position.</div><div class="ttdef"><b>Definition:</b> <a href="motor_8c_source.html#l00026">motor.c:26</a></div></div>
+<div class="ttc" id="atwi_8h_html"><div class="ttname"><a href="twi_8h.html">twi.h</a></div><div class="ttdoc">Set-up for TWI and I2C use, sadly ran out of time before being able to finalise its use,...</div></div>
 <div class="ttc" id="aadc_8h_html_a2b815e6730e8723a6d1d06d9ef8f31c0"><div class="ttname"><a href="adc_8h.html#a2b815e6730e8723a6d1d06d9ef8f31c0">adc_init</a></div><div class="ttdeci">void adc_init(void)</div><div class="ttdoc">Initialize ADC channel 0 with timer interrupts.</div><div class="ttdef"><b>Definition:</b> <a href="adc_8c_source.html#l00024">adc.c:24</a></div></div>
 <div class="ttc" id="apwm_8h_html"><div class="ttname"><a href="pwm_8h.html">pwm.h</a></div><div class="ttdoc">Driver for PWM on channel 5 and 6 of the ATSAM3X8E.</div></div>
+<div class="ttc" id="adacc_8h_html"><div class="ttname"><a href="dacc_8h.html">dacc.h</a></div><div class="ttdoc">A driver for using the ATSAMS internal DACC. Converting digital values to analog signals.</div></div>
 <div class="ttc" id="apwm_8h_html_a1e8fdae3fd7118582ffa427dad05b6e1"><div class="ttname"><a href="pwm_8h.html#a1e8fdae3fd7118582ffa427dad05b6e1">pwm_init</a></div><div class="ttdeci">void pwm_init(void)</div><div class="ttdoc">Initialize the channel 5 and 6 of the ATSAM with a period of 20ms.</div><div class="ttdef"><b>Definition:</b> <a href="pwm_8c_source.html#l00006">pwm.c:6</a></div></div>
+<div class="ttc" id="aeefc_8h_html_a85133810a1bf9b26db9fe4811fcde213"><div class="ttname"><a href="eefc_8h.html#a85133810a1bf9b26db9fe4811fcde213">eefc_init</a></div><div class="ttdeci">void eefc_init(void)</div><div class="ttdoc">Initialises both EFC0 and EFC1 with FWS = 6 As per 49.1.1.1.</div><div class="ttdef"><b>Definition:</b> <a href="eefc_8c_source.html#l00037">eefc.c:37</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
