@@ -22,6 +22,10 @@ typedef enum {
     REMOTE_TRANSMIT_REQUEST = 1
 } can_rtr_t;
 
+/**
+ * @brief Union for decoding 8 data bytes from different types into a char array to be transmittet
+ * 
+ */
 typedef union {
  unsigned char char_array[8];
  float f32[2];

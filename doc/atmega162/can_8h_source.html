@@ -80,29 +80,29 @@ $(function() {
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    REMOTE_TRANSMIT_REQUEST = 1</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <a class="code" href="can_8h.html#a819ae8a38cd82cc4cea705b67dcdc62a">can_rtr_t</a>;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="unioncan__data__t.html">   25</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> char_array[8];</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; <span class="keywordtype">float</span> f32[2];</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; uint64_t i64;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <a class="code" href="unioncan__data__t.html">can_data_t</a>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structcan__frame__t.html">   39</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    uint16_t id;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="can_8h.html#a819ae8a38cd82cc4cea705b67dcdc62a">can_rtr_t</a> rtr;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> data_len;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="unioncan__data__t.html">can_data_t</a> data;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <a class="code" href="structcan__frame__t.html">can_frame_t</a>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keywordtype">void</span> <a class="code" href="can_8h.html#ac7781a37ca14c5bf42c4fe9de1f4daa8">can_init</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keywordtype">void</span> <a class="code" href="can_8h.html#ad7a72884c9c118eee8c10f42f0f647e6">can_transmit</a>(<a class="code" href="structcan__frame__t.html">can_frame_t</a>* can_frame);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">void</span> <a class="code" href="can_8h.html#aee20ffebafc5be1ae708f8ab75505d39">can_receive</a>(uint8_t rtx_register, <a class="code" href="structcan__frame__t.html">can_frame_t</a>* can_frame);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="unioncan__data__t.html">   29</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">union </span>{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> char_array[8];</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; <span class="keywordtype">float</span> f32[2];</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; uint64_t i64;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <a class="code" href="unioncan__data__t.html">can_data_t</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="structcan__frame__t.html">   43</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    uint16_t id;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="can_8h.html#a819ae8a38cd82cc4cea705b67dcdc62a">can_rtr_t</a> rtr;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> data_len;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="unioncan__data__t.html">can_data_t</a> data;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <a class="code" href="structcan__frame__t.html">can_frame_t</a>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keywordtype">void</span> <a class="code" href="can_8h.html#ac7781a37ca14c5bf42c4fe9de1f4daa8">can_init</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keywordtype">void</span> <a class="code" href="can_8h.html#ad7a72884c9c118eee8c10f42f0f647e6">can_transmit</a>(<a class="code" href="structcan__frame__t.html">can_frame_t</a>* can_frame);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keywordtype">void</span> <a class="code" href="can_8h.html#aee20ffebafc5be1ae708f8ab75505d39">can_receive</a>(uint8_t rtx_register, <a class="code" href="structcan__frame__t.html">can_frame_t</a>* can_frame);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="astructcan__frame__t_html"><div class="ttname"><a href="structcan__frame__t.html">can_frame_t</a></div><div class="ttdoc">Struct for defining a can frame.</div><div class="ttdef"><b>Definition:</b> <a href="can_8h_source.html#l00039">can.h:39</a></div></div>
-<div class="ttc" id="aunioncan__data__t_html"><div class="ttname"><a href="unioncan__data__t.html">can_data_t</a></div><div class="ttdef"><b>Definition:</b> <a href="can_8h_source.html#l00025">can.h:25</a></div></div>
+<div class="ttc" id="astructcan__frame__t_html"><div class="ttname"><a href="structcan__frame__t.html">can_frame_t</a></div><div class="ttdoc">Struct for defining a can frame.</div><div class="ttdef"><b>Definition:</b> <a href="can_8h_source.html#l00043">can.h:43</a></div></div>
+<div class="ttc" id="aunioncan__data__t_html"><div class="ttname"><a href="unioncan__data__t.html">can_data_t</a></div><div class="ttdoc">Union for decoding 8 data bytes from different types into a char array to be transmittet.</div><div class="ttdef"><b>Definition:</b> <a href="can_8h_source.html#l00029">can.h:29</a></div></div>
 <div class="ttc" id="acan_8h_html_aee20ffebafc5be1ae708f8ab75505d39"><div class="ttname"><a href="can_8h.html#aee20ffebafc5be1ae708f8ab75505d39">can_receive</a></div><div class="ttdeci">void can_receive(uint8_t rtx_register, can_frame_t *can_frame)</div><div class="ttdoc">Read last received frame from a buffer. This does not send spi signals.</div><div class="ttdef"><b>Definition:</b> <a href="can_8c_source.html#l00043">can.c:43</a></div></div>
 <div class="ttc" id="acan_8h_html_a819ae8a38cd82cc4cea705b67dcdc62a"><div class="ttname"><a href="can_8h.html#a819ae8a38cd82cc4cea705b67dcdc62a">can_rtr_t</a></div><div class="ttdeci">can_rtr_t</div><div class="ttdoc">Enum for determining the type of can frame. It can either be a dataframe or a request.</div><div class="ttdef"><b>Definition:</b> <a href="can_8h_source.html#l00020">can.h:20</a></div></div>
 <div class="ttc" id="acan_8h_html_ac7781a37ca14c5bf42c4fe9de1f4daa8"><div class="ttname"><a href="can_8h.html#ac7781a37ca14c5bf42c4fe9de1f4daa8">can_init</a></div><div class="ttdeci">void can_init(void)</div><div class="ttdoc">Sets CAN to normal mode. Also sets TXnRTS pins to digital inputs and enables CAN interrupt to TXB0....</div><div class="ttdef"><b>Definition:</b> <a href="can_8c_source.html#l00015">can.c:15</a></div></div>

@@ -5,5 +5,5 @@ digraph "can_frame_t"
   node [fontname="Helvetica",fontsize="10",shape=record];
   Node1 [label="can_frame_t",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Struct for defining a can frame."];
   Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" data" ,fontname="Helvetica"];
-  Node2 [label="can_data_t",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$unioncan__data__t.html",tooltip=" "];
+  Node2 [label="can_data_t",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$unioncan__data__t.html",tooltip="Union for decoding 8 data bytes from different types into a char array to be transmittet."];
 }

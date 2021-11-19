@@ -19,7 +19,7 @@
 
 typedef void (*menu_draw_function)(void);
 /**
- * 
+ * @brief A menu to be displayed on the oled display 
  */
 typedef struct menu_item menu_item;
 struct menu_item {
