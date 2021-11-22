@@ -59,7 +59,7 @@
 #define FSM_EV_LEAVE_BRIGHTNESS 81U
 
 /**
- * @brief Get a event from the event queue and perform the action based on the current state
+ * @brief Get a event from the event queue and perform the action based on the current state. There are multiple states in the fsm.c
  * 
  */
 void fsm_run();

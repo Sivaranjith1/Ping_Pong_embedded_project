@@ -1,3 +1,14 @@
+/**
+ * @file fsm.c
+ * @author Ask Øren, Steffen Folåsen, Sivaranjith Sivarasa
+ * @brief Finite state machine with a event queue that will change action based on the event
+ * @note based on barr groups event-driven system: https://barrgroup.com/embedded-systems/how-to/state-machines-event-driven-systems
+ * @version 0.1
+ * @date 2021-11-14
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 #include "fsm.h"
 #include "queue.h"
 
@@ -142,6 +153,11 @@ static void fsm_state_menu(uint8_t event_id){
     }
 }
 
+/**
+ * @brief the state for when the avr is in calibration mode 
+ * 
+ * @param event_id the id of the events
+ */
 static void fsm_state_calibration(uint8_t event_id){
     switch (event_id)
     {
@@ -217,6 +233,11 @@ static void fsm_state_play(uint8_t event_id){
     }
 }
 
+/**
+ * @brief the state for when changing the brightness, in the brightness menu
+ * 
+ * @param event_id the id of the events
+ */
 static void fsm_state_brightness(uint8_t event_id){
     uint8_t brightness = oled_get_brightness();
     switch (event_id)
