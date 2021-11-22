@@ -9,7 +9,7 @@ digraph "ADC/adc.h"
   Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node3 [label="ADC/joystick.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$joystick_8c_source.html",tooltip=" "];
   Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node4 [label="FSM/fsm.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$fsm_8c_source.html",tooltip=" "];
+  Node4 [label="FSM/fsm.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$fsm_8c.html",tooltip="Finite state machine with a event queue that will change action based on the event."];
   Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node5 [label="main.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html",tooltip="The main function for running the code of the application."];
   Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];

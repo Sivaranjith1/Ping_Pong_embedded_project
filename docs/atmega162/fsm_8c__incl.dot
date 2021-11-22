@@ -1,0 +1,41 @@
+digraph "FSM/fsm.c"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="FSM/fsm.c",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Finite state machine with a event queue that will change action based on the event."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="fsm.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$fsm_8h.html",tooltip="Finite state machine with a event queue that will change action based on the event."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="stdint.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="queue.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$queue_8h.html",tooltip="Driver for creating multiple queues with function for encoding and decoding them."];
+  Node4 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="../ADC/adc.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$adc_8h.html",tooltip="Driver for reading from adc. This is given that the adc is setup as xmem, see xmem...."];
+  Node5 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="../OLED/oled.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$oled_8h.html",tooltip="Basic OLED driver, provides the baseline for the menu."];
+  Node6 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="../ADC/joystick.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$joystick_8h.html",tooltip="Read the joystick value from the ADC. Depends on the adc.h."];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="../CAN/can.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$can_8h.html",tooltip="Driver for sending and receiving can messages. Requires mcp2515.h."];
+  Node8 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="../MENU/menu.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$menu_8h.html",tooltip="Driver for controlling the menu and elements on the screen."];
+  Node9 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="../MENU/highscore.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$highscore_8h.html",tooltip="Driver from a sorted highscore table in sram."];
+  Node10 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="../CAN/can_messages.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$can__messages_8h.html",tooltip="The ids and content of the can frames."];
+  Node11 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="../XMEM/xmem.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$xmem_8h.html",tooltip="Library for interfacing with AVR's external memory, xmem."];
+  Node12 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="../TIMER/timer.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$timer_8h.html",tooltip="Timer functionality both for interrupts and in-game time counting."];
+  Node13 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}
