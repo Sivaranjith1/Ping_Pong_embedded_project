@@ -271,7 +271,7 @@ void menu_update_menu(void){
     menu_current_menu_draw();
 }
 
-void menu_update_timer(uint16_t time){
+void menu_update_timer(uint8_t time){
     unsigned char time_char[8] = {0};
     sprintf(time_char, "%d", time);
     oled_clear_line(3);

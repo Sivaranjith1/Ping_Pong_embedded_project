@@ -23,9 +23,9 @@ void timer_init(void);
 /**
  * @brief Gives the time since the clock started, used for counting in-game time.
  * 
- * @return uint16_t The time(in seconds) since timer started.
+ * @return uint8_t The time(in seconds) since timer started.
  */
-uint16_t timer_get_time(void);
+uint8_t timer_get_time(void);
 
 /**
  * @brief Tells whether the game is currently playing, and thus whether the timer

@@ -48,7 +48,7 @@ void menu_update_menu(void);
  * 
  * @param time the time to be written to the screen
  */
-void menu_update_timer(uint16_t time);
+void menu_update_timer(uint8_t time);
 
 /**
  * @brief Stops the game, displays game over on the screen

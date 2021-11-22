@@ -23,7 +23,7 @@
 
 static uint8_t play = 0; //if the timer variable should count
 static uint8_t timer = 0; //internal variable to count to 1 sek
-static uint16_t curr_time = 0; //the time since timer start
+static uint8_t curr_time = 0; //the time since timer start
 
 void timer_init(){
     // Setup for timer counter 1 and 3
@@ -57,8 +57,8 @@ uint8_t timer_get_play(){
     return play;
 }
 
-uint16_t timer_get_time(){
-    uint16_t current_time = curr_time;
+uint8_t timer_get_time(){
+    uint8_t current_time = curr_time;
     return current_time;
 }
 
